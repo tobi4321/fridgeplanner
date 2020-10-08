@@ -6,16 +6,24 @@
 <div class="index_wrapper">
 
     <div class="left-column">
+        <div style="text-align:left;">
+            <h2>FridgeTable</h2>
+            <br />
+        </div>
+
         <div class="row">
 
-                <h2>FridgeTable</h2>
-                @await Html.PartialAsync("FridgeTablePartial.cshtml",Model.FridgeItems)
+            @await Html.PartialAsync("FridgeTablePartial.cshtml", Model.FridgeItems)
 
         </div>
     </div>
 
 
     <div class="right-column">
+        <div class="row">
+            <h2>Menü</h2>
+            <br />
+        </div>
         <div class="row">
             <div class="col-4">
                 <a asp-controller="Home" asp-action="AddItem" class="btn button-primary btn-block nav-link middle-buttons">

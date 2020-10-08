@@ -5,12 +5,9 @@ using System.Threading.Tasks;
 
 namespace FridgePlanner.Models
 {
-    public class FridgeItem
+    public class FridgeItem : Item
     {
-        public int FridgeItemId { get; set; }
-        public string Name { get; set; }
-        public int Amount { get; set; }
-        public string Unit { get; set; }
+        public int Id { get; set; }
         public DateTime ExpiryDate { get; set; }
     }
 }

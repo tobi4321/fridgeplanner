@@ -2,43 +2,45 @@
 @{
     Layout = null;
 }
-<div class="table-wrapper-scroll-y my-custom-scrollbar">
-    <table class="table table-bordered table-striped mb-0">
-        <thead>
-            <tr>
-                <th width="30%" scope="col">Name</th>
-                <th width="30%" scope="col">Haltbarkeit in Tagen</th>
-                <th scope="col"></th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-        <tbody>
-            @for (int i = 0; i < Model.Count(); i++)
-            {
+<div class="col-lg-12 mx-auto bg-white rounded shadow">
+    <div class="table-responsive">
+        <table class="table table-fixed" width="100%">
+            <thead>
                 <tr>
-                    <th scope="row">@Model.ElementAt(i).Name</th>
-                    <td>
-                        @Model.ElementAt(i).ExpiryDate.Subtract(DateTime.Today).TotalDays
-                    </td>
-                    <td>
-                        <button onclick="editTP(@Model[i].FridgeItemId)" type="button" class="btn button-edit">
-                            <i class="material-icons" style="font-size:20px">
-                                edit
-                            </i>
-                        </button>
-                        <!--Adding Modal----->
-                    </td>
-                    <td>
-                        <button type="button" class="btn button-delete" data-toggle="modal" data-target="#modalDeleteTP@(Model[i].FridgeItemId)">
-                            <i class="material-icons" style="font-size:20px">
-                                delete_forever
-                            </i>
-                        </button>
-                        <!--Adding Modal----->
-                    </td>
+                    <th class="col-4" scope="col">Name</th>
+                    <th class="col-2" scope="col">Haltbarkeit</th>
+                    <th class="col-3" scope="col">Verbrauchen</th>
+                    <th class="col-3" scope="col">Löschen</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Count(); i++)
+                {
+                    <tr class="@(Model.ElementAt(i).ExpiryDate.Subtract(DateTime.Today).TotalDays < 5 ? "table-danger" : "")">
 
+                            <th class="col-4" style=" font-size:large" scope="row">@Model.ElementAt(i).Name</th>
+                            <td class="col-2" style=" font-size:large">
+                                @Model.ElementAt(i).ExpiryDate.Subtract(DateTime.Today).TotalDays
+                            </td>
+                            <td class="col-3">
+                                <button onclick="editTP(@Model[i].Id)" type="button" class="btn button-edit btn-sm">
+                                    <i class="material-icons" style="font-size:14px">
+                                        edit
+                                    </i>
+                                </button>
+                                <!--Adding Modal----->
+                            </td>
+                            <td class="col-3">
+                                <button type="button" class="btn button-delete btn-sm" data-toggle="modal" data-target="#modalDeleteTP@(Model[i].Id)">
+                                    <i class="material-icons" style="font-size:14px">
+                                        delete_forever
+                                    </i>
+                                </button>
+                                <!--Adding Modal----->
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+        </table>
+    </div>
+ </div>

@@ -9,7 +9,7 @@
     width: 100%;
 }
 .middle-buttons {
-    border-radius: 20px;
+    border-radius: 18px;
     display:flex;
     flex-direction:column;
     box-shadow: none !important;
@@ -17,7 +17,7 @@
 }
 .middle-buttons:hover {
     background-color: var(--primary-hover);
-    border-radius: 20px;
+    border-radius: 18px;
     transition: .3s ease-in-out;
     box-shadow: 0px 10px 10px #35353516;
     color: white;
@@ -27,7 +27,7 @@
     font-size: 100px;
 }
 .button-text{
-    font-size: 30px;
+    font-size: 25px;
     padding-top: 20px;
     padding-bottom: 5px;
     white-space: normal !important;
@@ -50,12 +50,12 @@
 }
 .left-column {
     float: left;
-    width: 50%;
+    width: 55%;
     padding-right: 5%;
     text-align: right;
 }
 .right-column {
-    width: 50%;
+    width: 45%;
     float: right;
     padding-left: 5%;
     text-align: left;
@@ -138,4 +138,30 @@
 
 .table-wrapper-scroll-y {
     display: block;
+}
+.table-fixed tbody {
+    height: 400px;
+    overflow-y: auto;
+    width: 100%;
+}
+
+.table-fixed thead,
+.table-fixed tbody,
+.table-fixed tr,
+.table-fixed td,
+.table-fixed th {
+    display: block;
+}
+
+.table-fixed tbody td,
+.table-fixed tbody th,
+.table-fixed thead > tr > th {
+        float: left;
+        position: relative;
+
+        &::after{
+            content: '';
+            clear: both;
+            display: block;
+        }
 }

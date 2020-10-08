@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace FridgePlanner.Models
 {
-    public class RecipeItem : Item
+    public class ShoppingListItem : Item
     {
         public int Id { get; set; }
     }
