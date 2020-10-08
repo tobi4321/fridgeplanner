@@ -5,34 +5,33 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using FridgePlanner.Models;
+using FridgePlanner.Models.ViewModels;
 
 namespace FridgePlanner.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly DataBaseContext _context;
+
+        public HomeController(DataBaseContext con)
+        {
+            _context = con;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            DateTime now = DateTime.Today;
+            List<FridgeItem> fridgeItems = _context.FridgeItems.OrderBy(item => item.ExpiryDate.Subtract(now).TotalDays).ToList();
+
+            List<Recipe> recipes = _context.Recipes.Where(item => item.RecipeItems.Any(i => fridgeItems.Any( f => i.Name == f.Name ))).ToList();
+
+            IndexViewModel model = new IndexViewModel { FridgeItems = fridgeItems, Recipes = recipes };
+            return View(model);
         }
 
-        public IActionResult About()
-        {
-            ViewData["Message"] = "Your application description page.";
 
-            return View();
-        }
 
-        public IActionResult Contact()
-        {
-            ViewData["Message"] = "Your contact page.";
 
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

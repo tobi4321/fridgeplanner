@@ -1,0 +1,25 @@
+﻿@model List<Recipe>
+@{
+    Layout = null;
+}
+<div class="table-wrapper-scroll-y my-custom-scrollbar">
+    <table>
+        <thead>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Beschreibung</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count(); i++)
+            {
+                <tr>
+                    <th scope="row">@Model.ElementAt(i).Name</th>
+                    <td>
+                        @Model.ElementAt(i).Description
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

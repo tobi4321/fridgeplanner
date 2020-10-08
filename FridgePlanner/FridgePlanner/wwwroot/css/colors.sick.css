@@ -1,0 +1,159 @@
+/*
+    SICK GREY
+*/
+.sickGrey{
+	background-color:#6E7A82;
+}
+.sickGrey-75{
+    background-color:rgba(110,122,130,0.75);
+}
+.sickGrey-50{
+    background-color:rgba(110,122,130,0.5);
+}
+.sickGrey-25{
+    background-color:rgba(110,122,130,0.25);
+}
+.sickGrey:hover{
+	background-color:rgba(110,122,130,1);
+}
+.sickGrey-75:hover{
+    background-color:rgba(110,122,130,0.75);
+}
+.sickGrey-50:hover{
+    background-color:rgba(110,122,130,0.50);
+}
+.sickGrey-25:hover{
+    background-color:rgba(110,122,130,0.25);
+}
+.sickGrey-text{
+	color:#6E7A82;
+}
+.sickGrey-75-text{
+    color:rgba(110,122,130,0.75);
+}
+.sickGrey-50-text{
+    color:rgba(110,122,130,0.5);
+}
+.sickGrey-25-text{
+    color:rgba(110,122,130,0.25);
+}
+
+/*
+    SICK BLACK
+*/
+.sickBlack{
+	background-color:#0E0E11;
+}
+.sickBlack-75{
+	background-color:rgba(0,0,0,0.75);
+}
+.sickBlack-50{
+	background-color:rgba(0,0,0,0.50);
+}
+.sickBlack-25{
+	background-color:rgba(0,0,0,0.25);
+}
+.sickBlack:hover{
+	background-color:rgba(0,0,0,1);
+}
+.sickBlack-75:hover{
+	background-color:rgba(0,0,0,0.75);
+}
+.sickBlack-50:hover{
+	background-color:rgba(0,0,0,0.50);
+}
+.sickBlack-25:hover{
+	background-color:rgba(0,0,0,0.25);
+}
+.sickBlack-text{
+	color:#0E0E11;
+}
+.sickBlack-75-text{
+	color:rgba(0,0,0,0.75);
+}
+.sickBlack-50-text{
+	color:rgba(0,0,0,0.50);
+}
+.sickBlack-25-text{
+	color:rgba(0,0,0,0.25);
+}
+
+/*
+    SICK ORANGE
+*/
+.sickOrange{
+	background-color:#F39200;
+}
+.sickOrange-75{
+	background-color:rgba(242,148,0,0.75);
+}
+.sickOrange-50{
+	background-color:rgba(242,148,0,0.50);
+}
+.sickOrange-25{
+	background-color:rgba(242,148,0,0.25);
+}
+.sickOrange:hover{
+	background-color:rgba(242,148,0,1);
+}
+.sickOrange-75:hover{
+	background-color:rgba(242,148,0,0.75);
+}
+.sickOrange-50:hover{
+	background-color:rgba(242,148,0,0.50);
+}
+.sickOrange-25:hover{
+	background-color:rgba(242,148,0,0.25);
+}
+.sickOrange-text{
+	color:#F39200;
+}
+.sickOrange-75-text{
+	color:rgba(242,148,0,0.75);
+}
+.sickOrange-50-text{
+	color:rgba(242,148,0,0.50);
+}
+.sickOrange-25-text{
+	color:rgba(242,148,0,0.25);
+}
+
+/*
+    SICK BLUE
+*/
+.sickBlue{
+	background-color:#007FC3;
+}
+.sickBlue-75{
+	background-color:rgba(0,127,195,0.75);
+}
+.sickBlue-50{
+	background-color:rgba(0,127,195,0.50);
+}
+.sickBlue-25{
+	background-color:rgba(0,127,195,0.25);
+}
+.sickBlue:hover{
+	background-color:rgba(0,127,195,1);
+}
+.sickBlue-75:hover{
+	background-color:rgba(0,127,195,0.75);
+}
+.sickBlue-50:hover{
+	background-color:rgba(0,127,195,0.50);
+}
+.sickBlue-25:hover{
+	background-color:rgba(0,127,195,0.25);
+}
+.sickBlue-text{
+	color:#007FC3;
+}
+.sickBlue-75-text{
+	color:rgba(0,127,195,0.75);
+}
+.sickBlue-50-text{
+	color:rgba(0,127,195,0.50);
+}
+.sickBlue-25-text{
+	color:rgba(0,127,195,0.25);
+}

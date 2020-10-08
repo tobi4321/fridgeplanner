@@ -1,0 +1,122 @@
+:root {
+    --primary-blue-color: #1676CC;
+    --edit-color: #F4A72D;
+    --save-color: #1DB16D;
+    --delete-color: #E02E3C;
+    --back-color: #848484;
+
+    --primary-hover: #1466ad;
+    --edit-hover: #d89221;
+    --save-hover: #148d55;
+    --delete-hover: #b1212d;
+    --back-hover: #616161;
+}
+
+
+.button-primary {
+    background-color: var(--primary-blue-color);
+    border-radius: 5px;
+    transition: .3s ease-in-out;
+    color: #fff;
+    padding: .375rem .75rem;
+}
+
+.button-primary:hover {
+    background-color: var(--primary-hover);
+    border-radius: 5px;
+    transition: .3s ease-in-out;
+    box-shadow: 0px 10px 10px #35353516;
+    color:white;
+}
+
+.button-edit {
+    background-color: var(--edit-color);
+    border-radius: 5px;
+    transition: .3s ease-in-out;
+    color: #fff;
+    padding: .375rem .75rem;
+}
+
+.button-edit:hover {
+    background-color: var(--edit-hover);
+    border-radius: 5px;
+    transition: .3s ease-in-out;
+    box-shadow: 0px 10px 10px #35353516;
+}
+
+.button-save {
+    background-color: var(--save-color);
+    border-radius: 5px;
+    transition: .3s ease-in-out;
+    color: #fff;
+    padding: .375rem .75rem;
+}
+
+.button-save:hover {
+    background-color: var(--save-hover);
+    border-radius: 5px;
+    transition: .3s ease-in-out;
+    box-shadow: 0px 10px 10px #35353516;
+}
+
+.button-delete {
+    background-color: var(--delete-color);
+    border-radius: 5px;
+    transition: .3s ease-in-out;
+    color: #fff;
+    padding: .375rem .75rem;
+}
+
+.button-delete:hover {
+    background-color: var(--delete-hover);
+    border-radius: 5px;
+    transition: .3s ease-in-out;
+    box-shadow: 0px 10px 10px #35353516;
+}
+
+.button-back {
+    background-color: var(--back-color);
+    border-radius: 5px;
+    transition: .3s ease-in-out;
+    color: #fff;
+    padding: .375rem .75rem;
+}
+
+.button-back:hover {
+    background-color: var(--back-hover);
+    border-radius: 5px;
+    transition: .3s ease-in-out;
+    box-shadow: 0px 10px 10px #35353516;
+}
+
+h1 {
+    font-family: "Segoe UI", sans-serif;
+    font-size: 26px;
+    font-weight: bold;
+    color: #353535;
+}
+
+h2 {
+    font-family: "Segoe UI", sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    color: #353535;
+}
+
+p {
+    font-family: "Segoe UI", sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    color: #353535;
+}
+
+a, button.nav-link {
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+    color: #808080;
+}
+
+.navbackground{
+    background-color: var(--primary-blue-color);
+}
