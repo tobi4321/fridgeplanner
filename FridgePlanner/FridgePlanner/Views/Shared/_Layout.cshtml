@@ -25,22 +25,42 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">FridgePlanner</a>
-            </div>
+    <!-- The overlay -->
+    <div id="myNav" class="overlay">
+
+        <!-- Button to close the overlay navigation -->
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+        <!-- Overlay content -->
+        <div class="overlay-content">
+            <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand" style="font-size:x-large;">FridgePlanner</a>
+            <a href="#">Services</a>
+            <a href="#">Clients</a>
+            <a href="#">Contact</a>
         </div>
-    </nav>
+
+    </div>
+
+    <!-- Use any element to open/show the overlay navigation menu -->
+    <div class="container-fluid">
+        <span onclick="openNav()" class="material-icons icon-large" style="top: 0px; right: 10px; position: absolute; z-index:4;">
+            dehaze
+        </span>
+    </div>
+    <br />
+
 
     <partial name="_CookieConsentPartial" />
 
-    <div class="container body-content">
+    <div class="container-fluid body-content" style="z-index: 2; position: absolute;">
+
         @RenderBody()
         <hr />
-        <footer>
+        <footer class="footer">
             <p>&copy; 2020 - FridgePlanner</p>
         </footer>
+    </div>
+    <div class="bg-image">
     </div>
 
     <environment include="Development">

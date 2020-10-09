@@ -24,11 +24,11 @@
 }
 .icon-large{
     padding-top:20px;
-    font-size: 100px;
+    font-size: 40px;
 }
 .button-text{
-    font-size: 25px;
-    padding-top: 20px;
+    font-size: 20px;
+    padding-top: 15px;
     padding-bottom: 5px;
     white-space: normal !important;
     font-weight: normal;
@@ -50,24 +50,24 @@
 }
 .left-column {
     float: left;
-    width: 55%;
+    width: 50%;
     padding-right: 5%;
     text-align: right;
 }
 .right-column {
-    width: 45%;
+    width: 50%;
     float: right;
     padding-left: 5%;
     text-align: left;
 }
 .tp_element {
-    margin: 20px 10% 0 0;
+    margin: 20px 5% 0 0;
     padding: 10px 0px 10px 0px;
     border: 2px solid var(--grey);
     background: #FFFFFF 0% 0% no-repeat padding-box;
     border: 2px solid #EFEFEF;
     border-radius: 10px;
-    opacity: 1;
+    opacity:  1.0;
 }
 .tp_name_text {
     font: Bold var(--unnamed-font-size-20)/var(--unnamed-line-spacing-27) var(--unnamed-font-family-segoe-ui);
@@ -164,4 +164,118 @@
             clear: both;
             display: block;
         }
+}
+
+/* scrollbar*/
+.scrollable {
+    height: 650px;
+    overflow-y: scroll;
+}
+
+div.polaroid {
+    border-radius: 15px;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
+}
+
+.fridge-scrollbar {
+    position: relative;
+    height: 640px;
+    overflow: auto;
+    scrollbar-width: thin; /* "auto" or "thin"  */
+    scrollbar-color: light-gray white; /* scroll thumb & track */
+}
+.recipe-scrollbar {
+    position: relative;
+    height: 393px;
+    overflow: auto;
+    scrollbar-width: thin; /* "auto" or "thin"  */
+    scrollbar-color: light-gray white; /* scroll thumb & track */
+}
+.bg-image {
+    /* The image used */
+    background-image: url('../images/Layout/fridge-background.webp');
+    /* Add the blur effect */
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+    /* Full height */
+    height: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.footer {
+    position: fixed;
+    text-align: justify;
+    bottom: 0;
+    width: 100%;
+}
+body, html {
+    height: 100%;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* The Overlay (background) */
+.overlay {
+    /* Height & width depends on how you want to reveal the overlay (see JS below) */
+    height: 100%;
+    width: 0;
+    position: fixed; /* Stay in place */
+    z-index: 5; /* Sit on top */
+    left: 0;
+    top: 0;
+    background-color: rgb(0,0,0); /* Black fallback color */
+    background-color: rgba(0,0,0, 0.9); /* Black w/opacity */
+    overflow-x: hidden; /* Disable horizontal scroll */
+    transition: 0.5s; /* 0.5 second transition effect to slide in or slide down the overlay (height or width, depending on reveal) */
+}
+
+/* Position the content inside the overlay */
+.overlay-content {
+    position: relative;
+    top: 25%; /* 25% from the top */
+    width: 100%; /* 100% width */
+    text-align: center; /* Centered text/links */
+    margin-top: 30px; /* 30px top margin to avoid conflict with the close button on smaller screens */
+}
+
+/* The navigation links inside the overlay */
+.overlay a {
+    padding: 8px;
+    text-decoration: none;
+    font-size: 36px;
+    color: #818181;
+    display: block; /* Display block instead of inline */
+    transition: 0.3s; /* Transition effects on hover (color) */
+}
+
+    /* When you mouse over the navigation links, change their color */
+    .overlay a:hover, .overlay a:focus {
+        color: #f1f1f1;
+    }
+
+/* Position the close button (top right corner) */
+.overlay .closebtn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px;
+}
+
+/* When the height of the screen is less than 450 pixels, change the font-size of the links and position the close button again, so they don't overlap */
+@media screen and (max-height: 450px) {
+    .overlay a {
+        font-size: 20px
+    }
+
+    .overlay .closebtn {
+        font-size: 40px;
+        top: 15px;
+        right: 35px;
+    }
 }

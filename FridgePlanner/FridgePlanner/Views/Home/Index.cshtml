@@ -3,27 +3,26 @@
 }
 @model FridgePlanner.Models.ViewModels.IndexViewModel;
 
-<div class="index_wrapper">
+<div class="index_wrapper container-fluid">
 
     <div class="left-column">
         <div style="text-align:left;">
-            <h2>FridgeTable</h2>
+            <h1>FridgeTable</h1>
             <br />
         </div>
-
-        <div class="row">
-
+        <div class="fridge-scrollbar my-custom-scrollbar-primary polaroid">
             @await Html.PartialAsync("FridgeTablePartial.cshtml", Model.FridgeItems)
-
         </div>
+
     </div>
 
 
     <div class="right-column">
         <div class="row">
-            <h2>Menü</h2>
+            <h1>Menü</h1>
             <br />
         </div>
+        <br />
         <div class="row">
             <div class="col-4">
                 <a asp-controller="Home" asp-action="AddItem" class="btn button-primary btn-block nav-link middle-buttons">
@@ -31,7 +30,7 @@
                         add
                     </span>
                     <p class="button-text">
-                        Item
+                        Lebensmittel Hinzufügen
                     </p>
                 </a>
             </div>
@@ -41,7 +40,7 @@
                         receipt
                     </span>
                     <p class="button-text">
-                        Recipes
+                        Rezepte verwalten
                     </p>
                 </a>
             </div>
@@ -51,17 +50,28 @@
                         shopping_cart
                     </span>
                     <p class="button-text">
-                        Shopping
+                        Einkaufsliste
                     </p>
                 </a>
             </div>
         </div>
         <br />
 
-        <h2>
-            Rezepte
-        </h2>
-        @await Html.PartialAsync("RecipeTablePartial.cshtml", Model.Recipes)
+        <h1>Rezepte</h1>
+        <br />
+        <div class="recipe-scrollbar my-custom-scrollbar-primary polaroid">
+            @await Html.PartialAsync("RecipeTablePartial.cshtml", Model.Recipes)
+        </div>
     </div>
-
 </div>
+
+<script>
+    var myCustomScrollbar = document.querySelector('.my-custom-scrollbar');
+    var ps = new PerfectScrollbar(myCustomScrollbar);
+
+    var scrollbarY = myCustomScrollbar.querySelector('.ps__rail-y');
+
+    myCustomScrollbar.onscroll = function () {
+        scrollbarY.style.cssText = `top: ${this.scrollTop}px!important; height: 500px; right: ${-this.scrollLeft}px`;
+    }
+</script>
