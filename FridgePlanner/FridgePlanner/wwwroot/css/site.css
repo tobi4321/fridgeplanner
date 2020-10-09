@@ -181,14 +181,14 @@ div.polaroid {
 
 .fridge-scrollbar {
     position: relative;
-    height: 640px;
+    height: 520px;
     overflow: auto;
     scrollbar-width: thin; /* "auto" or "thin"  */
     scrollbar-color: light-gray white; /* scroll thumb & track */
 }
 .recipe-scrollbar {
     position: relative;
-    height: 393px;
+    height: 273px;
     overflow: auto;
     scrollbar-width: thin; /* "auto" or "thin"  */
     scrollbar-color: light-gray white; /* scroll thumb & track */
@@ -278,4 +278,7 @@ body, html {
         top: 15px;
         right: 35px;
     }
+}
+.modal-backdrop {
+    z-index: -1;
 }

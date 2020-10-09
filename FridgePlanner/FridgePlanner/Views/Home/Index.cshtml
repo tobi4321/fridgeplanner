@@ -25,17 +25,17 @@
         <br />
         <div class="row">
             <div class="col-4">
-                <a asp-controller="Home" asp-action="AddItem" class="btn button-primary btn-block nav-link middle-buttons">
+                <a data-toggle="modal" data-target="#addFridgeModal" class="btn button-primary btn-block nav-link middle-buttons" style="color:white;">
                     <span class="material-icons icon-large">
                         add
                     </span>
                     <p class="button-text">
-                        Lebensmittel Hinzufügen
+                        Lebensmittel
                     </p>
                 </a>
             </div>
             <div class="col-4">
-                <a asp-controller="Recipe" asp-action="OverviewRecipe" class="btn button-primary btn-block nav-link middle-buttons">
+                <a asp-controller="Recipe" asp-action="Index" class="btn button-primary btn-block nav-link middle-buttons">
                     <span class="material-icons icon-large">
                         receipt
                     </span>
@@ -45,7 +45,7 @@
                 </a>
             </div>
             <div class="col-4">
-                <a asp-controller="Shopping" asp-action="OverviewShopping" class="btn button-primary btn-block nav-link middle-buttons">
+                <a asp-controller="Shopping" asp-action="Index" class="btn button-primary btn-block nav-link middle-buttons">
                     <span class="material-icons icon-large">
                         shopping_cart
                     </span>
@@ -75,3 +75,40 @@
         scrollbarY.style.cssText = `top: ${this.scrollTop}px!important; height: 500px; right: ${-this.scrollLeft}px`;
     }
 </script>
+
+<!-- Modal Add FridgeItem-->
+<div class="modal fade" id="addFridgeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="z-index:5;">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="heading lead">
+                    <h4 class="modal-title" id="editNewsLabel">Lebensmittel hinzufügen</h4>
+                </p>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="white-text">×</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="md-form">
+                                <input id="fridgeName" type="text" class="form-control" placeholder="Enter the name" aria-describedby="basic-addon1">
+                                <input id="fridgeAmount" type="number" class="form-control" placeholder="Enter amount" aria-describedby="basic-addon1">
+                                <input id="fridgeUnit" type="text" class="form-control" placeholder="Enter unit" aria-describedby="basic-addon1">
+                                <input id="fridgeExpireDate" type="date" class="form-control" placeholder="Pick ExpireDate" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-back" data-dismiss="modal">Close</button>
+                <button onclick="addFridgeItem()" type="button" data-dismiss="modal" class="btn button-save">Lebensmittel hinzufügen</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using FridgePlanner.Models;
 using FridgePlanner.Models.ViewModels;
+using Newtonsoft.Json.Linq;
 
 namespace FridgePlanner.Controllers
 {
@@ -29,7 +30,18 @@ namespace FridgePlanner.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        [Route("Home/AddItem")]
+        public IActionResult AddItem([FromBody] JObject t)
+        {
+            FridgeItem x = t.ToObject<FridgeItem>();
+            x.ExpiryDate = x.ExpiryDate.Date;
+            x.ExpiryDate.AddDays(1);
+            _context.FridgeItems.Add(x);
+            _context.SaveChanges();
 
+            return Index();
+        }
 
 
 
