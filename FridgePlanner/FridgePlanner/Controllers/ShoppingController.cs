@@ -48,7 +48,29 @@ namespace FridgePlanner.Controllers
 
             ShoppingViewModel shoppingViewModel = new ShoppingViewModel { ShoppingItems = items, QrCodeData = qrCode };
 
-            return View("Index",shoppingViewModel);
+            return View("ShoppingChangePartial",shoppingViewModel);
+        }
+
+        [HttpPost]
+        [Route("Shopping/Delete")]
+        public IActionResult DeleteShoppingItem(long Id)
+        {
+            ShoppingListItem remove = _context.ShoppingListItems
+                .Where(t => t.Id == Id)
+                .First();
+            _context.ShoppingListItems.Remove(remove);
+            _context.SaveChanges();
+
+            List<ShoppingListItem> items = _context.ShoppingListItems.ToList();
+
+            string qrCodeText = "ShoppingListe \n";
+            foreach (ShoppingListItem item in items) { qrCodeText += "- " + item.Name + "   " + item.Amount + item.Unit + " \n"; }
+
+            byte[] qrCode = QRGenerator.GenerateQR(qrCodeText);
+
+            ShoppingViewModel shoppingViewModel = new ShoppingViewModel { ShoppingItems = items, QrCodeData = qrCode };
+
+            return View("ShoppingChangePartial", shoppingViewModel);
         }
     }
 }

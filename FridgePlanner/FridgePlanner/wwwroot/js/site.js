@@ -67,6 +67,16 @@ function addShoppingItem() {
             $('.modal-backdrop').hide();
         });
 }
+function deleteShoppingItem(id) {
+    var data = {
+        Id: id
+    }
+    postData("/Shopping/Delete/", false, data)
+        .done(function (shoppingViewModel) {
+            $("#ShoppingList").html(shoppingViewModel);
+            $('.modal-backdrop').hide();
+        });
+}
 
 
 
