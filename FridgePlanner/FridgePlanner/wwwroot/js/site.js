@@ -44,6 +44,16 @@ function addFridgeItem() {
         });
 }
 
+function deleteFridgeItem(id) {
+    var data = {
+        Id: id
+    }
+    postData("/Home/Delete/", false, data).done(function (fridgeItems) {
+        $("#FridgeList").html(fridgeItems);
+        $('.modal-backdrop').hide();
+    });
+}
+
 function addShoppingItem() {
     var name = document.querySelector("#shoppingName").value;
     var amount = document.querySelector("#shoppingAmount").value;
@@ -57,6 +67,8 @@ function addShoppingItem() {
             $('.modal-backdrop').hide();
         });
 }
+
+
 
 /* Open when someone clicks on the span element */
 function openNav() {

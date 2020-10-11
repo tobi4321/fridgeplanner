@@ -45,6 +45,21 @@ namespace FridgePlanner.Controllers
             return View("FridgeTablePartial",fridgeItems);
         }
 
+        [HttpPost]
+        [Route("Home/Delete")]
+        public IActionResult DeleteFridgeItem(long Id)
+        {
+            FridgeItem remove = _context.FridgeItems
+                .Where(t => t.Id == Id)
+                .First();
+            _context.FridgeItems.Remove(remove);
+            _context.SaveChanges();
+
+            DateTime now = DateTime.Today;
+            List<FridgeItem> fridgeItems = _context.FridgeItems.OrderBy(item => item.ExpiryDate.Subtract(now).TotalDays).ToList();
+            return View("FridgeTablePartial", fridgeItems);
+        }
+
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
