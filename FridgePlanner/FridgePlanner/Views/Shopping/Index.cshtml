@@ -2,42 +2,48 @@
 @{
     ViewData["Title"] = "Shopping Page";
 }
-<div class="index_wrapper container-fluid">
-    <h2>Shopping Liste</h2>
-    <br />
-    <div class="row">
-        <div class="col-8 table-wrapper-scroll-y fridge-scrollbar">
-            @await Html.PartialAsync("ShoppingPartial.cshtml", Model.ShoppingItems)
-        </div>
-        <div class="col-4">
+<div id="ShoppingList">
+    <div class="index_wrapper container-fluid">
+        <h2>Shopping Liste</h2>
+        <br />
+        <div class="row">
+            <div class="col-8 table-wrapper-scroll-y fridge-scrollbar">
+                @await Html.PartialAsync("ShoppingPartial.cshtml", Model.ShoppingItems)
+            </div>
+            <div class="col-4">
 
-            <a data-toggle="modal" data-target="#addShoppingModal" class="btn button-primary btn-block nav-link middle-buttons" style="color:white;">
-                <span class="material-icons icon-large">
-                    add
-                </span>
-                <p class="button-text">
-                    Lebensmittel
-                </p>
-            </a>
+                <a data-toggle="modal" data-target="#addShoppingModal" class="btn button-primary" style="color:white;">
+                    <span class="material-icons">
+                        add
+                    </span>
+                    <p class="button-text">
+                        Artikel hinzufügen
+                    </p>
+                </a>
 
-            <br />
-            @{
-                if (Model != null)
-                {
-                    <h3>QR Code Successfully Generated</h3>
-                    <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.QrCodeData))" style="height:250px; margin-left: 40px;" />
+                <br />
+                @{
+                    if (Model != null)
+                    {
+                        <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.QrCodeData))" style="height:250px; margin-left: 40px; margin-top: 100px;" />
+                    }
+                    else
+                    {
+                        <h4>No Data available, Model is empty</h4>
+                    }
                 }
-            }
+            </div>
         </div>
-    </div>
-    <br />
-    <div class="row">
-        <div class="col-sm-3">
-            <a class="btn button-back" asp-controller="Home" asp-action="Index">Back to the Home Page</a>
-            <br />
+        <br />
+        <div class="row">
+            <div class="col-sm-3">
+                <a class="btn button-back" asp-controller="Home" asp-action="Index">Back to the Home Page</a>
+                <br />
+            </div>
         </div>
     </div>
 </div>
+
 
 <!-- Modal Add ShoppingItem-->
 <div class="modal fade" id="addShoppingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="z-index:5;">
@@ -58,10 +64,9 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="md-form">
-                                <input id="fridgeName" type="text" class="form-control" placeholder="Enter the name" aria-describedby="basic-addon1">
-                                <input id="fridgeAmount" type="number" class="form-control" placeholder="Enter amount" aria-describedby="basic-addon1">
-                                <input id="fridgeUnit" type="text" class="form-control" placeholder="Enter unit" aria-describedby="basic-addon1">
-                                <input id="fridgeExpireDate" type="date" class="form-control" placeholder="Pick ExpireDate" aria-describedby="basic-addon1">
+                                <input id="shoppingName" type="text" class="form-control" placeholder="Enter the name" aria-describedby="basic-addon1">
+                                <input id="shoppingAmount" type="number" class="form-control" placeholder="Enter amount" aria-describedby="basic-addon1">
+                                <input id="shoppingUnit" type="text" class="form-control" placeholder="Enter unit" aria-describedby="basic-addon1">
                             </div>
                         </div>
                     </div>

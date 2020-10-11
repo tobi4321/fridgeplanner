@@ -44,6 +44,20 @@ function addFridgeItem() {
         });
 }
 
+function addShoppingItem() {
+    var name = document.querySelector("#shoppingName").value;
+    var amount = document.querySelector("#shoppingAmount").value;
+    var unit = document.querySelector("#shoppingUnit").value;
+
+    var outputString = '{ "Name": ' + '"' + name + '"' + ',"Amount": ' + '"' + amount + '"' + ',"Unit": ' + '"' + unit + '"' + '}';
+
+    postDataWithContentAndDataType("/Shopping/AddItem/", false, outputString, 'application/json', 'json')
+        .done(function (shoppingViewModel) {
+            $("#ShoppingList").html(shoppingViewModel);
+            $('.modal-backdrop').hide();
+        });
+}
+
 /* Open when someone clicks on the span element */
 function openNav() {
     document.getElementById("myNav").style.width = "100%";
