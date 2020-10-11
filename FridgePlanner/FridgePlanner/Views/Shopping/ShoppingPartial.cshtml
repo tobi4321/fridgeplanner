@@ -1,0 +1,47 @@
+﻿@model List<ShoppingListItem>
+@{
+    Layout = null;
+}
+<table class="table table-hover table-light table-striped">
+    <tr style="color:black">
+        <th>Name</th>
+        <th>Anzahl</th>
+        <th>Einheit</th>
+        <th>Actions</th>
+    </tr>
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        <tr>
+            <td>@Model.ElementAt(i).Name</td>
+            <td>@Model.ElementAt(i).Amount</td>
+            <td>@Model.ElementAt(i).Unit</td>
+            <td>
+                <button type="button" class="btn button-delete btn-sm" data-toggle="modal" data-target="#modalDeleteShoppingItem@(Model[i].Id)">
+                    <i class="material-icons" style="font-size:20px">
+                        delete_forever
+                    </i>
+                </button>
+            </td>
+        </tr>
+
+        <!-- Modal Delete News Item-->
+        <div class="modal fade" id="modalDeleteShoppingItem@(Model.ElementAt(i).Id)" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Delete News item</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure that this News item should be deleted permanently</p>
+                        <button onclick="deleteShoppingItem@(Model.ElementAt(i).Id))" type="button" data-dismiss="modal" class="btn button-delete">Delete</button>
+                        <button type="button" class="btn button-back" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+</table>

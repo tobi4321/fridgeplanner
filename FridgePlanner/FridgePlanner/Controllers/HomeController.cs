@@ -40,7 +40,9 @@ namespace FridgePlanner.Controllers
             _context.FridgeItems.Add(x);
             _context.SaveChanges();
 
-            return Index();
+            DateTime now = DateTime.Today;
+            List<FridgeItem> fridgeItems = _context.FridgeItems.OrderBy(item => item.ExpiryDate.Subtract(now).TotalDays).ToList();
+            return View("FridgeTablePartial",fridgeItems);
         }
 
 

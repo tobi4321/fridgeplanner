@@ -1,17 +1,77 @@
-﻿@model List<ShoppingListItem>
+﻿@model FridgePlanner.Models.ViewModels.ShoppingViewModel
 @{
     ViewData["Title"] = "Shopping Page";
 }
-               <div class="index_wrapper container">
-                   <h2>Shopping Liste</h2>
-                   <br />
-                   <p>
-                       Test Content
-                   </p>
-                   <div class="row">
-                       <div class="col-sm-3">
-                           <a class="btn button-back" asp-controller="Home" asp-action="Index">Back to the Home Page</a>
-                           <br />
-                       </div>
-                   </div>
-               </div>
+<div class="index_wrapper container-fluid">
+    <h2>Shopping Liste</h2>
+    <br />
+    <div class="row">
+        <div class="col-8 table-wrapper-scroll-y fridge-scrollbar">
+            @await Html.PartialAsync("ShoppingPartial.cshtml", Model.ShoppingItems)
+        </div>
+        <div class="col-4">
+
+            <a data-toggle="modal" data-target="#addShoppingModal" class="btn button-primary btn-block nav-link middle-buttons" style="color:white;">
+                <span class="material-icons icon-large">
+                    add
+                </span>
+                <p class="button-text">
+                    Lebensmittel
+                </p>
+            </a>
+
+            <br />
+            @{
+                if (Model != null)
+                {
+                    <h3>QR Code Successfully Generated</h3>
+                    <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.QrCodeData))" style="height:250px; margin-left: 40px;" />
+                }
+            }
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-sm-3">
+            <a class="btn button-back" asp-controller="Home" asp-action="Index">Back to the Home Page</a>
+            <br />
+        </div>
+    </div>
+</div>
+
+<!-- Modal Add ShoppingItem-->
+<div class="modal fade" id="addShoppingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="z-index:5;">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="heading lead">
+                    <h4 class="modal-title" id="editNewsLabel">Lebensmittel hinzufügen</h4>
+                </p>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="white-text">×</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="md-form">
+                                <input id="fridgeName" type="text" class="form-control" placeholder="Enter the name" aria-describedby="basic-addon1">
+                                <input id="fridgeAmount" type="number" class="form-control" placeholder="Enter amount" aria-describedby="basic-addon1">
+                                <input id="fridgeUnit" type="text" class="form-control" placeholder="Enter unit" aria-describedby="basic-addon1">
+                                <input id="fridgeExpireDate" type="date" class="form-control" placeholder="Pick ExpireDate" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-back" data-dismiss="modal">Close</button>
+                <button onclick="addShoppingItem()" type="button" data-dismiss="modal" class="btn button-save">Lebensmittel hinzufügen</button>
+            </div>
+        </div>
+    </div>
+</div>

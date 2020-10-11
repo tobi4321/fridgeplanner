@@ -10,10 +10,12 @@
             <h1>FridgeTable</h1>
             <br />
         </div>
-        <div class="fridge-scrollbar my-custom-scrollbar-primary polaroid">
-            @await Html.PartialAsync("FridgeTablePartial.cshtml", Model.FridgeItems)
-        </div>
 
+        <div class="fridge-scrollbar my-custom-scrollbar-primary polaroid">
+            <div id="FridgeList">
+                @await Html.PartialAsync("FridgeTablePartial.cshtml", Model.FridgeItems)
+            </div>
+        </div>
     </div>
 
 
@@ -40,7 +42,7 @@
                         receipt
                     </span>
                     <p class="button-text">
-                        Rezepte verwalten
+                        Rezepte
                     </p>
                 </a>
             </div>

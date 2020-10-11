@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FridgePlanner.Models;
+using FridgePlanner.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FridgePlanner.Controllers
@@ -19,7 +20,14 @@ namespace FridgePlanner.Controllers
         {
             List<ShoppingListItem> items = _context.ShoppingListItems.ToList();
 
-            return View(items);
+            string qrCodeText = "ShoppingListe \n";
+            foreach (ShoppingListItem item in items) { qrCodeText += "- " +item.Name + "   " + item.Amount + item.Unit + " \n"; }
+
+            byte[] qrCode = QRGenerator.GenerateQR(qrCodeText);
+
+            ShoppingViewModel shoppingViewModel = new ShoppingViewModel { ShoppingItems = items, QrCodeData = qrCode };
+
+            return View(shoppingViewModel);
         }
     }
 }

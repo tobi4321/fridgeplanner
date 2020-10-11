@@ -38,8 +38,9 @@ function addFridgeItem() {
     var outputString = '{ "Name": ' + '"' + name + '"' + ',"Amount": ' + '"' + amount + '"' + ',"Unit": ' + '"' + unit + '"' + ',"ExpiryDate" :' + '"' + correctDate + '"' + '}';
 
     postDataWithContentAndDataType("/Home/AddItem/", false, outputString, 'application/json', 'json')
-        .done(function () {
-            window.location.href = "/";
+        .done(function (fridgeItems) {
+            $("#FridgeList").html(fridgeItems);
+            $('.modal-backdrop').hide();
         });
 }
 
