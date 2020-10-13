@@ -16,6 +16,11 @@
             <td>@Model.ElementAt(i).Amount</td>
             <td>@Model.ElementAt(i).Unit</td>
             <td>
+                <button onclick="editShoppingItem(@Model[i].Id)" type="button" class="btn button-edit btn-sm">
+                    <i class="material-icons" style="font-size:20px">
+                        edit
+                    </i>
+                </button>
                 <button type="button" class="btn button-delete btn-sm" data-toggle="modal" data-target="#modalDeleteShoppingItem@(Model[i].Id)">
                     <i class="material-icons" style="font-size:20px">
                         delete_forever
@@ -23,7 +28,9 @@
                 </button>
             </td>
         </tr>
+        <div id="shoppingEditDiv">
 
+        </div>
         <!-- Modal Delete Shopping Item-->
         <div class="modal fade" id="modalDeleteShoppingItem@(Model[i].Id)" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">

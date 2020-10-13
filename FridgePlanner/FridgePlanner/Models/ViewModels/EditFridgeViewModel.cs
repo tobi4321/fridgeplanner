@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace FridgePlanner.Models.ViewModels
 {
-    public class ShoppingViewModel
+    public class EditFridgeViewModel
     {
-        public List<ShoppingListItem> ShoppingItems { get; set; }
+        public FridgeItem Item { get; set; }
         public List<string> Units { get; set; }
-        public byte[] QrCodeData { get; set; }
     }
 }

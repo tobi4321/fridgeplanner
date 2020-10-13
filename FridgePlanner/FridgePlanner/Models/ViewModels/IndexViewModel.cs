@@ -9,5 +9,6 @@ namespace FridgePlanner.Models.ViewModels
     {
         public List<FridgeItem> FridgeItems { get; set; }
         public List<Recipe> Recipes { get; set; }
+        public List<string> Units { get; set; }
     }
 }

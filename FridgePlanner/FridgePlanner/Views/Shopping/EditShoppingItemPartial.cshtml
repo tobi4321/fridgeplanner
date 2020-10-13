@@ -1,0 +1,61 @@
+﻿@model FridgePlanner.Models.ViewModels.EditShoppingViewModel;
+@{ Layout = null; }
+<!-- Modal Edit Shopping Item-->
+<div class="modal fade" id="shoppingItemEditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <p class="heading lead">
+                    <h4 class="modal-title" id="editShoppingLabel">Edit Shopping Item</h4>
+                </p>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="white-text">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="md-form">
+                                <strong>Name</strong>
+                                <input id="shoppingEditName" type="text" value="@Model.Item.Name" class="form-control" placeholder="ShoppingItem Name" aria-label="Name" aria-describedby="basic-addon1">
+                            </div>
+                            <br />
+                            <div class="md-form">
+                                <strong>Amount</strong>
+                                <input id="shoppingEditAmount" type="number" value="@Model.Item.Amount" class="form-control" placeholder="Amount" aria-label="Name" aria-describedby="basic-addon1">
+                            </div>
+
+                            <br />
+                            <div class="md-form">
+                                <strong>Units</strong>
+                                <select class="custom-select" id="shoppingEditUnit">
+                                    @foreach (string category in Model.Units)
+                                    {
+                                        if (category.Equals(Model.Item.Unit))
+                                        {
+                                            <option selected value="@category">@category</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@category">@category</option>
+                                        }
+
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button onclick="updateShoppingItem(@Model.Item.Id)" type="button" data-dismiss="modal" class="btn btn-primary">Edit Fridge item</button>
+            </div>
+        </div>
+    </div>
+</div>

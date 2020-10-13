@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using FridgePlanner.Models;
 using FridgePlanner.Models.ViewModels;
 using Newtonsoft.Json.Linq;
+using Microsoft.Extensions.Configuration;
 
 namespace FridgePlanner.Controllers
 {
@@ -19,15 +20,9 @@ namespace FridgePlanner.Controllers
             _context = con;
         }
 
-        public IActionResult Index()
+        public IActionResult Index([FromServices]IConfiguration config)
         {
-            DateTime now = DateTime.Today;
-            List<FridgeItem> fridgeItems = _context.FridgeItems.OrderBy(item => item.ExpiryDate.Subtract(now).TotalDays).ToList();
-
-            List<Recipe> recipes = _context.Recipes.Where(item => item.RecipeItems.Any(i => fridgeItems.Any( f => i.Name == f.Name ))).ToList();
-
-            IndexViewModel model = new IndexViewModel { FridgeItems = fridgeItems, Recipes = recipes };
-            return View(model);
+            return View(createViewModel(config));
         }
 
         [HttpPost]
@@ -36,13 +31,10 @@ namespace FridgePlanner.Controllers
         {
             FridgeItem x = t.ToObject<FridgeItem>();
             x.ExpiryDate = x.ExpiryDate.Date;
-            x.ExpiryDate.AddDays(1);
             _context.FridgeItems.Add(x);
             _context.SaveChanges();
 
-            DateTime now = DateTime.Today;
-            List<FridgeItem> fridgeItems = _context.FridgeItems.OrderBy(item => item.ExpiryDate.Subtract(now).TotalDays).ToList();
-            return View("FridgeTablePartial",fridgeItems);
+            return View("FridgeTablePartial", getFridgeItems());
         }
 
         [HttpPost]
@@ -55,11 +47,58 @@ namespace FridgePlanner.Controllers
             _context.FridgeItems.Remove(remove);
             _context.SaveChanges();
 
-            DateTime now = DateTime.Today;
-            List<FridgeItem> fridgeItems = _context.FridgeItems.OrderBy(item => item.ExpiryDate.Subtract(now).TotalDays).ToList();
-            return View("FridgeTablePartial", fridgeItems);
+            return View("FridgeTablePartial", getFridgeItems());
         }
 
+        private List<FridgeItem> getFridgeItems()
+        {
+            DateTime now = DateTime.Today;
+            List<FridgeItem> fridgeItems = _context.FridgeItems.OrderBy(item => item.ExpiryDate.Subtract(now).TotalDays).ToList();
+
+            return fridgeItems;
+        }
+
+        [HttpPost]
+        [Route("Home/GetEditFridgeModal")]
+        public IActionResult GetEditFridgeModal([FromServices]IConfiguration config, int Id)
+        {
+            FridgeItem edit = _context.FridgeItems.Where(t => t.Id == Id).First();
+            List<string> units = config.GetSection("Units").Get<List<string>>();
+
+            EditFridgeViewModel model = new EditFridgeViewModel() { Item = edit, Units = units };
+
+            return View("EditFridgeItemPartial", model);
+        }
+        [HttpPost]
+        [Route("Home/UpdateFridgeItem")]
+        public IActionResult UpdateFridgeItem(int Id, string name, double amount, string unit, DateTime expiry)
+        {
+            FridgeItem edit = _context.FridgeItems.Where(t => t.Id == Id).First();
+
+            edit.Name = name;
+            edit.Amount = amount;
+            edit.Unit = unit;
+            edit.ExpiryDate = expiry;
+            edit.ExpiryDate = edit.ExpiryDate.Date;
+            _context.SaveChanges();
+
+            return View("FridgeTablePartial", getFridgeItems());
+        }
+
+
+        private IndexViewModel createViewModel([FromServices]IConfiguration config)
+        {
+            DateTime now = DateTime.Today;
+            List<FridgeItem> fridgeItems = _context.FridgeItems.OrderBy(item => item.ExpiryDate.Subtract(now).TotalDays).ToList();
+
+            List<Recipe> recipes = _context.Recipes.Where(item => item.RecipeItems.Any(i => fridgeItems.Any(f => i.Name == f.Name))).ToList();
+
+            List<string> units = config.GetSection("Units").Get<List<string>>();
+
+            IndexViewModel model = new IndexViewModel { FridgeItems = fridgeItems, Recipes = recipes , Units = units};
+
+            return model;
+        }
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

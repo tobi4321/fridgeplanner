@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.1231
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FridgePlanner", "FridgePlanner\FridgePlanner.csproj", "{A3A484CC-D14E-4625-95E8-67641398D35A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FridgePlannerTesting", "FridgePlannerTesting\FridgePlannerTesting.csproj", "{71E4887B-3765-4C77-9DA2-D0907E7CE922}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FridgePlannerTesting", "FridgePlannerTesting\FridgePlannerTesting.csproj", "{71E4887B-3765-4C77-9DA2-D0907E7CE922}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

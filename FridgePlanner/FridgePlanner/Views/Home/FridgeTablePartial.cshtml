@@ -12,7 +12,7 @@
         @Model.ElementAt(i).ExpiryDate.Subtract(DateTime.Today).TotalDays Days
     </p>
     <p class="index-text col-2">
-        <button onclick="editTP(@Model[i].Id)" type="button" class="btn button-edit btn-sm">
+        <button onclick="editFridgeItem(@Model[i].Id)" type="button" class="btn button-edit btn-sm">
             <i class="material-icons" style="font-size:20px">
                 edit
             </i>
@@ -42,6 +42,9 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div id="fridgeEditDiv">
+
     </div>
 </div>
 }

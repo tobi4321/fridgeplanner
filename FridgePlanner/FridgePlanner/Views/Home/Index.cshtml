@@ -98,8 +98,27 @@
                         <div class="col-md-12">
                             <div class="md-form">
                                 <input id="fridgeName" type="text" class="form-control" placeholder="Enter the name" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="md-form">
                                 <input id="fridgeAmount" type="number" class="form-control" placeholder="Enter amount" aria-describedby="basic-addon1">
-                                <input id="fridgeUnit" type="text" class="form-control" placeholder="Enter unit" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="md-form">
+                                <strong>Units</strong>
+                                <select class="custom-select" id="fridgeUnit">
+                                    @foreach (string units in Model.Units)
+                                    {
+                                        if (units.Equals(Model.Units[0]))
+                                        {
+                                            <option selected value="@units">@units</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@units">@units</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div class="md-form">
                                 <input id="fridgeExpireDate" type="date" class="form-control" placeholder="Pick ExpireDate" aria-describedby="basic-addon1">
                             </div>
                         </div>
