@@ -8,6 +8,7 @@ using FridgePlanner.Models;
 using FridgePlanner.Models.ViewModels;
 using Newtonsoft.Json.Linq;
 using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
 
 namespace FridgePlanner.Controllers
 {
@@ -83,6 +84,18 @@ namespace FridgePlanner.Controllers
             _context.SaveChanges();
 
             return View("FridgeTablePartial", getFridgeItems());
+        }
+
+        [HttpPost]
+        [Route("Home/GetRecipeDetail")]
+        public IActionResult GetRecipeDetail(int Id)
+        {
+            Recipe detail = _context.Recipes
+                .Include(r => r.RecipeItems)
+                .Include(r => r.RecipeSteps)
+                .Where(r => r.RecipeId == Id).First();
+
+            return View("RecipeHomeDetailPartial", detail);
         }
 
 

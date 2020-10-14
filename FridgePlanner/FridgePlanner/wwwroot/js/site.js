@@ -148,6 +148,32 @@ function updateShoppingItem(id) {
         });
 }
 
+function updateRecipeDetail(id) {
+    $.ajax({
+        type: "Post",
+        url: "/Recipe/GetRecipeDetail/",
+        cache: false,
+        data: {
+            Id: id
+        }
+    }).done(function (recipeDetailPartial) {
+        $("#recipeDetail").html(recipeDetailPartial);
+    });
+}
+function showRecipeHomeDetail(id) {
+    $.ajax({
+        type: "Post",
+        url: "/Home/GetRecipeDetail/",
+        cache: false,
+        data: {
+            Id: id
+        }
+    }).done(function (recipeDetailModal) {
+        $("#recipeDetailView").html(recipeDetailModal);
+        $("#recipeDetailModal").modal();
+    });
+}
+
 
 
 /* Open when someone clicks on the span element */

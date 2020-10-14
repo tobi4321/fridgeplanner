@@ -178,7 +178,11 @@ div.polaroid {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     text-align: center;
 }
-
+.recipe-detail {
+    border-radius: 15px;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
 .fridge-scrollbar {
     position: relative;
     height: 520px;
@@ -189,6 +193,13 @@ div.polaroid {
 .recipe-scrollbar {
     position: relative;
     height: 273px;
+    overflow: auto;
+    scrollbar-width: thin; /* "auto" or "thin"  */
+    scrollbar-color: light-gray white; /* scroll thumb & track */
+}
+.recipeModal-scrollbar {
+    position: relative;
+    height: 200px;
     overflow: auto;
     scrollbar-width: thin; /* "auto" or "thin"  */
     scrollbar-color: light-gray white; /* scroll thumb & track */

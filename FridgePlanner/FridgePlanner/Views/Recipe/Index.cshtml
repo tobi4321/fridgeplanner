@@ -1,17 +1,32 @@
 ﻿@model List<Recipe>
 @{
-    ViewData["Title"] = "Shopping Page";
+    ViewData["Title"] = "Recipe Page";
 }
-               <div class="index_wrapper container">
-                   <h2>Rezepte verwalten</h2>
-                   <br />
-                   <p>
-                       Test Content
-                   </p>
-                   <div class="row">
-                       <div class="col-sm-3">
-                           <a class="btn button-back" asp-controller="Home" asp-action="Index">Back to the Home Page</a>
-                           <br />
-                       </div>
-                   </div>
-               </div>
+<div class="index_wrapper container-fluid">
+    <h2>Rezepte verwalten</h2>
+    <br />
+    <div class="left-column">
+        <br />
+        <div class="recipe-scrollbar my-custom-scrollbar-primary polaroid">
+            @await Html.PartialAsync("RecipeIndexTablePartial.cshtml", Model)
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-sm-3">
+                <a class="btn button-back" asp-controller="Home" asp-action="Index">Back to the Home Page</a>
+                <br />
+            </div>
+            <div class="col-sm-3">
+                <a asp-controller="Recipe" asp-action="AddItemOverview" class="btn button-primary" style="color:white;">
+                        Rezept hinzufügen
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="right-column">
+        <div id="recipeDetail">
+            @await Html.PartialAsync("RecipeDetailPartial.cshtml", Model[0])
+        </div>
+    </div>
+</div>
+

@@ -12,10 +12,15 @@
             <p class="index-text col-7">
                 @Model.ElementAt(i).Description
             </p>
-            <p class="index-text col-1">
-                <button onclick="viewRecipe(@Model[i].RecipeId)" type="button" class="btn btn-info btn-sm">
+            <p class="index-text col-2">
+                <button onclick="showRecipeHomeDetail(@Model[i].RecipeId)" type="button" class="btn btn-primary btn-sm">
                     <i class="material-icons" style="font-size:20px">
-                        edit
+                        description
+                    </i>
+                </button>
+                <button onclick="addToShoppingList(@Model[i].RecipeId)" type="button" class="btn btn-info btn-sm">
+                    <i class="material-icons" style="font-size:20px">
+                        add_shopping_cart
                     </i>
                 </button>
             </p>

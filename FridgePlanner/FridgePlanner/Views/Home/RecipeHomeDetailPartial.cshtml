@@ -1,0 +1,68 @@
+﻿@model Recipe;
+@{
+    Layout = null;
+}
+<!-- The Modal -->
+<div class="modal fade" id="recipeDetailModal" style="z-index:5;">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    @Model.Name
+                </h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <p>
+                    @Model.Description
+                </p>
+                <br />
+                <h3 style="margin-left: 5px;">Incredients</h3>
+                <div class="recipeModal-scrollbar" style="margin: 5px 5px 5px 5px;">
+
+                    @for (int i = 0; i < Model.RecipeItems.Count; i++)
+                    {
+                        <div class="card" style="margin-top: 5px;">
+                            <div class="card-body">
+                                @Model.RecipeItems.ElementAt(i).Name
+                                @Model.RecipeItems.ElementAt(i).Amount @Model.RecipeItems.ElementAt(i).Unit
+                            </div>
+                        </div>
+                    }
+                </div>
+                <h3 style="margin-left: 5px;">Steps</h3>
+                <div class="recipeModal-scrollbar" style="margin: 5px 5px 5px 5px; margin-bottom: 15px;">
+
+                    @for (int j = 1; j <= Model.RecipeSteps.Max(x => x.StepNumber); j++)
+                    {
+                        @for (int i = 0; i < Model.RecipeSteps.Count; i++)
+                        {
+                            @if (Model.RecipeSteps.ElementAt(i).StepNumber == j)
+                            {
+                                <div class="card" style="margin-top: 5px;">
+                                    <div class="card-header"> <b>@Model.RecipeSteps.ElementAt(i).StepNumber</b> @Model.RecipeSteps.ElementAt(i).Name</div>
+                                    <div class="card-body">
+                                        @Model.RecipeSteps.ElementAt(i).Text
+                                    </div>
+                                </div>
+                            }
+
+                        }
+                    }
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
