@@ -52,7 +52,7 @@
     float: left;
     width: 50%;
     padding-right: 5%;
-    text-align: right;
+    text-align: left;
 }
 .right-column {
     width: 50%;
@@ -193,6 +193,13 @@ div.polaroid {
 .recipe-scrollbar {
     position: relative;
     height: 273px;
+    overflow: auto;
+    scrollbar-width: thin; /* "auto" or "thin"  */
+    scrollbar-color: light-gray white; /* scroll thumb & track */
+}
+.recipeEdit-scrollbar {
+    position: relative;
+    height: 420px;
     overflow: auto;
     scrollbar-width: thin; /* "auto" or "thin"  */
     scrollbar-color: light-gray white; /* scroll thumb & track */

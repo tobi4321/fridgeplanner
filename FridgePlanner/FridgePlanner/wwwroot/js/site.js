@@ -173,7 +173,93 @@ function showRecipeHomeDetail(id) {
         $("#recipeDetailModal").modal();
     });
 }
+function addRecipe() {
+    var recipeName = $('#addRecipeName').val()
+    var recipeDescription = $('#addRecipeDescription').val()
 
+    var outputString = '{ "Name": ' + '"' + recipeName + '"' + ',"Description": ' + '"' + recipeDescription + '"'  + '}';
+    postDataWithContentAndDataType("/Recipe/AddRecipe/", false, outputString, 'application/json', 'json')
+        .done(function (msg) {
+            $('.modal-backdrop').hide();
+            editRecipePage(msg);
+        })
+        .fail(function (msg) {
+            $('.modal-backdrop').hide();
+            alert(msg.responseText);
+        });
+}
+function editRecipePage(id) {
+    window.location.href = "Recipe/EditRecipeOverview/" + id;
+}
+function editRecipe(id)
+{
+    var recipeName = $('#editRecipeName').val()
+    var recipeDescription = $('#editRecipeDescription').val()
+    var data = {
+        Id: id,
+        name: recipeName,
+        description: recipeDescription,
+    }
+
+    postData("/Recipe/EditRecipe/", false, data)
+        .done(function (msg) {
+
+            // go to recipe edit page of element with id
+            window.location.href =  msg;
+            $('.modal-backdrop').hide();
+        });
+}
+
+function addRecipeItem(id)
+{
+    var name = document.querySelector("#recipeItemName").value;
+    var amount = document.querySelector("#recipeItemAmount").value;
+    var unit = $('#recipeItemUnit :selected').text();
+
+    var outputString = '{ "Name": ' + '"' + name + '"' + ',"Amount": ' + '"' + amount + '"' + ',"Unit": ' + '"' + unit + '"' + '}';
+
+    postDataWithContentAndDataType("/Recipe/AddRecipeItem/" + id, false, outputString, 'application/json', 'json')
+        .done(function (msg) {
+            window.location.href = msg;
+            $('.modal-backdrop').hide();
+        });
+}
+function deleteRecipeItem(recipeId, recipeItemId) {
+    var data = {
+        RecipeId: recipeId,
+        RecipeItemId: recipeItemId
+    }
+    postData("/Recipe/DeleteRecipeItem/", false, data)
+        .done(function (msg) {
+            window.location.href = msg;
+            $('.modal-backdrop').hide();
+        });
+}
+function deleteRecipeStep(recipeId, recipeStepId) {
+    var data = {
+        RecipeId: recipeId,
+        RecipeStepId: recipeStepId
+    }
+    postData("/Recipe/DeleteRecipeStep/", false, data)
+        .done(function (msg) {
+            window.location.href = msg;
+            $('.modal-backdrop').hide();
+        });
+}
+function addRecipeStep(id) {
+
+    var name = document.querySelector("#recipeStepName").value;
+    var stepNumber = document.querySelector("#recipeStepNumber").value;
+    var text = document.querySelector("#recipeStepText").value;
+
+    var outputString = '{ "Name": ' + '"' + name + '"' + ',"StepNumber": ' + '"' + stepNumber + '"' + ',"Text": ' + '"' + text + '"' + '}';
+
+    postDataWithContentAndDataType("/Recipe/AddRecipeStep/" + id, false, outputString, 'application/json', 'json')
+        .done(function (msg) {
+            window.location.href = msg;
+            $('.modal-backdrop').hide();
+        });
+}
 
 
 /* Open when someone clicks on the span element */

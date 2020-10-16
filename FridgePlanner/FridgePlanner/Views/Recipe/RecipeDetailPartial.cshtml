@@ -7,8 +7,8 @@
         <h2>@Model.Name</h2>
         <p>@Model.Description</p>
     </div>
-    <h3 style="margin-left: 5px;">Incredients</h3>
-    <div class="recipe-scrollbar" style="margin: 5px 5px 5px 5px;">
+    <h4 style="margin-left: 5px;">Incredients</h4>
+    <div class="recipe-scrollbar" style="margin: 5px 5px 5px 5px; height: 160px;">
 
         @for (int i = 0; i < Model.RecipeItems.Count; i++)
         {
@@ -20,26 +20,28 @@
             </div>
         }
     </div>
-    <h3 style="margin-left: 5px;">Steps</h3>
-    <div class="recipe-scrollbar" style="margin: 5px 5px 5px 5px; margin-bottom: 15px;">
-
-        @for (int j = 1; j <= Model.RecipeSteps.Max(x => x.StepNumber); j++)
+    <h4 style="margin-left: 5px;">Steps</h4>
+    <div class="recipe-scrollbar" style="margin: 5px 5px 5px 5px; margin-bottom: 15px; height: 200px;">
+        @if (Model.RecipeSteps.Count > 0)
         {
-            @for (int i = 0; i < Model.RecipeSteps.Count; i++)
+            @for (int j = 1; j <= Model.RecipeSteps.Max(x => x.StepNumber); j++)
             {
-                @if (Model.RecipeSteps.ElementAt(i).StepNumber == j)
+                @for (int i = 0; i < Model.RecipeSteps.Count; i++)
                 {
-                    <div class="card" style="margin-top: 5px;">
-                        <div class="card-header"> <b>@Model.RecipeSteps.ElementAt(i).StepNumber</b> @Model.RecipeSteps.ElementAt(i).Name</div>
-                        <div class="card-body">
-                            @Model.RecipeSteps.ElementAt(i).Text
+                    @if (Model.RecipeSteps.ElementAt(i).StepNumber == j)
+                    {
+                        <div class="card" style="margin-top: 5px;">
+                            <div class="card-header"> <b>@Model.RecipeSteps.ElementAt(i).StepNumber</b> @Model.RecipeSteps.ElementAt(i).Name</div>
+                            <div class="card-body">
+                                @Model.RecipeSteps.ElementAt(i).Text
+                            </div>
                         </div>
-                    </div>
-                }
+                    }
 
+                }
             }
         }
-    </div>
+        </div>
     <br />
 </div>
 

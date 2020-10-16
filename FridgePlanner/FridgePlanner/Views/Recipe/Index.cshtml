@@ -6,8 +6,7 @@
     <h2>Rezepte verwalten</h2>
     <br />
     <div class="left-column">
-        <br />
-        <div class="recipe-scrollbar my-custom-scrollbar-primary polaroid">
+        <div class="recipe-scrollbar my-custom-scrollbar-primary polaroid" style="height: 460px;">
             @await Html.PartialAsync("RecipeIndexTablePartial.cshtml", Model)
         </div>
         <br />
@@ -17,8 +16,8 @@
                 <br />
             </div>
             <div class="col-sm-3">
-                <a asp-controller="Recipe" asp-action="AddItemOverview" class="btn button-primary" style="color:white;">
-                        Rezept hinzufügen
+                <a data-toggle="modal" data-target="#addRecipeModal" class="btn button-primary" style="color:white; margin-left: 25px;">
+                    Rezept hinzufügen
                 </a>
             </div>
         </div>
@@ -30,3 +29,38 @@
     </div>
 </div>
 
+<!-- Modal Add Recipe-->
+<div class="modal fade" id="addRecipeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="z-index:5;">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <p class="heading lead">
+                    <h4 class="modal-title" id="editRecipeLabel">Neues Rezept</h4>
+                </p>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="white-text">×</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="md-form">
+                                <input id="addRecipeName" type="text" class="form-control" placeholder="Enter the name" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="md-form">
+                                <input id="addRecipeDescription" type="text" class="form-control" placeholder="Enter description" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-back" data-dismiss="modal">Close</button>
+                <button onclick="addRecipe()" type="button" data-dismiss="modal" class="btn button-save">Rezept erstellen</button>
+            </div>
+        </div>
+    </div>
+</div>

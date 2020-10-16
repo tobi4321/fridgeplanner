@@ -9,13 +9,20 @@
         <p class="tp_name_text col-3">
             @Model.ElementAt(i).Name
         </p>
-        <p class="index-text col-7">
+        <p class="index-text col-6">
             @Model.ElementAt(i).Description
         </p>
         <p class="index-text col-1">
             <button onclick="updateRecipeDetail(@Model[i].RecipeId)" type="button" class="btn btn-info btn-sm">
                 <i class="material-icons" style="font-size:20px">
-                    description
+                    details
+                </i>
+            </button>
+        </p>
+        <p class="index-text col-1">
+            <button onclick="editRecipePage(@Model[i].RecipeId)" type="button" class="btn btn-info btn-sm">
+                <i class="material-icons" style="font-size:20px">
+                    edit
                 </i>
             </button>
         </p>
