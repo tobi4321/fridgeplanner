@@ -22,7 +22,6 @@ namespace FridgePlanner.Models
                 Debug.WriteLine(ex.Message);
             }
         }
-        //public DbSet<Item> Items { get; set; }
         public DbSet<FridgeItem> FridgeItems { get; set; }
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<RecipeItem> RecipeItems { get; set; }

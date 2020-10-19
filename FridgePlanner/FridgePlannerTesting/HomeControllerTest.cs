@@ -6,92 +6,86 @@ using Xunit;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using FridgePlanner.Models.ViewModels;
+using Microsoft.Extensions.Configuration;
+using Moq;
+using System.Collections.Generic;
 
 namespace FridgePlannerTesting
 {
     public class HomeControllerTest
     {
-        private HomeController controller { get; }
-        DataBaseContext context { get; }
-        FridgeItem item { get; }
-        Recipe recipe { get; }
+        private HomeController controller { get; set; }
 
         public HomeControllerTest()
         {
-            // configure DB-Options ---> A Test db on your local DB will be used
-            var optionsBuilder = new DbContextOptionsBuilder<DataBaseContext>().UseSqlServer(@"Data Source=(LocalDb)\MSSQLLocalDB;Initial Catalog=FridgePlannerTesting1;  Integrated Security=True");
-
-            // create the context object to ensure the db operations go through
-            context = new DataBaseContext(optionsBuilder.Options);
-
-            // Ensure that the DB is deleted and the newly created, so there is no leftover gibberish in the DB
-            context.Database.EnsureDeleted();
-
-            context.Database.EnsureCreated();
-
-            // create a FridgeItem for testing purposes
-            item = new FridgeItem()
-            {
-                Name = "Tomate",
-                Amount = 1,
-                Unit = "Kg",
-                ExpiryDate = new System.DateTime(2020, 10, 15)
-            };
-
-
-            // create a Recipe for testing purposes
-            recipe = new Recipe()
-            {
-                Name = "TestRezept",
-                Description = "Ein einfaches Test Rezept"
-            };
-
-            if (!context.FridgeItems.Any())
-            {
-                context.FridgeItems.Add(item);
-            }
-
-            if (!context.Recipes.Any())
-            {
-                context.Recipes.Add(recipe);
-            }
-
-            context.SaveChanges();
-
-            controller = new HomeController(context);
 
         }
-
         [Fact]
-        public void Index_ReturnsAViewResult()
+        public void Index_ReturnsAViewResultWithViewModel()
         {
-            // Arrange
-            //RecipeItem recipeItem = new RecipeItem()
-            //{
-            //    Name = "Tomate",
-            //    Amount = 1,
-            //    Unit = "Kg"
-            //};
-            //var recipeId = context.Recipes.First().RecipeId;
-            //context.Recipes.Where(r => r.RecipeId == recipeId).First().RecipeItems.Add(recipeItem);
-            //context.SaveChanges();
+            // Capture
+            var _configuration = new Mock<IConfiguration>();
+
+            var oneSectionMock = new Mock<IConfigurationSection>();
+            oneSectionMock.Setup(s => s.Value).Returns("Kg");
+            var twoSectionMock = new Mock<IConfigurationSection>();
+            twoSectionMock.Setup(s => s.Value).Returns("g");
+            var unitsSectionMock = new Mock<IConfigurationSection>();
+            unitsSectionMock.Setup(s => s.GetChildren()).Returns(new List<IConfigurationSection> { oneSectionMock.Object, twoSectionMock.Object });
+            _configuration.Setup(c => c.GetSection("Units")).Returns(unitsSectionMock.Object);
+
+            //create In Memory Database
+            var options = new DbContextOptionsBuilder<DataBaseContext>()
+            .UseInMemoryDatabase(databaseName: "HomeDataBase")
+            .Options;
+
+            using (var context = new DataBaseContext(options))
+            {
+                context.FridgeItems.Add(new FridgeItem()
+                {
+                    Id = 120,
+                    Name = "Tomaten",
+                    Amount = 1,
+                    Unit = "Kg",
+                    ExpiryDate = new System.DateTime(2020, 10, 15)
+                });
+                context.Recipes.Add(new Recipe()
+                {
+                    RecipeId = 100,
+                    Name = "TestRezept",
+                    Description = "Ein einfaches Test Rezept",
+                    RecipeItems = new List<RecipeItem>
+                    {
+                        new RecipeItem(){
+                            Id = 1100,
+                            Name = "Tomaten",
+                            Amount = 0.5,
+                            Unit = "Kg"
+                        }
+                    }
+                });
+                context.SaveChanges();
+            }
+
+            using (var context = new DataBaseContext(options))
+            {
+                controller = new HomeController(context);
+                // Act
+                var result = controller.Index(_configuration.Object);
 
 
-            // Act
-            var result = controller.Index();
+                // Assert
+                Assert.NotNull(result);
+                Assert.IsType<ViewResult>(result);
 
-            // Assert
-            Assert.NotNull(result);
-            Assert.IsType<ViewResult>(result);
+                var viewResult = result as ViewResult;
+                var model = viewResult.Model as IndexViewModel;
 
-            var viewResult = result as ViewResult;
-            var model = viewResult.Model as IndexViewModel;
-
-            Assert.NotNull(model.FridgeItems);
-            //Assert.NotNull(model.Recipes);
-            Assert.Contains(item,model.FridgeItems); 
-            //Assert.Contains(recipe,model.Recipes);
-
+                Assert.NotNull(model.FridgeItems);
+                Assert.NotNull(model.Recipes);
+                Assert.Contains(context.FridgeItems.First(), model.FridgeItems);
+                Assert.Contains(context.Recipes.First(), model.Recipes);
+            }
         }
     }
 }

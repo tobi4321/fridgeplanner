@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using FridgePlanner.Models;
 using FridgePlanner.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
