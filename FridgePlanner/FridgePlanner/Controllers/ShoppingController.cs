@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using FridgePlanner.Models;
 using FridgePlanner.Models.ViewModels;
@@ -82,6 +83,21 @@ namespace FridgePlanner.Controllers
         private ShoppingViewModel createViewModel([FromServices]IConfiguration config)
         {
             List<ShoppingListItem> items = _context.ShoppingListItems.ToList();
+
+            // Testing with Nutrition and Translator
+
+            // create Request Object 
+            NutritionRequest request = new NutritionRequest() { title = "Test Recipe"};
+            List<string> ingredients = new List<string>();
+            foreach (ShoppingListItem item in items)
+            {
+                ingredients.Add(item.Amount+" "+item.Unit+" "+Translator.TranslateText(item.Name,"de","en"));
+            }
+            request.ingr = ingredients;
+            NutritionApiHandler handler = new NutritionApiHandler();
+            handler.sendRequest(request);
+
+            // end of testing
 
             byte[] qrCode = QRGenerator.GenerateQR(getShoppingListAsString(items));
 

@@ -31,7 +31,8 @@ namespace FridgePlannerTesting
             var twoSectionMock = new Mock<IConfigurationSection>();
             twoSectionMock.Setup(s => s.Value).Returns("g");
             var unitsSectionMock = new Mock<IConfigurationSection>();
-            unitsSectionMock.Setup(s => s.GetChildren()).Returns(new List<IConfigurationSection> { oneSectionMock.Object, twoSectionMock.Object });
+            unitsSectionMock.Setup(s => s.GetChildren()).Returns(new List<IConfigurationSection>
+                                                    { oneSectionMock.Object, twoSectionMock.Object });
             _configuration.Setup(c => c.GetSection("Units")).Returns(unitsSectionMock.Object);
 
             //create In Memory Database
