@@ -142,6 +142,62 @@ namespace FridgePlanner.Controllers
 
             return Ok(recipe.RecipeId);
         }
+        [HttpGet]
+        [Route("Recipe/EditRecipeItemOverview/{Id}/{RecipeItemId}")]
+        public IActionResult GetEditRecipeItemModal([FromServices]IConfiguration config, int Id, long RecipeItemId)
+        {
+            Recipe model = _context.Recipes
+                .Include(r => r.RecipeItems)
+                .Include(r => r.RecipeSteps)
+                .Where(r => r.RecipeId == Id).First();
+
+            RecipeItem item = _context.RecipeItems.Where(i => i.Id == Id).First();
+            
+            List<string> units = config.GetSection("Units").Get<List<string>>();
+
+            EditRecipeItemViewModel viewModel = new EditRecipeItemViewModel() { Item = item, Units = units, RecipeElement = model};
+
+            return View("EditRecipeItemPartial", viewModel);
+        }
+        [HttpPost]
+        [Route("Recipe/UpdateRecipeItem/")]
+        public IActionResult UpdateRecipeItem(int Id, long RecipeItemId, string name, double amount, string unit)
+        {
+            Recipe model = _context.Recipes
+                .Include(r => r.RecipeItems)
+                .Include(r => r.RecipeSteps)
+                .Where(r => r.RecipeId == Id).First();
+
+            RecipeItem item = model.RecipeItems.Where(i => i.Id == RecipeItemId).First();
+
+            item.Name = name;
+            item.Amount = amount;
+            item.Unit = unit;
+
+            _context.SaveChanges();
+
+            return Ok(model.RecipeId);
+        }
+
+        [HttpPost]
+        [Route("Recipe/UpdateRecipeStep/")]
+        public IActionResult UpdateRecipeStep(int Id, long RecipeStepId, string name, int number, string text)
+        {
+            Recipe model = _context.Recipes
+                .Include(r => r.RecipeItems)
+                .Include(r => r.RecipeSteps)
+                .Where(r => r.RecipeId == Id).First();
+
+            RecipeStep item = model.RecipeSteps.Where(i => i.RecipeStepId == RecipeStepId).First();
+
+            item.Name = name;
+            item.StepNumber = number;
+            item.Text = text;
+
+            _context.SaveChanges();
+
+            return Ok(model.RecipeId);
+        }
 
         [HttpPost]
         [Route("Recipe/GetRecipeDetail")]

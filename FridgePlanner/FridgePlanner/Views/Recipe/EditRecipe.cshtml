@@ -32,11 +32,70 @@
                         <div class="card-body">
                             @Model.RecipeElement.RecipeItems.ElementAt(i).Name
                             @Model.RecipeElement.RecipeItems.ElementAt(i).Amount @Model.RecipeElement.RecipeItems.ElementAt(i).Unit
-                            <a data-toggle="modal" data-target="#editRecipeItemModal" class="btn button-primary float-right" style="color:white;">
+                            <a data-toggle="modal" data-target="#editRecipeItemModal@(i)" class="btn button-primary float-right" style="color:white;">
                                 <span class="material-icons">
                                     edit
                                 </span>
                             </a>
+                            <!-- Modal Edit recipe Item-->
+                            <div class="modal fade" id="editRecipeItemModal@(i)" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+
+                                        <div class="modal-header">
+                                            <p class="heading lead">
+                                                <h4 class="modal-title" id="editRecipeItemLabel">Edit Recipe Item</h4>
+                                            </p>
+
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true" class="white-text">×</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="container-fluid">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+
+                                                        <div class="md-form">
+                                                            <strong>Name</strong>
+                                                            <input id="recipeItemEditName" type="text" value="@Model.RecipeElement.RecipeItems.ElementAt(i).Name" class="form-control" placeholder="RecipeItem Name" aria-label="Exercisename" aria-describedby="basic-addon1">
+                                                        </div>
+                                                        <br />
+                                                        <div class="md-form">
+                                                            <strong>Amount</strong>
+                                                            <input id="recipeItemEditAmount" type="number" value="@Model.RecipeElement.RecipeItems.ElementAt(i).Amount" class="form-control" placeholder="Amount" aria-label="Exercisename" aria-describedby="basic-addon1">
+                                                        </div>
+
+                                                        <br />
+                                                        <div class="md-form">
+                                                            <strong>Units</strong>
+                                                            <select class="custom-select" id="recipeItemEditUnit">
+                                                                @foreach (string category in Model.Units)
+                                                                {
+                                                                    if (category.Equals(Model.RecipeElement.RecipeItems.ElementAt(i).Unit))
+                                                                    {
+                                                                        <option selected value="@category">@category</option>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <option value="@category">@category</option>
+                                                                    }
+
+                                                                }
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button onclick="updateRecipeItem(@Model.RecipeElement.RecipeItems.ElementAt(i).Id,@Model.RecipeElement.RecipeId)" type="button" data-dismiss="modal" class="btn btn-primary">Zutat speichern</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <a data-toggle="modal" data-target="#modalDeleteRecipeItem@(Model.RecipeElement.RecipeItems.ElementAt(i).Id)" class="btn button-delete float-right" style="color:white;">
                                 <span class="material-icons">
                                     delete_forever
@@ -97,11 +156,50 @@
                                 <div class="card-header"> <b>@Model.RecipeElement.RecipeSteps.ElementAt(i).StepNumber</b> @Model.RecipeElement.RecipeSteps.ElementAt(i).Name</div>
                                 <div class="card-body">
                                     @Model.RecipeElement.RecipeSteps.ElementAt(i).Text
-                                    <a data-toggle="modal" data-target="#editRecipeStepModal" class="btn button-primary float-right" style="color:white;">
+                                    <a data-toggle="modal" data-target="#editRecipeStepModal@(i)" class="btn button-primary float-right" style="color:white;">
                                         <span class="material-icons">
                                             edit
                                         </span>
                                     </a>
+                                    <!-- Modal Edit RecipeStep-->
+                                    <div class="modal fade" id="editRecipeStepModal@(i)" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="z-index:5;">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <p class="heading lead">
+                                                        <h4 class="modal-title" id="addRecipeStepLabel">Zubereitungsschritt ändern</h4>
+                                                    </p>
+
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true" class="white-text">×</span>
+                                                    </button>
+                                                </div>
+
+                                                <div class="modal-body">
+                                                    <div class="container-fluid">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="md-form">
+                                                                    <input id="recipeStepEditName" type="text" value="@Model.RecipeElement.RecipeSteps.ElementAt(i).Name" class="form-control" placeholder="Enter the name" aria-describedby="basic-addon1">
+                                                                </div>
+                                                                <div class="md-form">
+                                                                    <input id="recipeStepEditNumber" type="number" value="@Model.RecipeElement.RecipeSteps.ElementAt(i).StepNumber" class="form-control" placeholder="Enter step number" aria-describedby="basic-addon1">
+                                                                </div>
+                                                                <div class="md-form">
+                                                                    <input id="recipeStepEditText" type="text" value="@Model.RecipeElement.RecipeSteps.ElementAt(i).Text" class="form-control" placeholder="Enter the text" aria-describedby="basic-addon1">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-back" data-dismiss="modal">Close</button>
+                                                    <button onclick=" updateRecipeStep(@Model.RecipeElement.RecipeSteps.ElementAt(i).RecipeStepId,@Model.RecipeElement.RecipeId)" type="button" data-dismiss="modal" class="btn button-save">Zubereitungsschritt speichern</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <a data-toggle="modal" data-target="#modalDeleteRecipeStep@(Model.RecipeElement.RecipeSteps.ElementAt(i).RecipeStepId)" class="btn button-delete float-right" style="color:white;">
                                         <span class="material-icons">
                                             delete_forever

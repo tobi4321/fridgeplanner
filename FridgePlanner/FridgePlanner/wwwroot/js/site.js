@@ -260,6 +260,44 @@ function addRecipeStep(id) {
             $('.modal-backdrop').hide();
         });
 }
+function updateRecipeItem(id,recipeId) {
+    var recipeItemName = $('#recipeItemEditName').val()
+    var recipeItemAmount = $('#recipeItemEditAmount').val()
+    var recipeItemUnit = $('#recipeItemEditUnit :selected').text();
+
+    var data = {
+        RecipeItemId: id,
+        Id: recipeId,
+        name: recipeItemName,
+        amount: recipeItemAmount,
+        unit: recipeItemUnit
+    }
+
+    postData("/Recipe/UpdateRecipeItem/", false, data)
+        .done(function (msg) {
+            window.location.href = msg;
+            $('.modal-backdrop').hide();
+        });
+}
+function updateRecipeStep(id, recipeId) {
+    var recipeStepName = $('#recipeStepEditName').val()
+    var recipeStepNumber = $('#recipeStepEditNumber').val()
+    var recipeStepText = $('#recipeStepEditText').val()
+
+    var data = {
+        RecipeStepId: id,
+        Id: recipeId,
+        name: recipeStepName,
+        number: recipeStepNumber,
+        text: recipeStepText
+    }
+
+    postData("/Recipe/UpdateRecipeStep/", false, data)
+        .done(function (msg) {
+            window.location.href = msg;
+            $('.modal-backdrop').hide();
+        });
+}
 
 
 /* Open when someone clicks on the span element */

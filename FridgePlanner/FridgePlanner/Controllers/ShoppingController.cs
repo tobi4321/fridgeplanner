@@ -84,21 +84,6 @@ namespace FridgePlanner.Controllers
         {
             List<ShoppingListItem> items = _context.ShoppingListItems.ToList();
 
-            // Testing with Nutrition and Translator
-
-            // create Request Object 
-            NutritionRequest request = new NutritionRequest() { title = "Test Recipe"};
-            List<string> ingredients = new List<string>();
-            foreach (ShoppingListItem item in items)
-            {
-                ingredients.Add(item.Amount+" "+item.Unit+" "+Translator.TranslateText(item.Name,"de","en"));
-            }
-            request.ingr = ingredients;
-            NutritionApiHandler handler = new NutritionApiHandler();
-            handler.sendRequest(request);
-
-            // end of testing
-
             byte[] qrCode = QRGenerator.GenerateQR(getShoppingListAsString(items));
 
             List<string> units = config.GetSection("Units").Get<List<string>>();
@@ -106,6 +91,24 @@ namespace FridgePlanner.Controllers
             ShoppingViewModel shoppingViewModel = new ShoppingViewModel { ShoppingItems = items, Units = units, QrCodeData = qrCode };
 
             return shoppingViewModel;
+        }
+
+        public void NutritionOutputForShoppingList(List<ShoppingListItem> items)
+        {
+            // Testing with Nutrition and Translator
+
+            // create Request Object 
+            NutritionRequest request = new NutritionRequest() { title = "Test Recipe" };
+            List<string> ingredients = new List<string>();
+            foreach (ShoppingListItem item in items)
+            {
+                ingredients.Add(item.Amount + " " + item.Unit + " " + Translator.TranslateText(item.Name, "de", "en"));
+            }
+            request.ingr = ingredients;
+            NutritionApiHandler handler = new NutritionApiHandler();
+            handler.sendRequest(request);
+
+            // end of testing
         }
     }
 }
