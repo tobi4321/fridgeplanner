@@ -1,4 +1,5 @@
 ﻿using FridgePlanner.Models;
+using FridgePlanner.Models.NutritionModels;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System;
@@ -41,6 +42,8 @@ namespace FridgePlanner.Controllers
             using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
             {
                 var result = streamReader.ReadToEnd();
+
+                NutritionAPIResponse response = Newtonsoft.Json.JsonConvert.DeserializeObject<NutritionAPIResponse>(result);
                 Console.WriteLine(result);
             }
         }

@@ -26,6 +26,7 @@ namespace FridgePlanner.Controllers
             return View(createViewModel(config));
         }
 
+
         [HttpPost]
         [Route("Home/AddItem")]
         public IActionResult AddItem([FromBody] JObject t)
@@ -57,6 +58,13 @@ namespace FridgePlanner.Controllers
             List<FridgeItem> fridgeItems = _context.FridgeItems.OrderBy(item => item.ExpiryDate.Subtract(now).TotalDays).ToList();
 
             return fridgeItems;
+        }
+        [HttpGet]
+        [Route("Home/GetItems")]
+        public async Task<ActionResult<IEnumerable<FridgeItem>>> GetItems()
+        {
+            return await _context.FridgeItems
+                .ToListAsync();
         }
 
         [HttpPost]

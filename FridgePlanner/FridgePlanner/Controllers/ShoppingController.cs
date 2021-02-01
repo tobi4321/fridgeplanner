@@ -84,6 +84,8 @@ namespace FridgePlanner.Controllers
         {
             List<ShoppingListItem> items = _context.ShoppingListItems.ToList();
 
+            //NutritionOutputForShoppingList(items);
+
             byte[] qrCode = QRGenerator.GenerateQR(getShoppingListAsString(items));
 
             List<string> units = config.GetSection("Units").Get<List<string>>();
