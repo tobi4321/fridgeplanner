@@ -25,7 +25,7 @@ namespace FridgePlanner.Controllers
         {
         }
 
-        public void sendRequest(NutritionRequest requestData)
+        public NutritionAPIResponse sendRequest(NutritionRequest requestData)
         {
             var url = "https://api.edamam.com/api/nutrition-details?app_id=" + "2164c490" + "&app_key=" + "5ab8c54eae13f177841c04de882fb217";
 
@@ -44,7 +44,7 @@ namespace FridgePlanner.Controllers
                 var result = streamReader.ReadToEnd();
 
                 NutritionAPIResponse response = Newtonsoft.Json.JsonConvert.DeserializeObject<NutritionAPIResponse>(result);
-                Console.WriteLine(result);
+                return response;
             }
         }
 

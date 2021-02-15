@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using FridgePlanner.Models;
+using FridgePlanner.Models.NutritionModels;
 using FridgePlanner.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -108,7 +109,7 @@ namespace FridgePlanner.Controllers
             }
             request.ingr = ingredients;
             NutritionApiHandler handler = new NutritionApiHandler();
-            handler.sendRequest(request);
+            NutritionAPIResponse response = handler.sendRequest(request);
 
             // end of testing
         }

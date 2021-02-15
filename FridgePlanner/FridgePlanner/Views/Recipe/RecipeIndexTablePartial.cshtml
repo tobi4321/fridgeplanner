@@ -7,27 +7,54 @@
 {
     <div class="card" style="margin: 5px 10px 5px 10px;">
         <div class="card-header text-black">
-            @Model.ElementAt(i).Name
+            <h5><b>@Model.ElementAt(i).Name</b></h5>
         </div>
         <div class="card-body">
             <p class="card-text">@Model.ElementAt(i).Description</p>
 
-            <button onclick="updateRecipeDetail(@Model[i].RecipeId)" type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Show Details">
+            <button onclick="updateRecipeDetail(@Model[i].RecipeId)" type="button" class="btn btn-save btn-sm" data-toggle="tooltip" data-placement="top" title="Show Details">
                 <i class="material-icons" style="font-size:20px">
                     details
                 </i>
             </button>
-            <button onclick="editRecipePage(@Model[i].RecipeId)" type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Edit Recipe">
+            <button onclick="editRecipePage(@Model[i].RecipeId)" type="button" class="btn btn-save btn-sm" data-toggle="tooltip" data-placement="top" title="Edit Recipe">
                 <i class="material-icons" style="font-size:20px">
                     edit
                 </i>
             </button>
-            <button onclick="addToCart(@Model[i].RecipeId)" type="button" class="btn btn-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Add to Cart">
+            <button onclick="addToCart(@Model[i].RecipeId)" type="button" class="btn btn-save btn-sm" data-toggle="tooltip" data-placement="top" title="Add to Cart">
                 <i class="material-icons" style="font-size:20px">
                     shopping_cart
                 </i>
             </button>
+            <button onclick="openNutritionInfo(@Model[i].RecipeId)" type="button" class="btn btn-save btn-sm" data-toggle="tooltip" data-placement="top" title="Show Nutrition Info">
+                <i class="material-icons" style="font-size:20px">
+                    info
+                </i>
+            </button>
         </div>
+    </div>
+    <div id="recipeNutritionView">
+        <!-- Modal Nutrition Detail-->
+        <div class="modal fade text-black" id="recipeNutritionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="z-index:5;">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="heading lead">
+                            <h4 class="modal-title" id="NutritionLabel">Loading Nutrition Information</h4>
+                        </p>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true" class="white-text">×</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="spinner-border"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script>

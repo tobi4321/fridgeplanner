@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FridgePlanner.Models;
+using FridgePlanner.Models.NutritionModels;
 using FridgePlanner.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -254,6 +255,46 @@ namespace FridgePlanner.Controllers
                 }
             }
             return Ok();
+        }
+
+        [HttpPost]
+        [Route("Recipe/GetNutritionInfo")]
+        public IActionResult GetNutritionInfo(int Id)
+        {
+            Recipe detail = _context.Recipes
+                .Include(r => r.RecipeItems)
+                .Include(r => r.RecipeSteps)
+                .Where(r => r.RecipeId == Id).First();
+
+            NutritionAPIResponse response = NutritionOutputForRecipe(detail);
+
+            // add the response to the viewmodel
+            NutritionViewModel viewModel = new NutritionViewModel() { Recipe = detail, NutritionResponse = response };
+
+
+            return View("RecipeNutritionPartial", viewModel);
+        }
+
+        public NutritionAPIResponse NutritionOutputForRecipe(Recipe recipe)
+        {
+            // Testing with Nutrition and Translator
+
+            // create Request Object 
+            NutritionRequest request = new NutritionRequest() { title = "Test Recipe" };
+            List<string> ingredients = new List<string>();
+
+            foreach (RecipeItem item in recipe.RecipeItems)
+            {
+                // Translate each item from german to english language and add the item to the ingredient list
+                ingredients.Add(item.Amount + " " + item.Unit + " " + Translator.TranslateText(item.Name, "de", "en"));
+            }
+            request.ingr = ingredients;
+            // initialize the NutritionApiHandler
+            NutritionApiHandler handler = new NutritionApiHandler();
+            // send the request and wait for response
+            NutritionAPIResponse response = handler.sendRequest(request);
+
+            return response;
         }
     }
 }

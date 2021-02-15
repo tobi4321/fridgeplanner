@@ -311,6 +311,22 @@ function updateRecipeStep(id, recipeId) {
         });
 }
 
+function openNutritionInfo(id) {
+    $("#recipeNutritionModal").modal();
+    $.ajax({
+        type: "Post",
+        url: "/Recipe/GetNutritionInfo/",
+        cache: false,
+        data: {
+            Id: id
+        }
+    }).done(function (recipeNutritionModal) {
+        $("#recipeNutritionView").html(recipeNutritionModal);
+        $('.modal-backdrop').hide();
+        $("#recipeNutritionModal").modal();
+    });
+}
+
 
 /* Open when someone clicks on the span element */
 function openNav() {
