@@ -19,7 +19,7 @@
     background-color: var(--primary-hover);
     border-radius: 18px;
     transition: .3s ease-in-out;
-    box-shadow: 0px 10px 10px #35353516;
+    box-shadow: 0px 10px 10px #353535;
     color: white;
 }
 .icon-large{
@@ -185,14 +185,21 @@ div.polaroid {
 }
 .fridge-scrollbar {
     position: relative;
-    height: 520px;
+    height: 720px;
     overflow: auto;
     scrollbar-width: thin; /* "auto" or "thin"  */
     scrollbar-color: light-gray white; /* scroll thumb & track */
 }
 .recipe-scrollbar {
     position: relative;
-    height: 273px;
+    height: 473px;
+    overflow: auto;
+    scrollbar-width: thin; /* "auto" or "thin"  */
+    scrollbar-color: light-gray white; /* scroll thumb & track */
+}
+.recipeList-scrollbar {
+    position: relative;
+    height: 560px;
     overflow: auto;
     scrollbar-width: thin; /* "auto" or "thin"  */
     scrollbar-color: light-gray white; /* scroll thumb & track */

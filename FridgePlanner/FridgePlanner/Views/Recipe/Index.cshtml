@@ -2,35 +2,36 @@
 @{
     ViewData["Title"] = "Recipe Page";
 }
-<div class="index_wrapper container-fluid">
-    <h2>Rezepte verwalten</h2>
-    <br />
-    <div class="left-column">
-        <div class="recipe-scrollbar my-custom-scrollbar-primary polaroid" style="height: 460px;">
+<h2>Rezepte verwalten</h2>
+<br />
+<div class="row">
+
+    <div class="col-lg-6 col-md-12 col-sm-12 col-xl-6">
+        <div class="recipeList-scrollbar polaroid">
             @await Html.PartialAsync("RecipeIndexTablePartial.cshtml", Model)
         </div>
-        <br />
-        <div class="row">
-            <div class="col-sm-3">
-                <a class="btn button-back" asp-controller="Home" asp-action="Index">Back to the Home Page</a>
-                <br />
-            </div>
-            <div class="col-sm-3">
-                <a data-toggle="modal" data-target="#addRecipeModal" class="btn button-primary" style="color:white; margin-left: 25px;">
-                    Rezept hinzufügen
-                </a>
-            </div>
-        </div>
     </div>
-    <div class="right-column">
+    <div class="col-lg-6 col-md-12 col-sm-12 col-xl-6">
         <div id="recipeDetail">
             @await Html.PartialAsync("RecipeDetailPartial.cshtml", Model[0])
         </div>
     </div>
 </div>
+<br />
+<div class="row">
+    <div class="col-2 align-content-start">
+        <a class="btn button-back" asp-controller="Home" asp-action="Index">Back to the Home Page</a>
+        <br />
+    </div>
+    <div class="col-2 align-content-start">
+        <a data-toggle="modal" data-target="#addRecipeModal" class="btn button-save" style="color:white; margin-left: 25px;">
+            Rezept hinzufügen
+        </a>
+    </div>
+</div>
 
 <!-- Modal Add Recipe-->
-<div class="modal fade" id="addRecipeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="z-index:5;">
+<div class="modal fade text-black" id="addRecipeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="z-index:5;">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -46,10 +47,10 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="md-form">
+                            <div class="md-form" style="margin-top:5px;">
                                 <input id="addRecipeName" type="text" class="form-control" placeholder="Enter the name" aria-describedby="basic-addon1">
                             </div>
-                            <div class="md-form">
+                            <div class="md-form" style="margin-top:5px;">
                                 <input id="addRecipeDescription" type="text" class="form-control" placeholder="Enter description" aria-describedby="basic-addon1">
                             </div>
                         </div>

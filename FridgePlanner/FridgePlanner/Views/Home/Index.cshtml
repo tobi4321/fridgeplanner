@@ -3,23 +3,23 @@
 }
 @model FridgePlanner.Models.ViewModels.IndexViewModel;
 
-<div class="index_wrapper container-fluid">
+<div class="row" style="height: 100%;">
 
-    <div class="left-column">
+    <div class="col-lg-6 col-md-12 col-sm-12 col-xl-6">
         <div style="text-align:left;">
             <h1>FridgeTable</h1>
             <br />
         </div>
 
-        <div class="fridge-scrollbar my-custom-scrollbar-primary polaroid">
-            <div id="FridgeList">
+        <div class="polaroid">
+            <div id="FridgeList" class="test fridge-scrollbar">
                 @await Html.PartialAsync("FridgeTablePartial.cshtml", Model.FridgeItems)
             </div>
         </div>
     </div>
 
 
-    <div class="right-column">
+    <div class="col-lg-6 col-md-12 col-sm-12 col-xl-6">
         <div class="row">
             <h1>Menü</h1>
             <br />
@@ -27,7 +27,7 @@
         <br />
         <div class="row">
             <div class="col-4">
-                <a data-toggle="modal" data-target="#addFridgeModal" class="btn button-primary btn-block nav-link middle-buttons" style="color:white;">
+                <a data-toggle="modal" data-target="#addFridgeModal" class="btn secondary btn-block nav-link middle-buttons text-white">
                     <span class="material-icons icon-large">
                         add
                     </span>
@@ -37,7 +37,7 @@
                 </a>
             </div>
             <div class="col-4">
-                <a asp-controller="Recipe" asp-action="Index" class="btn button-primary btn-block nav-link middle-buttons">
+                <a asp-controller="Recipe" asp-action="Index" class="btn secondary btn-block nav-link middle-buttons text-white">
                     <span class="material-icons icon-large">
                         receipt
                     </span>
@@ -47,7 +47,7 @@
                 </a>
             </div>
             <div class="col-4">
-                <a asp-controller="Shopping" asp-action="Index" class="btn button-primary btn-block nav-link middle-buttons">
+                <a asp-controller="Shopping" asp-action="Index" class="btn secondary btn-block nav-link middle-buttons text-white">
                     <span class="material-icons icon-large">
                         shopping_cart
                     </span>
@@ -61,8 +61,10 @@
 
         <h1>Rezepte</h1>
         <br />
-        <div class="recipe-scrollbar my-custom-scrollbar-primary polaroid">
-            @await Html.PartialAsync("RecipeTablePartial.cshtml", Model.Recipes)
+        <div class="polaroid">
+            <div class="test recipe-scrollbar">
+                @await Html.PartialAsync("RecipeTablePartial.cshtml", Model.Recipes)
+            </div>
         </div>
     </div>
 </div>
@@ -81,7 +83,7 @@
 </script>
 
 <!-- Modal Add FridgeItem-->
-<div class="modal fade" id="addFridgeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="z-index:5;">
+<div class="modal fade text-black" id="addFridgeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="z-index:5;">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -98,14 +100,13 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="md-form">
+                            <div class="md-form" style="margin-top:5px;">
                                 <input id="fridgeName" type="text" class="form-control" placeholder="Enter the name" aria-describedby="basic-addon1">
                             </div>
-                            <div class="md-form">
+                            <div class="md-form" style="margin-top:5px;">
                                 <input id="fridgeAmount" type="number" class="form-control" placeholder="Enter amount" aria-describedby="basic-addon1">
                             </div>
-                            <div class="md-form">
-                                <strong>Units</strong>
+                            <div class="md-form" style="margin-top:5px;">
                                 <select class="custom-select" id="fridgeUnit">
                                     @foreach (string units in Model.Units)
                                     {
@@ -120,7 +121,7 @@
                                     }
                                 </select>
                             </div>
-                            <div class="md-form">
+                            <div class="md-form" style="margin-top:5px;">
                                 <input id="fridgeExpireDate" type="date" class="form-control" placeholder="Pick ExpireDate" aria-describedby="basic-addon1">
                             </div>
                         </div>

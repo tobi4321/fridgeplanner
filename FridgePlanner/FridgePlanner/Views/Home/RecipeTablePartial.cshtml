@@ -5,24 +5,29 @@
 
     @for (int i = 0; i < Model.Count(); i++)
     {
-        <div class="tp_element row" style="margin-left: 30px;">
-            <p class="tp_name_text col-3">
-                @Model.ElementAt(i).Name
-            </p>
-            <p class="index-text col-7">
-                @Model.ElementAt(i).Description
-            </p>
-            <p class="index-text col-2">
-                <button onclick="showRecipeHomeDetail(@Model[i].RecipeId)" type="button" class="btn btn-primary btn-sm">
-                    <i class="material-icons" style="font-size:20px">
-                        description
-                    </i>
-                </button>
-                <button onclick="addToShoppingList(@Model[i].RecipeId)" type="button" class="btn btn-info btn-sm">
-                    <i class="material-icons" style="font-size:20px">
-                        add_shopping_cart
-                    </i>
-                </button>
-            </p>
+        <div class="tp_element row" style="margin-left: 25px;">
+            <div class="row" style="margin-left: 5px;">
+                <p class="tp_name_text col-6">
+                    @Model.ElementAt(i).Name
+                </p>
+                <p class="index-text col-6 text-right">
+                    <button onclick="showRecipeHomeDetail(@Model[i].RecipeId)" type="button" class="btn btn-primary btn-sm">
+                        <i class="material-icons" style="font-size:20px">
+                            description
+                        </i>
+                    </button>
+                    <button onclick="addToShoppingList(@Model[i].RecipeId)" type="button" class="btn btn-info btn-sm">
+                        <i class="material-icons" style="font-size:20px">
+                            add_shopping_cart
+                        </i>
+                    </button>
+                </p>
+            </div>
+            <div class="row" style="margin-left: 5px;">
+                <p class="index-text col-12">
+                    @Model.ElementAt(i).Description
+                </p>
+            </div>
+            
         </div>
     }

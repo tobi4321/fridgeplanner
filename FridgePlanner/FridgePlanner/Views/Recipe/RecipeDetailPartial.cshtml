@@ -2,17 +2,17 @@
 @{
     Layout = null;
 }
-<div class="recipe-detail">
+<div class="recipe-detail text-black">
     <div style="margin: 5px 5px 5px 5px;">
         <h2>@Model.Name</h2>
         <p>@Model.Description</p>
     </div>
-    <h4 style="margin-left: 5px;">Incredients</h4>
+    <h5 style="margin-left: 5px;">Incredients</h5>
     <div class="recipe-scrollbar" style="margin: 5px 5px 5px 5px; height: 160px;">
 
         @for (int i = 0; i < Model.RecipeItems.Count; i++)
         {
-            <div class="card" style="margin-top: 5px;">
+            <div class="card text-black" style="margin-top: 5px;">
                 <div class="card-body">
                     @Model.RecipeItems.ElementAt(i).Name
                     @Model.RecipeItems.ElementAt(i).Amount @Model.RecipeItems.ElementAt(i).Unit
@@ -20,7 +20,7 @@
             </div>
         }
     </div>
-    <h4 style="margin-left: 5px;">Steps</h4>
+    <h5 style="margin-left: 5px;">Steps</h5>
     <div class="recipe-scrollbar" style="margin: 5px 5px 5px 5px; margin-bottom: 15px; height: 200px;">
         @if (Model.RecipeSteps.Count > 0)
         {
@@ -30,7 +30,7 @@
                 {
                     @if (Model.RecipeSteps.ElementAt(i).StepNumber == j)
                     {
-                        <div class="card" style="margin-top: 5px;">
+                        <div class="card text-black" style="margin-top: 5px;">
                             <div class="card-header"> <b>@Model.RecipeSteps.ElementAt(i).StepNumber</b> @Model.RecipeSteps.ElementAt(i).Name</div>
                             <div class="card-body">
                                 @Model.RecipeSteps.ElementAt(i).Text
@@ -41,7 +41,7 @@
                 }
             }
         }
-        </div>
+    </div>
     <br />
 </div>
 
