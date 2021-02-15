@@ -210,5 +210,50 @@ namespace FridgePlanner.Controllers
 
             return View("RecipeDetailPartial", detail);
         }
+        [HttpPost]
+        [Route("Recipe/AddToCart")]
+        public IActionResult AddToCart(int Id)
+        {
+            Recipe toAdd = _context.Recipes
+                .Include(r => r.RecipeItems)
+                .Include(r => r.RecipeSteps)
+                .Where(r => r.RecipeId == Id).First();
+
+            List<ShoppingListItem> shopping_items = _context.ShoppingListItems.ToList();
+
+            for (int i = 0; i < toAdd.RecipeItems.Count; i++)
+            {
+                bool alreadyExists = false;
+                ShoppingListItem shoppingItem;
+                for (int j = 0; j < shopping_items.Count; j++)
+                {
+                    if (toAdd.RecipeItems.ElementAt(i).Name.Equals(shopping_items.ElementAt(j).Name))
+                    {
+                        alreadyExists = true;
+                        shoppingItem = shopping_items.ElementAt(j);
+                        if (toAdd.RecipeItems.ElementAt(i).Unit.Equals(shopping_items.ElementAt(j).Unit))
+                        {
+                            shoppingItem.Amount = shoppingItem.Amount + toAdd.RecipeItems.ElementAt(i).Amount;
+                        }
+                        else
+                        {
+                            shoppingItem.Amount = shoppingItem.Amount + UnitParser.ParseToUnit(shoppingItem.Unit,toAdd.RecipeItems.ElementAt(i).Amount);
+                        }
+                        j =shopping_items.Count;
+                    } 
+                }
+                if (alreadyExists)
+                {
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    ShoppingListItem newItem = new ShoppingListItem() { Name = toAdd.RecipeItems.ElementAt(i).Name, Amount = toAdd.RecipeItems.ElementAt(i).Amount, Unit = toAdd.RecipeItems.ElementAt(i).Unit};
+                    _context.ShoppingListItems.Add(newItem);
+                    _context.SaveChanges();
+                }
+            }
+            return Ok();
+        }
     }
 }

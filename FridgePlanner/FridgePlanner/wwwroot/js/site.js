@@ -160,6 +160,18 @@ function updateRecipeDetail(id) {
         $("#recipeDetail").html(recipeDetailPartial);
     });
 }
+function addToCart(id) {
+    $.ajax({
+        type: "Post",
+        url: "/Recipe/AddToCart/",
+        cache: false,
+        data: {
+            Id: id
+        }
+    }).done(function () {
+        $("#recipeToCartModal").modal()
+    });
+}
 function showRecipeHomeDetail(id) {
     $.ajax({
         type: "Post",

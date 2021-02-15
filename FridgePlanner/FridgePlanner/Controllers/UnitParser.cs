@@ -27,6 +27,26 @@ namespace FridgePlanner.Controllers
             double l = ml / 1000;
             return l;
         }
+        public static double ParseToUnit(string Unit, double Input)
+        {
+            double Output = 0.0;
+
+            switch (Unit) {
+                case "Kg":
+                    Output = GToKg(Input);
+                    break;
+                case "g":
+                    Output = KgToG(Input);
+                    break;
+                case "L":
+                    Output = MlToL(Input);
+                    break;
+                case "Ml":
+                    Output = LToMl(Input);
+                    break;
+            }
+            return Output;
+        }
 
     }
 }
