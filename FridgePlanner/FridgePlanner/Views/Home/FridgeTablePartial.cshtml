@@ -4,40 +4,43 @@
 }
 @for (int i = 0; i < Model.Count(); i++)
 {
-<div class="tp_element row" style="margin-left: 30px; background-color: @(Model.ElementAt(i).ExpiryDate.Subtract(DateTime.Today).TotalDays < 5 ? "coral" : "lightgreen")">
-    <p class="tp_name_text col-5">
+<div class="tp_element row" style="margin-left: 15px; margin-right: 15px; background-color: @(Model.ElementAt(i).ExpiryDate.Subtract(DateTime.Today).TotalDays < 5 ? "tomato" : "yellowgreen")">
+    <p class="tp_name_text col-4 text-white">
         @Model.ElementAt(i).Name
     </p>
-    <p class="index-text col-3">
+    <p class="index-text col-2 text-white">
+        @Model.ElementAt(i).Amount @Model.ElementAt(i).Unit
+    </p>
+    <p class="index-text col-2 text-white">
         @Model.ElementAt(i).ExpiryDate.Subtract(DateTime.Today).TotalDays Days
     </p>
-    <p class="index-text col-2">
-        <button onclick="editFridgeItem(@Model[i].Id)" type="button" class="btn button-edit btn-sm">
+    <p class="index-text col-1 text-white">
+        <button onclick="editFridgeItem(@Model[i].Id)" type="button" class="btn btn-warning btn-sm">
             <i class="material-icons" style="font-size:20px">
                 edit
             </i>
         </button>
     </p>
-    <p class="index-text col-2">
-        <button type="button" class="btn button-delete btn-sm" data-toggle="modal" data-target="#modalDeleteFridgeItem@(Model[i].Id)">
+    <p class="index-text col-1 text-white">
+        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalDeleteFridgeItem@(Model[i].Id)">
             <i class="material-icons" style="font-size:20px">
                 delete_forever
             </i>
         </button>
     </p>
     <!-- Modal Delete Fridge Item-->
-    <div class="modal fade" id="modalDeleteFridgeItem@(Model[i].Id)" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="modalDeleteFridgeItem@(Model[i].Id)" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="false">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Delete Fridge Item</h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle">Artikel aus Kühlschrank entfernen</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <p>Are you sure that this Fridge Item should be deleted permanently</p>
-                    <button onclick="deleteFridgeItem(@Model[i].Id)" type="button" data-dismiss="modal" class="btn button-delete">Delete</button>
+                    <p>Bist du sicher, dass du diesen Artikel permanent entfernen möchtest?</p>
+                    <button onclick="deleteFridgeItem(@Model[i].Id)" type="button" data-dismiss="modal" class="btn button-delete">Löschen</button>
                     <button type="button" class="btn button-back" data-dismiss="modal">Close</button>
                 </div>
             </div>

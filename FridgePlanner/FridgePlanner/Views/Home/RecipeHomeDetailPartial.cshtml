@@ -3,7 +3,7 @@
     Layout = null;
 }
 <!-- The Modal -->
-<div class="modal fade" id="recipeDetailModal" style="z-index:5;">
+<div class="modal fade" id="recipeDetailModal" style="z-index:5;" data-backdrop="false">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
 
@@ -21,7 +21,7 @@
                     @Model.Description
                 </p>
                 <br />
-                <h3 style="margin-left: 5px;">Incredients</h3>
+                <h3 style="margin-left: 5px;">Zutaten</h3>
                 <div class="recipeModal-scrollbar" style="margin: 5px 5px 5px 5px;">
 
                     @for (int i = 0; i < Model.RecipeItems.Count; i++)
@@ -34,7 +34,7 @@
                         </div>
                     }
                 </div>
-                <h3 style="margin-left: 5px;">Steps</h3>
+                <h3 style="margin-left: 5px;">Zubereitungsschritte</h3>
                 <div class="recipeModal-scrollbar" style="margin: 5px 5px 5px 5px; margin-bottom: 15px;">
 
                     @for (int j = 1; j <= Model.RecipeSteps.Max(x => x.StepNumber); j++)

@@ -6,8 +6,9 @@
 <div class="row" style="height: 100%;">
 
     <div class="col-lg-6 col-md-12 col-sm-12 col-xl-6">
+        
         <div style="text-align:left;">
-            <h1>FridgeTable</h1>
+            <h1>Vorräte</h1>
             <br />
         </div>
 
@@ -16,18 +17,21 @@
                 @await Html.PartialAsync("FridgeTablePartial.cshtml", Model.FridgeItems)
             </div>
         </div>
+
+        <br />
     </div>
 
 
     <div class="col-lg-6 col-md-12 col-sm-12 col-xl-6">
-        <div class="row">
-            <h1>Menü</h1>
+
+        <div style="text-align:left;">
+            <h1>Navigation</h1>
             <br />
         </div>
-        <br />
+
         <div class="row">
             <div class="col-4">
-                <a data-toggle="modal" data-target="#addFridgeModal" class="btn secondary btn-block nav-link middle-buttons text-white">
+                <a data-toggle="modal" data-target="#addFridgeModal" class="btn btn-success btn-block nav-link middle-buttons text-white">
                     <span class="material-icons icon-large">
                         add
                     </span>
@@ -36,8 +40,9 @@
                     </p>
                 </a>
             </div>
+
             <div class="col-4">
-                <a asp-controller="Recipe" asp-action="Index" class="btn secondary btn-block nav-link middle-buttons text-white">
+                <a asp-controller="Recipe" asp-action="Index" class="btn btn-success btn-block nav-link middle-buttons text-white">
                     <span class="material-icons icon-large">
                         receipt
                     </span>
@@ -47,7 +52,7 @@
                 </a>
             </div>
             <div class="col-4">
-                <a asp-controller="Shopping" asp-action="Index" class="btn secondary btn-block nav-link middle-buttons text-white">
+                <a asp-controller="Shopping" asp-action="Index" class="btn btn-success btn-block nav-link middle-buttons text-white">
                     <span class="material-icons icon-large">
                         shopping_cart
                     </span>
@@ -59,13 +64,17 @@
         </div>
         <br />
 
-        <h1>Rezepte</h1>
-        <br />
+        <div style="text-align:left;">
+            <h1>Rezepte</h1>
+            <br />
+        </div>
+
         <div class="polaroid">
             <div class="test recipe-scrollbar">
                 @await Html.PartialAsync("RecipeTablePartial.cshtml", Model.Recipes)
             </div>
         </div>
+        <br />
     </div>
 </div>
 <div id="recipeDetailView">
@@ -83,7 +92,7 @@
 </script>
 
 <!-- Modal Add FridgeItem-->
-<div class="modal fade text-black" id="addFridgeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="z-index:5;">
+<div class="modal fade text-black" id="addFridgeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="z-index:5;" data-backdrop="false">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -101,10 +110,10 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="md-form" style="margin-top:5px;">
-                                <input id="fridgeName" type="text" class="form-control" placeholder="Enter the name" aria-describedby="basic-addon1">
+                                <input id="fridgeName" type="text" class="form-control" placeholder="Name eingeben" aria-describedby="basic-addon1">
                             </div>
                             <div class="md-form" style="margin-top:5px;">
-                                <input id="fridgeAmount" type="number" class="form-control" placeholder="Enter amount" aria-describedby="basic-addon1">
+                                <input id="fridgeAmount" type="number" class="form-control" placeholder="Menge eingeben" aria-describedby="basic-addon1">
                             </div>
                             <div class="md-form" style="margin-top:5px;">
                                 <select class="custom-select" id="fridgeUnit">
@@ -122,7 +131,7 @@
                                 </select>
                             </div>
                             <div class="md-form" style="margin-top:5px;">
-                                <input id="fridgeExpireDate" type="date" class="form-control" placeholder="Pick ExpireDate" aria-describedby="basic-addon1">
+                                <input id="fridgeExpireDate" type="date" class="form-control" placeholder="Haltbarkeitsdatum wählen" aria-describedby="basic-addon1">
                             </div>
                         </div>
                     </div>
@@ -130,8 +139,8 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-back" data-dismiss="modal">Close</button>
-                <button onclick="addFridgeItem()" type="button" data-dismiss="modal" class="btn button-save">Lebensmittel hinzufügen</button>
+                <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                <button onclick="addFridgeItem()" type="button" data-dismiss="modal" class="btn btn-success">Lebensmittel hinzufügen</button>
             </div>
         </div>
     </div>

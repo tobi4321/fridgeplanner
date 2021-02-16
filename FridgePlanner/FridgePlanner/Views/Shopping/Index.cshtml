@@ -3,7 +3,7 @@
     ViewData["Title"] = "Shopping Page";
 }
 <div id="ShoppingList">
-    <div class="index_wrapper container-fluid">
+    <div class="index_wrapper">
         <h2>Shopping Liste</h2>
         <br />
         <div class="row">
@@ -13,43 +13,47 @@
             </div>
             <div class="col-4">
 
-                <a data-toggle="modal" data-target="#addShoppingModal" class="btn button-primary" style="color:white;">
-                    <span class="material-icons">
+                <a data-toggle="modal" data-target="#addShoppingModal" class="btn btn-success btn-block" style="color:white;">
+                    <span class="material-icons icon-large">
                         add
                     </span>
                     <p class="button-text">
                         Artikel hinzufügen
                     </p>
                 </a>
-
+                <hr />
                 <br />
-                @{
-                    if (Model != null)
-                    {
-                        <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.QrCodeData))" style="height:250px; margin-left: 40px; margin-top: 100px;" />
+                <div class="text-center">
+                    @{
+                        if (Model != null)
+                        {
+                            <h5>Scan with Apple IPhone Shortcut</h5>
+                            <br />
+                            <img src="@String.Format("data:image/png;base64,{0}", Convert.ToBase64String(Model.QrCodeData))" style="height:250px;" class="center" />
+                        }
+                        else
+                        {
+                            <h4>No Data available, Model is empty</h4>
+                        }
                     }
-                    else
-                    {
-                        <h4>No Data available, Model is empty</h4>
-                    }
-                }
+                </div>
+               
             </div>
-
-
         </div>
         <br />
         <div class="row">
             <div class="col-sm-3">
-                <a class="btn button-back" asp-controller="Home" asp-action="Index">Back to the Home Page</a>
+                <a class="btn btn-dark" asp-controller="Home" asp-action="Index">Back to the Home Page</a>
                 <br />
             </div>
         </div>
+        <br />
     </div>
 </div>
 
 
 <!-- Modal Add ShoppingItem-->
-<div class="modal fade" id="addShoppingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="z-index:5;">
+<div class="modal fade" id="addShoppingModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="z-index:5;" data-backdrop="false">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">

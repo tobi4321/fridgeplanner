@@ -1,15 +1,15 @@
-﻿@Model  List<NutritionViewModel>
+﻿@Model  FridgePlanner.Models.ViewModels.NutritionViewModel
 @{
     Layout = null;
 }
 
 <!-- Modal Nutrition Detail-->
-<div class="modal fade text-black" id="recipeNutritionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="z-index:5;">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+<div class="modal text-black" id="recipeNutritionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="z-index:5;" data-backdrop="false">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <p class="heading lead">
-                    <h4 class="modal-title" id="NutritionLabel">Nutrition Information</h4>
+                    <h4 class="modal-title" id="NutritionLabel">Nährwerte des Rezepts</h4>
                 </p>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true" class="white-text">×</span>
@@ -18,12 +18,23 @@
 
 
             <div class="modal-body">
-
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
+                        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
+                        <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">blablablablablablablabla</div>
+                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">blibliblibliblibliblibliblibli</div>
+                    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">bloblobloblobloblobloblobloblo</div>
+                </div>
             </div>
 
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-back" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>

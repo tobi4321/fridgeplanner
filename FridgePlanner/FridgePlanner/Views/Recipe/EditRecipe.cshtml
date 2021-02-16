@@ -2,13 +2,13 @@
 @{
     ViewData["Title"] = "Add Recipe Page";
 }
-<div class="index_wrapper container-fluid">
+<div class="index_wrapper container-fluid text-black">
     <h2>Rezept editieren</h2>
     <br />
     <div class="card" style="margin-top: 5px;">
         <div class="card-header">
             <b>@Model.RecipeElement.Name</b>
-            <a data-toggle="modal" data-target="#editRecipeModal" class="btn button-primary float-right" style="color:white;">
+            <a data-toggle="modal" data-target="#editRecipeModal" class="btn button-save float-right">
                 <span class="material-icons">
                     edit
                 </span>
@@ -20,7 +20,7 @@
     </div>
     <br />
     <div class="left-column">
-        <a data-toggle="modal" data-target="#addRecipeItemModal" class="btn button-primary" style="color:white;">
+        <a data-toggle="modal" data-target="#addRecipeItemModal" class="btn btn-success">
             Zutat hinzufügen
         </a>
         <div class="recipeEdit-scrollbar" style="margin: 5px 5px 5px 0px;">
@@ -32,19 +32,43 @@
                         <div class="card-body">
                             @Model.RecipeElement.RecipeItems.ElementAt(i).Name
                             @Model.RecipeElement.RecipeItems.ElementAt(i).Amount @Model.RecipeElement.RecipeItems.ElementAt(i).Unit
-                            <a data-toggle="modal" data-target="#editRecipeItemModal@(i)" class="btn button-primary float-right" style="color:white;">
+
+                            <a data-toggle="modal" data-target="#modalDeleteRecipeItem@(Model.RecipeElement.RecipeItems.ElementAt(i).Id)" class="btn btn-danger float-right" style="color:white;">
+                                <span class="material-icons">
+                                    delete_forever
+                                </span>
+                            </a>
+                            <!-- Modal Delete Recipe Item-->
+                            <div class="modal fade" id="modalDeleteRecipeItem@(Model.RecipeElement.RecipeItems.ElementAt(i).Id)" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="false">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLongTitle">Zutat aus Rezept entfernen</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Bist du sicher, dass du diese Zutat löschen möchtest?</p>
+                                            <button onclick="deleteRecipeItem(@Model.RecipeElement.RecipeId,@Model.RecipeElement.RecipeItems.ElementAt(i).Id)" type="button" data-dismiss="modal" class="btn btn-danger">Löschen</button>
+                                            <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a data-toggle="modal" data-target="#editRecipeItemModal@(i)" class="btn btn-warning float-right mr-1" style="color:white;">
                                 <span class="material-icons">
                                     edit
                                 </span>
                             </a>
                             <!-- Modal Edit recipe Item-->
-                            <div class="modal fade" id="editRecipeItemModal@(i)" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal fade" id="editRecipeItemModal@(i)" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="false">
                                 <div class="modal-dialog modal-dialog-centered" role="document">
                                     <div class="modal-content">
 
                                         <div class="modal-header">
                                             <p class="heading lead">
-                                                <h4 class="modal-title" id="editRecipeItemLabel">Edit Recipe Item</h4>
+                                                <h4 class="modal-title" id="editRecipeItemLabel">Zutat ändern</h4>
                                             </p>
 
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -58,17 +82,17 @@
 
                                                         <div class="md-form">
                                                             <strong>Name</strong>
-                                                            <input id="recipeItemEditName" type="text" value="@Model.RecipeElement.RecipeItems.ElementAt(i).Name" class="form-control" placeholder="RecipeItem Name" aria-label="Exercisename" aria-describedby="basic-addon1">
+                                                            <input id="recipeItemEditName" type="text" value="@Model.RecipeElement.RecipeItems.ElementAt(i).Name" class="form-control" placeholder="Zutat" aria-label="Exercisename" aria-describedby="basic-addon1">
                                                         </div>
                                                         <br />
                                                         <div class="md-form">
-                                                            <strong>Amount</strong>
-                                                            <input id="recipeItemEditAmount" type="number" value="@Model.RecipeElement.RecipeItems.ElementAt(i).Amount" class="form-control" placeholder="Amount" aria-label="Exercisename" aria-describedby="basic-addon1">
+                                                            <strong>Menge</strong>
+                                                            <input id="recipeItemEditAmount" type="number" value="@Model.RecipeElement.RecipeItems.ElementAt(i).Amount" class="form-control" placeholder="Menge" aria-label="Exercisename" aria-describedby="basic-addon1">
                                                         </div>
 
                                                         <br />
                                                         <div class="md-form">
-                                                            <strong>Units</strong>
+                                                            <strong>Einheit</strong>
                                                             <select class="custom-select" id="recipeItemEditUnit">
                                                                 @foreach (string category in Model.Units)
                                                                 {
@@ -90,31 +114,8 @@
 
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button onclick="updateRecipeItem(@Model.RecipeElement.RecipeItems.ElementAt(i).Id,@Model.RecipeElement.RecipeId)" type="button" data-dismiss="modal" class="btn btn-primary">Zutat speichern</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a data-toggle="modal" data-target="#modalDeleteRecipeItem@(Model.RecipeElement.RecipeItems.ElementAt(i).Id)" class="btn button-delete float-right" style="color:white;">
-                                <span class="material-icons">
-                                    delete_forever
-                                </span>
-                            </a>
-                            <!-- Modal Delete Recipe Item-->
-                            <div class="modal fade" id="modalDeleteRecipeItem@(Model.RecipeElement.RecipeItems.ElementAt(i).Id)" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLongTitle">Delete Fridge Item</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p>Are you sure that this Recipe Item should be deleted permanently</p>
-                                            <button onclick="deleteRecipeItem(@Model.RecipeElement.RecipeId,@Model.RecipeElement.RecipeItems.ElementAt(i).Id)" type="button" data-dismiss="modal" class="btn button-delete">Delete</button>
-                                            <button type="button" class="btn button-back" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                                            <button onclick="updateRecipeItem(@Model.RecipeElement.RecipeItems.ElementAt(i).Id,@Model.RecipeElement.RecipeId)" type="button" data-dismiss="modal" class="btn btn-success">Zutat speichern</button>
                                         </div>
                                     </div>
                                 </div>
@@ -127,20 +128,20 @@
             {
                 <div class="card" style="margin-top: 5px;">
                     <div class="card-body">
-                        No incredients found to that recipe.
+                        Bisher sind keine Zutaten in diesem Rezept vorhanden.
                     </div>
                 </div>
             }
         </div>
         <div class="row">
             <div class="col-sm-3">
-                <a class="btn button-back" asp-controller="Recipe" asp-action="Index">Back to the Recipe Page</a>
+                <a class="btn btn-dark" asp-controller="Recipe" asp-action="Index">Rezept Übersicht</a>
                 <br />
             </div>
         </div>
     </div>
     <div class="right-column">
-        <a data-toggle="modal" data-target="#addRecipeStepModal" class="btn button-primary" style="color:white;">
+        <a data-toggle="modal" data-target="#addRecipeStepModal" class="btn btn-success">
             Zubereitungsschritt hinzufügen
         </a>
         <div class="recipeEdit-scrollbar" style="margin: 5px 5px 5px 0px; margin-bottom: 15px;">
@@ -156,13 +157,38 @@
                                 <div class="card-header"> <b>@Model.RecipeElement.RecipeSteps.ElementAt(i).StepNumber</b> @Model.RecipeElement.RecipeSteps.ElementAt(i).Name</div>
                                 <div class="card-body">
                                     @Model.RecipeElement.RecipeSteps.ElementAt(i).Text
-                                    <a data-toggle="modal" data-target="#editRecipeStepModal@(i)" class="btn button-primary float-right" style="color:white;">
+
+                                    <a data-toggle="modal" data-target="#modalDeleteRecipeStep@(Model.RecipeElement.RecipeSteps.ElementAt(i).RecipeStepId)" class="btn btn-danger float-right" style="color:white;">
+                                        <span class="material-icons">
+                                            delete_forever
+                                        </span>
+                                    </a>
+                                    <!-- Modal Delete Recipe Step-->
+                                    <div class="modal fade" id="modalDeleteRecipeStep@(Model.RecipeElement.RecipeSteps.ElementAt(i).RecipeStepId)" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="false">
+                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLongTitle">Zubereitungsschritt löschen</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p>Bist du sicher, dass du diesen Zubereitungsschritt löschen möchtest?</p>
+                                                    <button onclick="deleteRecipeStep(@Model.RecipeElement.RecipeId,@Model.RecipeElement.RecipeSteps.ElementAt(i).RecipeStepId)" type="button" data-dismiss="modal" class="btn btn-danger">Löschen</button>
+                                                    <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <a data-toggle="modal" data-target="#editRecipeStepModal@(i)" class="btn btn-warning float-right mr-1" style="color:white;">
                                         <span class="material-icons">
                                             edit
                                         </span>
                                     </a>
                                     <!-- Modal Edit RecipeStep-->
-                                    <div class="modal fade" id="editRecipeStepModal@(i)" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="z-index:5;">
+                                    <div class="modal fade" id="editRecipeStepModal@(i)" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="z-index:5;" data-backdrop="false">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -180,13 +206,13 @@
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <div class="md-form">
-                                                                    <input id="recipeStepEditName" type="text" value="@Model.RecipeElement.RecipeSteps.ElementAt(i).Name" class="form-control" placeholder="Enter the name" aria-describedby="basic-addon1">
+                                                                    <input id="recipeStepEditName" type="text" value="@Model.RecipeElement.RecipeSteps.ElementAt(i).Name" class="form-control" placeholder="Name des Zubereitungsschritts" aria-describedby="basic-addon1">
                                                                 </div>
                                                                 <div class="md-form">
-                                                                    <input id="recipeStepEditNumber" type="number" value="@Model.RecipeElement.RecipeSteps.ElementAt(i).StepNumber" class="form-control" placeholder="Enter step number" aria-describedby="basic-addon1">
+                                                                    <input id="recipeStepEditNumber" type="number" value="@Model.RecipeElement.RecipeSteps.ElementAt(i).StepNumber" class="form-control" placeholder="Schrittnummer" aria-describedby="basic-addon1">
                                                                 </div>
                                                                 <div class="md-form">
-                                                                    <input id="recipeStepEditText" type="text" value="@Model.RecipeElement.RecipeSteps.ElementAt(i).Text" class="form-control" placeholder="Enter the text" aria-describedby="basic-addon1">
+                                                                    <input id="recipeStepEditText" type="text" value="@Model.RecipeElement.RecipeSteps.ElementAt(i).Text" class="form-control" placeholder="Text" aria-describedby="basic-addon1">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -194,31 +220,8 @@
 
                                                 </div>
                                                 <div class="modal-footer">
-                                                    <button type="button" class="btn btn-back" data-dismiss="modal">Close</button>
-                                                    <button onclick=" updateRecipeStep(@Model.RecipeElement.RecipeSteps.ElementAt(i).RecipeStepId,@Model.RecipeElement.RecipeId)" type="button" data-dismiss="modal" class="btn button-save">Zubereitungsschritt speichern</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <a data-toggle="modal" data-target="#modalDeleteRecipeStep@(Model.RecipeElement.RecipeSteps.ElementAt(i).RecipeStepId)" class="btn button-delete float-right" style="color:white;">
-                                        <span class="material-icons">
-                                            delete_forever
-                                        </span>
-                                    </a>
-                                    <!-- Modal Delete Recipe Item-->
-                                    <div class="modal fade" id="modalDeleteRecipeStep@(Model.RecipeElement.RecipeSteps.ElementAt(i).RecipeStepId)" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLongTitle">Delete Fridge Item</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <p>Are you sure that this Recipe Step should be deleted permanently</p>
-                                                    <button onclick="deleteRecipeStep(@Model.RecipeElement.RecipeId,@Model.RecipeElement.RecipeSteps.ElementAt(i).RecipeStepId)" type="button" data-dismiss="modal" class="btn button-delete">Delete</button>
-                                                    <button type="button" class="btn button-back" data-dismiss="modal">Close</button>
+                                                    <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                                                    <button onclick=" updateRecipeStep(@Model.RecipeElement.RecipeSteps.ElementAt(i).RecipeStepId,@Model.RecipeElement.RecipeId)" type="button" data-dismiss="modal" class="btn btn-success">Zubereitungsschritt speichern</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -232,9 +235,9 @@
             else
             {
                 <div class="card" style="margin-top: 5px;">
-                    <div class="card-header"> No Step found</div>
+                    <div class="card-header">Keine Zubereitungsschritte gefunden.</div>
                     <div class="card-body">
-                        There is no step in the database. Create on...
+                        Es wurde kein Zubereitungsschritt für dieses Rezept gefunden. Erstelle einen...
                     </div>
                 </div>
             }
@@ -243,7 +246,7 @@
 </div>
 
 <!-- Modal Edit Recipe-->
-<div class="modal fade" id="editRecipeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="z-index:5;">
+<div class="modal fade" id="editRecipeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="z-index:5;" data-backdrop="false">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -261,10 +264,10 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="md-form">
-                                <input id="editRecipeName" type="text" value="@Model.RecipeElement.Name" class="form-control" placeholder="Enter the name" aria-describedby="basic-addon1">
+                                <input id="editRecipeName" type="text" value="@Model.RecipeElement.Name" class="form-control" placeholder="Name des Rezepts" aria-describedby="basic-addon1">
                             </div>
                             <div class="md-form">
-                                <input id="editRecipeDescription" type="text" value="@Model.RecipeElement.Description" class="form-control" placeholder="Enter amount" aria-describedby="basic-addon1">
+                                <input id="editRecipeDescription" type="text" value="@Model.RecipeElement.Description" class="form-control" placeholder="Rezeptbeschreibung" aria-describedby="basic-addon1">
                             </div>
                         </div>
                     </div>
@@ -272,15 +275,15 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-back" data-dismiss="modal">Close</button>
-                <button onclick="editRecipe(@Model.RecipeElement.RecipeId)" type="button" data-dismiss="modal" class="btn button-save">Änderungen übernehmen</button>
+                <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                <button onclick="editRecipe(@Model.RecipeElement.RecipeId)" type="button" data-dismiss="modal" class="btn btn-success">Änderungen übernehmen</button>
             </div>
         </div>
     </div>
 </div>
 
 <!-- Modal Add RecipeItem-->
-<div class="modal fade" id="addRecipeItemModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="z-index:5;">
+<div class="modal fade" id="addRecipeItemModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="z-index:5;" data-backdrop="false">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -298,13 +301,13 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="md-form">
-                                <input id="recipeItemName" type="text" class="form-control" placeholder="Enter the name" aria-describedby="basic-addon1">
+                                <input id="recipeItemName" type="text" class="form-control" placeholder="Name der Zutat" aria-describedby="basic-addon1">
                             </div>
                             <div class="md-form">
-                                <input id="recipeItemAmount" type="number" class="form-control" placeholder="Enter amount" aria-describedby="basic-addon1">
+                                <input id="recipeItemAmount" type="number" class="form-control" placeholder="Menge" aria-describedby="basic-addon1">
                             </div>
                             <div class="md-form">
-                                <strong>Units</strong>
+                                <strong>Einheit</strong>
                                 <select class="custom-select" id="recipeItemUnit">
                                     @foreach (string units in Model.Units)
                                     {
@@ -325,20 +328,20 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-back" data-dismiss="modal">Close</button>
-                <button onclick="addRecipeItem(@Model.RecipeElement.RecipeId)" type="button" data-dismiss="modal" class="btn button-save">Lebensmittel hinzufügen</button>
+                <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                <button onclick="addRecipeItem(@Model.RecipeElement.RecipeId)" type="button" data-dismiss="modal" class="btn btn-success">Lebensmittel hinzufügen</button>
             </div>
         </div>
     </div>
 </div>
 
 <!-- Modal Add RecipeStep-->
-<div class="modal fade" id="addRecipeStepModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="z-index:5;">
+<div class="modal fade" id="addRecipeStepModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="z-index:5;" data-backdrop="false">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <p class="heading lead">
-                    <h4 class="modal-title" id="addRecipeStepLabel">Schritt hinzufügen</h4>
+                    <h4 class="modal-title" id="addRecipeStepLabel">Zubereitungsschritt hinzufügen</h4>
                 </p>
 
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -351,13 +354,13 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="md-form">
-                                <input id="recipeStepName" type="text" class="form-control" placeholder="Enter the name" aria-describedby="basic-addon1">
+                                <input id="recipeStepName" type="text" class="form-control" placeholder="Name des Zubereitungsschritts" aria-describedby="basic-addon1">
                             </div>
                             <div class="md-form">
-                                <input id="recipeStepNumber" type="number" class="form-control" placeholder="Enter step number" aria-describedby="basic-addon1">
+                                <input id="recipeStepNumber" type="number" class="form-control" placeholder="Reihenfolgenummer" aria-describedby="basic-addon1">
                             </div>
                             <div class="md-form">
-                                <input id="recipeStepText" type="text" class="form-control" placeholder="Enter the text" aria-describedby="basic-addon1">
+                                <input id="recipeStepText" type="text" class="form-control" placeholder="Beschreibung des Zubereitungsschritts" aria-describedby="basic-addon1">
                             </div>
                         </div>
                     </div>
@@ -365,8 +368,8 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-back" data-dismiss="modal">Close</button>
-                <button onclick="addRecipeStep(@Model.RecipeElement.RecipeId)" type="button" data-dismiss="modal" class="btn button-save">Lebensmittel hinzufügen</button>
+                <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                <button onclick="addRecipeStep(@Model.RecipeElement.RecipeId)" type="button" data-dismiss="modal" class="btn btn-success">Lebensmittel hinzufügen</button>
             </div>
         </div>
     </div>

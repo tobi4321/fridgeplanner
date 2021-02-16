@@ -312,7 +312,7 @@ function updateRecipeStep(id, recipeId) {
 }
 
 function openNutritionInfo(id) {
-    $("#recipeNutritionModal").modal();
+    $('#waitModal').modal('show');
     $.ajax({
         type: "Post",
         url: "/Recipe/GetNutritionInfo/",
@@ -323,7 +323,8 @@ function openNutritionInfo(id) {
     }).done(function (recipeNutritionModal) {
         $("#recipeNutritionView").html(recipeNutritionModal);
         $('.modal-backdrop').hide();
-        $("#recipeNutritionModal").modal();
+        $('#waitModal').modal('hide');
+        $('#recipeNutritionModal').modal('show');
     });
 }
 
