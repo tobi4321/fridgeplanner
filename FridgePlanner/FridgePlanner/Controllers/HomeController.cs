@@ -63,8 +63,7 @@ namespace FridgePlanner.Controllers
         [Route("Home/GetItems")]
         public async Task<ActionResult<IEnumerable<FridgeItem>>> GetItems()
         {
-            return await _context.FridgeItems
-                .ToListAsync();
+            return await _context.FridgeItems.ToListAsync();
         }
 
         [HttpPost]
@@ -119,13 +118,6 @@ namespace FridgePlanner.Controllers
             IndexViewModel model = new IndexViewModel { FridgeItems = fridgeItems, Recipes = recipes , Units = units};
 
             return model;
-        }
-
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

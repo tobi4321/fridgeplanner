@@ -1,4 +1,4 @@
-﻿using FridgePlanner.Controllers;
+﻿using FridgePlanner.Utility;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,7 +8,6 @@ namespace FridgePlannerTesting
 {
     public class UnitParserTest
     {
-
         [Fact]
         public void ConvertLiterToMl()
         {
@@ -57,5 +56,43 @@ namespace FridgePlannerTesting
             // Assert
             Assert.Equal(1.65, kg);
         }
+        [Fact]
+        public void ConvertGToKgWithParser()
+        {
+            // Arrange
+            double g = 1650.0;
+
+            // Act
+            double kg = (double)UnitParser.ParseToUnit("Kg",g);
+
+            // Assert
+            Assert.Equal(1.65, kg);
+        }
+        [Fact]
+        public void ConvertKgToGWithParser()
+        {
+            // Arrange
+            double kg = 1.650;
+
+            // Act
+            double g = (double)UnitParser.ParseToUnit("g",kg);
+
+            // Assert
+            Assert.Equal(1650.0, g);
+        }
+        [Fact]
+        public void WrongParserInputReturnNull()
+        {
+            // Arrange
+            double kg = 1.650;
+
+            // Act
+            var g = UnitParser.ParseToUnit("fail", kg);
+
+            // Assert
+            Assert.Null(g);
+        }
+
+
     }
 }

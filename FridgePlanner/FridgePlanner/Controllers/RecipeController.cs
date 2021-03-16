@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using FridgePlanner.Models;
 using FridgePlanner.Models.NutritionModels;
 using FridgePlanner.Models.ViewModels;
+using FridgePlanner.Utility;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -238,7 +239,7 @@ namespace FridgePlanner.Controllers
                         }
                         else
                         {
-                            shoppingItem.Amount = shoppingItem.Amount + UnitParser.ParseToUnit(shoppingItem.Unit,toAdd.RecipeItems.ElementAt(i).Amount);
+                            shoppingItem.Amount = shoppingItem.Amount + (double)UnitParser.ParseToUnit(shoppingItem.Unit,toAdd.RecipeItems.ElementAt(i).Amount);
                         }
                         j =shopping_items.Count;
                     } 

@@ -4,23 +4,24 @@ using System.Text;
 using QRCoder;
 using Xunit;
 using System.Drawing;
-using FridgePlanner.Controllers;
+using FridgePlanner.Utility;
 
 namespace FridgePlannerTesting
 {
     public class QRGeneratorTest
     {
-        public void QrCodeGeneratorGeneratesCorrectCode()
+        [Fact]
+        public void QrCodeGeneratorMultipleInputsWithSameOutput()
         {
             // Arrange 
-            //string inputText = "ShoppingList \n - Tomate\n -Brot";
+            string inputText = "ShoppingList \n - Tomate\n -Brot";
 
             //Act
-            //byte[] qrData = QRGenerator.GenerateQR(inputText);
+            byte[] qrData1 = QRGenerator.GenerateQR(inputText);
+            byte[] qrData2 = QRGenerator.GenerateQR(inputText);
 
             //Assert
-            //string output = "";
-            //Assert.Equal(inputText,output);
+            Assert.Equal(qrData1,qrData2);
         }
 
     }

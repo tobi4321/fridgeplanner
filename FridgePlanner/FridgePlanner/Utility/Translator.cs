@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace FridgePlanner.Controllers
+namespace FridgePlanner.Utility
 {
     public static class Translator
     {

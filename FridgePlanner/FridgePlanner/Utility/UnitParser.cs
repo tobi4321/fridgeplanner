@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FridgePlanner.Controllers
+namespace FridgePlanner.Utility
 {
     public static class UnitParser
     {
@@ -27,9 +27,9 @@ namespace FridgePlanner.Controllers
             double l = ml / 1000;
             return l;
         }
-        public static double ParseToUnit(string Unit, double Input)
+        public static Object ParseToUnit(string Unit, double Input)
         {
-            double Output = 0.0;
+            Object Output = 0.0;
 
             switch (Unit) {
                 case "Kg":
@@ -43,6 +43,9 @@ namespace FridgePlanner.Controllers
                     break;
                 case "Ml":
                     Output = LToMl(Input);
+                    break;
+                default:
+                    Output = null;
                     break;
             }
             return Output;

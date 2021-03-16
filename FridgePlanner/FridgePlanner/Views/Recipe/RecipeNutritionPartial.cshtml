@@ -1,4 +1,4 @@
-﻿@Model  FridgePlanner.Models.ViewModels.NutritionViewModel
+﻿@model FridgePlanner.Models.ViewModels.NutritionViewModel;
 @{
     Layout = null;
 }
@@ -16,22 +16,128 @@
                 </button>
             </div>
 
-
             <div class="modal-body">
                 <nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
-                        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
-                        <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Contact</a>
+                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Allgemein</a>
+                        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Bla</a>
+                        <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">Bla</a>
                     </div>
                 </nav>
                 <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">blablablablablablablabla</div>
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+
+                        <div class="table-wrapper-scroll-y nutrition-scrollbar" style="height: 40%;">
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th colspan="3">Menge pro Portion</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th colspan="2">
+                                            <b>Kalorien</b>
+                                        </th>
+                                        <td>@Model.NutritionResponse.calories</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                            <b>% Täglicher Bedarf</b>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2">
+                                            <b>Total Fat</b>
+                                        </th>
+                                        <td>@Model.NutritionResponse.totalNutrients.FAT.quantity @Model.NutritionResponse.totalNutrients.FAT.unit</td>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2">
+                                            Saturated Fat
+                                        </th>
+                                        <td>@Model.NutritionResponse.totalNutrients.FAT.quantity @Model.NutritionResponse.totalNutrients.FAT.unit</td>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2">
+                                            Trans Fat
+                                        </th>
+                                        <td>@Model.NutritionResponse.totalNutrients.FAT.quantity @Model.NutritionResponse.totalNutrients.FAT.unit</td>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2">
+                                            <b>Cholesterol</b>
+                                        </th>
+                                        <td>@Model.NutritionResponse.totalNutrients.FAT.quantity @Model.NutritionResponse.totalNutrients.FAT.unit</td>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2">
+                                            <b>Sodium</b>
+                                        </th>
+                                        <td>@Model.NutritionResponse.totalNutrients.FAT.quantity @Model.NutritionResponse.totalNutrients.FAT.unit</td>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2">
+                                            <b>Total Carbohydrate</b>
+                                        </th>
+                                        <td>@Model.NutritionResponse.totalNutrients.FAT.quantity @Model.NutritionResponse.totalNutrients.FAT.unit</td>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2">
+                                            Dietary Fiber
+                                        </th>
+                                        <td>@Model.NutritionResponse.totalNutrients.FAT.quantity @Model.NutritionResponse.totalNutrients.FAT.unit</td>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2">
+                                            Total Sugars
+                                        </th>
+                                        <td>@Model.NutritionResponse.totalNutrients.FAT.quantity @Model.NutritionResponse.totalNutrients.FAT.unit</td>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2">
+                                            Includes - Added Sugars
+                                        </th>
+                                        <td>@Model.NutritionResponse.totalNutrients.FAT.quantity @Model.NutritionResponse.totalNutrients.FAT.unit</td>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2">
+                                            <b>Protein</b>
+                                        </th>
+                                        <td>@Model.NutritionResponse.totalNutrients.FAT.quantity @Model.NutritionResponse.totalNutrients.FAT.unit</td>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2">
+                                            Vitamin D
+                                        </th>
+                                        <td>@Model.NutritionResponse.totalNutrients.FAT.quantity @Model.NutritionResponse.totalNutrients.FAT.unit</td>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2">
+                                            Calcium
+                                        </th>
+                                        <td>@Model.NutritionResponse.totalNutrients.FAT.quantity @Model.NutritionResponse.totalNutrients.FAT.unit</td>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2">
+                                            Iron
+                                        </th>
+                                        <td>@Model.NutritionResponse.totalNutrients.FAT.quantity @Model.NutritionResponse.totalNutrients.FAT.unit</td>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="2">
+                                            Potassium
+                                        </th>
+                                        <td>@Model.NutritionResponse.totalNutrients.FAT.quantity @Model.NutritionResponse.totalNutrients.FAT.unit</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">blibliblibliblibliblibliblibli</div>
                     <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">bloblobloblobloblobloblobloblo</div>
                 </div>
             </div>
-
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>

@@ -5,7 +5,7 @@ using System.IO;
 using Microsoft.AspNetCore.Mvc;
 using QRCoder;
 
-namespace FridgePlanner.Controllers
+namespace FridgePlanner.Utility
 {
     public static class QRGenerator
     {

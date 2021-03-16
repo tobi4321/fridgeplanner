@@ -311,3 +311,34 @@ body, html {
     margin-right: auto;
     width: 50%;
 }
+/* Nutrition Table*/
+.performance-facts table {
+    border-collapse: unset;
+    border-spacing: 0;
+}
+.performance-facts__table, .performance-facts__table--small, .performance-facts__table--grid {
+    width: 100%;
+}
+.performance-facts__table #lkcal-val-cal {
+    font-size: 35px;
+    border: 0 none !important;
+}
+.amps {
+    font-size: 16px;
+    font-weight: bold !important;
+    margin: 0 -200px -10px 0 !important;
+    display: block;
+}
+.small-info {
+    font-size: 11px;
+}
+.nutrition-scrollbar {
+    position: relative;
+    height: 200px;
+    overflow: auto;
+}
+
+.table-wrapper-scroll-y {
+    display: block;
+}
+/*Nutrition Table End*/

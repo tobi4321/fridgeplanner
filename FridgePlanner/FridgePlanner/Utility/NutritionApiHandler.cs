@@ -10,7 +10,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace FridgePlanner.Controllers
+namespace FridgePlanner.Utility
 {
     public class NutritionApiHandler
     {
@@ -39,13 +39,22 @@ namespace FridgePlanner.Controllers
             }
 
             var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            if (httpResponse.StatusCode == HttpStatusCode.OK)
             {
-                var result = streamReader.ReadToEnd();
+                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+                {
+                    var result = streamReader.ReadToEnd();
 
-                NutritionAPIResponse response = Newtonsoft.Json.JsonConvert.DeserializeObject<NutritionAPIResponse>(result);
-                return response;
+                    NutritionAPIResponse response = Newtonsoft.Json.JsonConvert.DeserializeObject<NutritionAPIResponse>(result);
+                    return response;
+                }
             }
+            else
+            {
+                // should be error model
+                return null;
+            }
+            
         }
 
         public string createJsonData(NutritionRequest data)
