@@ -10,8 +10,6 @@ namespace FridgePlanner.Models.NutritionModels{
         public List<string> healthLabels { get; set; } 
         public List<object> cautions { get; set; } 
         public TotalNutrients totalNutrients { get; set; } 
-        public TotalDaily totalDaily { get; set; } 
-        public List<Ingredient> ingredients { get; set; } 
         public TotalNutrientsKCal totalNutrientsKCal { get; set; } 
     }
 
