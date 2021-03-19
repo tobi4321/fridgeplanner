@@ -9,6 +9,7 @@ using FridgePlanner.Utility;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Linq;
 
 namespace FridgePlanner.Controllers
@@ -87,10 +88,13 @@ namespace FridgePlanner.Controllers
             model.RecipeItems.Add(item);
             _context.SaveChanges();
 
+            // ????????????????????????????????????????????????????????
+
             List<string> units = config.GetSection("Units").Get<List<string>>();
 
             EditRecipeViewModel viewModel = new EditRecipeViewModel() { RecipeElement = model, Units = units };
 
+            // ???????????????????????????????????????????????????????????
 
             return Ok(model.RecipeId);
         }
@@ -107,9 +111,13 @@ namespace FridgePlanner.Controllers
             model.RecipeSteps.Add(step);
             _context.SaveChanges();
 
+            // ?????????????????????????????????????????????????????????????????
+
             List<string> units = config.GetSection("Units").Get<List<string>>();
 
             EditRecipeViewModel viewModel = new EditRecipeViewModel() { RecipeElement = model, Units = units };
+
+            // ?????????????????????????????????????????????????????????????????
 
             return Ok(model.RecipeId);
         }
@@ -143,23 +151,6 @@ namespace FridgePlanner.Controllers
             _context.SaveChanges();
 
             return Ok(recipe.RecipeId);
-        }
-        [HttpGet]
-        [Route("Recipe/EditRecipeItemOverview/{Id}/{RecipeItemId}")]
-        public IActionResult GetEditRecipeItemModal([FromServices]IConfiguration config, int Id, long RecipeItemId)
-        {
-            Recipe model = _context.Recipes
-                .Include(r => r.RecipeItems)
-                .Include(r => r.RecipeSteps)
-                .Where(r => r.RecipeId == Id).First();
-
-            RecipeItem item = _context.RecipeItems.Where(i => i.Id == Id).First();
-            
-            List<string> units = config.GetSection("Units").Get<List<string>>();
-
-            EditRecipeItemViewModel viewModel = new EditRecipeItemViewModel() { Item = item, Units = units, RecipeElement = model};
-
-            return View("EditRecipeItemPartial", viewModel);
         }
         [HttpPost]
         [Route("Recipe/UpdateRecipeItem/")]
@@ -260,14 +251,14 @@ namespace FridgePlanner.Controllers
 
         [HttpPost]
         [Route("Recipe/GetNutritionInfo")]
-        public IActionResult GetNutritionInfo(int Id)
+        public IActionResult GetNutritionInfo([FromServices]IConfiguration config,int Id)
         {
             Recipe detail = _context.Recipes
                 .Include(r => r.RecipeItems)
                 .Include(r => r.RecipeSteps)
                 .Where(r => r.RecipeId == Id).First();
 
-            NutritionAPIResponse response = NutritionOutputForRecipe(detail);
+            NutritionAPIResponse response = NutritionOutputForRecipe(config, detail);
 
             // add the response to the viewmodel
             NutritionViewModel viewModel = new NutritionViewModel() { Recipe = detail, NutritionResponse = response };
@@ -276,7 +267,7 @@ namespace FridgePlanner.Controllers
             return View("RecipeNutritionPartial", viewModel);
         }
 
-        public NutritionAPIResponse NutritionOutputForRecipe(Recipe recipe)
+        public NutritionAPIResponse NutritionOutputForRecipe(IConfiguration config, Recipe recipe)
         {
             // Testing with Nutrition and Translator
 
@@ -293,7 +284,7 @@ namespace FridgePlanner.Controllers
             // initialize the NutritionApiHandler
             NutritionApiHandler handler = new NutritionApiHandler();
             // send the request and wait for response
-            NutritionAPIResponse response = handler.sendRequest(request);
+            NutritionAPIResponse response = handler.sendRequest(config,request);
 
             return response;
         }

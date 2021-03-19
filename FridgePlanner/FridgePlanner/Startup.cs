@@ -34,7 +34,6 @@ namespace FridgePlanner
             });
             services.AddDbContext<DataBaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.Configure<NutritionConfig>(Configuration.GetSection("NutritionConfig"));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 

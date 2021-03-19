@@ -110,7 +110,7 @@ namespace FridgePlanner.Controllers
             }
             request.ingr = ingredients;
             NutritionApiHandler handler = new NutritionApiHandler();
-            NutritionAPIResponse response = handler.sendRequest(request);
+            //NutritionAPIResponse response = handler.sendRequest(request);
 
             // end of testing
         }

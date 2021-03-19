@@ -1,5 +1,7 @@
 ﻿using FridgePlanner.Models;
 using FridgePlanner.Models.NutritionModels;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using System;
@@ -14,20 +16,17 @@ namespace FridgePlanner.Utility
 {
     public class NutritionApiHandler
     {
-        private readonly IOptions<NutritionConfig> _serviceSettings;
-
-        public NutritionApiHandler(IOptions<NutritionConfig> serviceSettings)
-        {
-            _serviceSettings = serviceSettings;
-        }
-
         public NutritionApiHandler()
         {
         }
 
-        public NutritionAPIResponse sendRequest(NutritionRequest requestData)
+
+        public NutritionAPIResponse sendRequest([FromServices]IConfiguration config,NutritionRequest requestData)
         {
-            var url = "https://api.edamam.com/api/nutrition-details?app_id=" + "2164c490" + "&app_key=" + "5ab8c54eae13f177841c04de882fb217";
+
+            NutritionConfig conf = config.GetSection("NutritionConfig").Get<NutritionConfig>();
+
+            var url = "https://api.edamam.com/api/nutrition-details?app_id=" + conf.ApiId + "&app_key=" + conf.ApiKey;
 
             var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
             httpWebRequest.ContentType = "application/json";
