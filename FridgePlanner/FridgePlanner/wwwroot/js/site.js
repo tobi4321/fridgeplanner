@@ -273,9 +273,9 @@ function addRecipeStep(id) {
         });
 }
 function updateRecipeItem(id,recipeId) {
-    var recipeItemName = $('#recipeItemEditName').val()
-    var recipeItemAmount = $('#recipeItemEditAmount').val()
-    var recipeItemUnit = $('#recipeItemEditUnit :selected').text();
+    var recipeItemName = $('#recipeItemEditName'+id).val()
+    var recipeItemAmount = $('#recipeItemEditAmount'+id).val()
+    var recipeItemUnit = $('#recipeItemEditUnit'+id+' :selected').text();
 
     var data = {
         RecipeItemId: id,
@@ -292,9 +292,9 @@ function updateRecipeItem(id,recipeId) {
         });
 }
 function updateRecipeStep(id, recipeId) {
-    var recipeStepName = $('#recipeStepEditName').val()
-    var recipeStepNumber = $('#recipeStepEditNumber').val()
-    var recipeStepText = $('#recipeStepEditText').val()
+    var recipeStepName = $('#recipeStepEditName'+id).val()
+    var recipeStepNumber = $('#recipeStepEditNumber'+id).val()
+    var recipeStepText = $('#recipeStepEditText'+id).val()
 
     var data = {
         RecipeStepId: id,

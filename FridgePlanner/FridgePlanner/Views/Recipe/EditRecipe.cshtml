@@ -82,18 +82,18 @@
 
                                                         <div class="md-form">
                                                             <strong>Name</strong>
-                                                            <input id="recipeItemEditName" type="text" value="@Model.RecipeElement.RecipeItems.ElementAt(i).Name" class="form-control" placeholder="Zutat" aria-label="Exercisename" aria-describedby="basic-addon1">
+                                                            <input id="recipeItemEditName@(@Model.RecipeElement.RecipeItems.ElementAt(i).Id)" type="text" value="@Model.RecipeElement.RecipeItems.ElementAt(i).Name" class="form-control" placeholder="Zutat" aria-label="Exercisename" aria-describedby="basic-addon1">
                                                         </div>
                                                         <br />
                                                         <div class="md-form">
                                                             <strong>Menge</strong>
-                                                            <input id="recipeItemEditAmount" type="number" value="@Model.RecipeElement.RecipeItems.ElementAt(i).Amount" class="form-control" placeholder="Menge" aria-label="Exercisename" aria-describedby="basic-addon1">
+                                                            <input id="recipeItemEditAmount@(@Model.RecipeElement.RecipeItems.ElementAt(i).Id)" type="number" value="@Model.RecipeElement.RecipeItems.ElementAt(i).Amount" class="form-control" placeholder="Menge" aria-label="Exercisename" aria-describedby="basic-addon1">
                                                         </div>
 
                                                         <br />
                                                         <div class="md-form">
                                                             <strong>Einheit</strong>
-                                                            <select class="custom-select" id="recipeItemEditUnit">
+                                                            <select class="custom-select" id="recipeItemEditUnit@(@Model.RecipeElement.RecipeItems.ElementAt(i).Id)">
                                                                 @foreach (string category in Model.Units)
                                                                 {
                                                                     if (category.Equals(Model.RecipeElement.RecipeItems.ElementAt(i).Unit))
@@ -206,13 +206,13 @@
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <div class="md-form">
-                                                                    <input id="recipeStepEditName" type="text" value="@Model.RecipeElement.RecipeSteps.ElementAt(i).Name" class="form-control" placeholder="Name des Zubereitungsschritts" aria-describedby="basic-addon1">
+                                                                    <input id="recipeStepEditName@(@Model.RecipeElement.RecipeSteps.ElementAt(i).RecipeStepId)" type="text" value="@Model.RecipeElement.RecipeSteps.ElementAt(i).Name" class="form-control" placeholder="Name des Zubereitungsschritts" aria-describedby="basic-addon1">
                                                                 </div>
                                                                 <div class="md-form">
-                                                                    <input id="recipeStepEditNumber" type="number" value="@Model.RecipeElement.RecipeSteps.ElementAt(i).StepNumber" class="form-control" placeholder="Schrittnummer" aria-describedby="basic-addon1">
+                                                                    <input id="recipeStepEditNumber@(@Model.RecipeElement.RecipeSteps.ElementAt(i).RecipeStepId)" type="number" value="@Model.RecipeElement.RecipeSteps.ElementAt(i).StepNumber" class="form-control" placeholder="Schrittnummer" aria-describedby="basic-addon1">
                                                                 </div>
                                                                 <div class="md-form">
-                                                                    <input id="recipeStepEditText" type="text" value="@Model.RecipeElement.RecipeSteps.ElementAt(i).Text" class="form-control" placeholder="Text" aria-describedby="basic-addon1">
+                                                                    <input id="recipeStepEditText@(@Model.RecipeElement.RecipeSteps.ElementAt(i).RecipeStepId)" type="text" value="@Model.RecipeElement.RecipeSteps.ElementAt(i).Text" class="form-control" placeholder="Text" aria-describedby="basic-addon1">
                                                                 </div>
                                                             </div>
                                                         </div>
