@@ -618,5 +618,205 @@ namespace FridgePlannerTesting
             }
         }
 
+        [Fact]
+        public void AddToCard_ReturnsOkResult()
+        {
+            //create In Memory Database
+            var options = new DbContextOptionsBuilder<DataBaseContext>()
+            .UseInMemoryDatabase(databaseName: "RecipeDataBase")
+            .Options;
+
+            using (var context = new DataBaseContext(options))
+            {
+
+                context.ShoppingListItems.RemoveRange(context.ShoppingListItems.ToList());
+
+                context.RecipeSteps.RemoveRange(context.RecipeSteps.ToList());
+                context.RecipeItems.RemoveRange(context.RecipeItems.ToList());
+                context.Recipes.RemoveRange(context.Recipes.ToList());
+
+                context.Recipes.Add(new Recipe()
+                {
+                    RecipeId = 100,
+                    Name = "TestRezept",
+                    Description = "Ein einfaches Test Rezept",
+                    RecipeSteps = new List<RecipeStep>
+                    {
+                        new RecipeStep(){
+                            RecipeStepId = 1100,
+                            Name = "Tomate hacken",
+                            StepNumber = 1,
+                            Text = "Tomaten hacken und so"
+                        }
+                    },
+                    RecipeItems = new List<RecipeItem>
+                    {
+                        new RecipeItem()
+                        {
+                            Id = 110,
+                            Name = "Tomate",
+                            Amount = 1.0,
+                            Unit = "Kg"
+                        }
+                    }
+                });
+                context.SaveChanges();
+            }
+
+            using (var context = new DataBaseContext(options))
+            {
+
+                controller = new RecipeController(context);
+                // Act
+                var result = controller.AddToCart(100);
+
+
+                // Assert
+                Assert.NotNull(result);
+                Assert.IsType<OkResult>(result);
+
+                Assert.Equal("Tomate", context.ShoppingListItems.First().Name);
+                Assert.Equal(1.0, context.ShoppingListItems.First().Amount);
+            }
+        }
+        [Fact]
+        public void AddToCard_ReturnsOkResult_AddingExistingItemWithDifferentUnit()
+        {
+            //create In Memory Database
+            var options = new DbContextOptionsBuilder<DataBaseContext>()
+            .UseInMemoryDatabase(databaseName: "RecipeDataBase")
+            .Options;
+
+            using (var context = new DataBaseContext(options))
+            {
+
+                context.ShoppingListItems.RemoveRange(context.ShoppingListItems.ToList());
+
+                context.RecipeSteps.RemoveRange(context.RecipeSteps.ToList());
+                context.RecipeItems.RemoveRange(context.RecipeItems.ToList());
+                context.Recipes.RemoveRange(context.Recipes.ToList());
+
+                context.ShoppingListItems.Add(new ShoppingListItem()
+                {
+                    Id = 123,
+                    Name = "Tomate",
+                    Amount = 1000.0,
+                    Unit = "g"
+                });
+
+                context.Recipes.Add(new Recipe()
+                {
+                    RecipeId = 100,
+                    Name = "TestRezept",
+                    Description = "Ein einfaches Test Rezept",
+                    RecipeSteps = new List<RecipeStep>
+                    {
+                        new RecipeStep(){
+                            RecipeStepId = 1100,
+                            Name = "Tomate hacken",
+                            StepNumber = 1,
+                            Text = "Tomaten hacken und so"
+                        }
+                    },
+                    RecipeItems = new List<RecipeItem>
+                    {
+                        new RecipeItem()
+                        {
+                            Id = 110,
+                            Name = "Tomate",
+                            Amount = 1.0,
+                            Unit = "Kg"
+                        }
+                    }
+                });
+                context.SaveChanges();
+            }
+
+            using (var context = new DataBaseContext(options))
+            {
+
+                controller = new RecipeController(context);
+                // Act
+                var result = controller.AddToCart(100);
+
+
+                // Assert
+                Assert.NotNull(result);
+                Assert.IsType<OkResult>(result);
+
+                Assert.Equal("Tomate", context.ShoppingListItems.First().Name);
+                Assert.Equal(2000.0, context.ShoppingListItems.First().Amount);
+            }
+        }
+
+        [Fact]
+        public void AddToCard_ReturnsOkResult_AddingExistingItemWithEqualUnit()
+        {
+            //create In Memory Database
+            var options = new DbContextOptionsBuilder<DataBaseContext>()
+            .UseInMemoryDatabase(databaseName: "RecipeDataBase")
+            .Options;
+
+            using (var context = new DataBaseContext(options))
+            {
+
+                context.ShoppingListItems.RemoveRange(context.ShoppingListItems.ToList());
+
+                context.RecipeSteps.RemoveRange(context.RecipeSteps.ToList());
+                context.RecipeItems.RemoveRange(context.RecipeItems.ToList());
+                context.Recipes.RemoveRange(context.Recipes.ToList());
+
+                context.ShoppingListItems.Add(new ShoppingListItem()
+                {
+                    Id = 123,
+                    Name = "Tomate",
+                    Amount = 3.0,
+                    Unit = "Kg"
+                });
+
+                context.Recipes.Add(new Recipe()
+                {
+                    RecipeId = 100,
+                    Name = "TestRezept",
+                    Description = "Ein einfaches Test Rezept",
+                    RecipeSteps = new List<RecipeStep>
+                    {
+                        new RecipeStep(){
+                            RecipeStepId = 1100,
+                            Name = "Tomate hacken",
+                            StepNumber = 1,
+                            Text = "Tomaten hacken und so"
+                        }
+                    },
+                    RecipeItems = new List<RecipeItem>
+                    {
+                        new RecipeItem()
+                        {
+                            Id = 110,
+                            Name = "Tomate",
+                            Amount = 1.0,
+                            Unit = "Kg"
+                        }
+                    }
+                });
+                context.SaveChanges();
+            }
+
+            using (var context = new DataBaseContext(options))
+            {
+
+                controller = new RecipeController(context);
+                // Act
+                var result = controller.AddToCart(100);
+
+
+                // Assert
+                Assert.NotNull(result);
+                Assert.IsType<OkResult>(result);
+
+                Assert.Equal("Tomate", context.ShoppingListItems.First().Name);
+                Assert.Equal(4.0, context.ShoppingListItems.First().Amount);
+            }
+        }
     }
 }

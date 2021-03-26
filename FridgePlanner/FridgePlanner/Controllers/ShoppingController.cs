@@ -73,7 +73,7 @@ namespace FridgePlanner.Controllers
             return View("ShoppingChangePartial", createViewModel(config));
         }
 
-        private string getShoppingListAsString(List<ShoppingListItem> items)
+        public string getShoppingListAsString(List<ShoppingListItem> items)
         {
             string qrCodeText = "ShoppingListe \n";
 
@@ -82,7 +82,7 @@ namespace FridgePlanner.Controllers
             return qrCodeText;
         }
 
-        private ShoppingViewModel createViewModel([FromServices]IConfiguration config)
+        public ShoppingViewModel createViewModel([FromServices]IConfiguration config)
         {
             List<ShoppingListItem> items = _context.ShoppingListItems.ToList();
 
@@ -95,24 +95,6 @@ namespace FridgePlanner.Controllers
             ShoppingViewModel shoppingViewModel = new ShoppingViewModel { ShoppingItems = items, Units = units, QrCodeData = qrCode };
 
             return shoppingViewModel;
-        }
-
-        public void NutritionOutputForShoppingList(List<ShoppingListItem> items)
-        {
-            // Testing with Nutrition and Translator
-
-            // create Request Object 
-            NutritionRequest request = new NutritionRequest() { title = "Test Recipe" };
-            List<string> ingredients = new List<string>();
-            foreach (ShoppingListItem item in items)
-            {
-                ingredients.Add(item.Amount + " " + item.Unit + " " + Translator.TranslateText(item.Name, "de", "en"));
-            }
-            request.ingr = ingredients;
-            NutritionApiHandler handler = new NutritionApiHandler();
-            //NutritionAPIResponse response = handler.sendRequest(request);
-
-            // end of testing
         }
     }
 }
