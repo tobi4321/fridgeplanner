@@ -17,8 +17,8 @@ namespace FridgePlannerTesting
             // Act
             double ml = UnitParser.LToMl(l);
 
-            // Assert
-            Assert.Equal(1600.0,ml);
+            // Assert with precision of 4 decimal places
+            Assert.Equal(1600.0,ml,4);
         }
         [Fact]
         public void ConvertMlToL()
@@ -29,8 +29,8 @@ namespace FridgePlannerTesting
             // Act
             double l = UnitParser.MlToL(ml);
 
-            // Assert
-            Assert.Equal(1.6, l);
+            // Assert with precision of 4 decimal places
+            Assert.Equal(1.6, l, 4);
         }
         [Fact]
         public void ConvertKgToG()
@@ -41,8 +41,8 @@ namespace FridgePlannerTesting
             // Act
             double g = UnitParser.KgToG(kg);
 
-            // Assert
-            Assert.Equal(1650.0, g);
+            // Assert with precision of 4 decimal places
+            Assert.Equal(1650.0, g, 4);
         }
         [Fact]
         public void ConvertGToKg()
@@ -53,8 +53,8 @@ namespace FridgePlannerTesting
             // Act
             double kg = UnitParser.GToKg(g);
 
-            // Assert
-            Assert.Equal(1.65, kg);
+            // Assert with precision of 4 decimal places
+            Assert.Equal(1.65, kg ,4);
         }
         [Fact]
         public void ConvertGToKgWithParser()
@@ -65,8 +65,8 @@ namespace FridgePlannerTesting
             // Act
             double kg = (double)UnitParser.ParseToUnit("Kg",g);
 
-            // Assert
-            Assert.Equal(1.65, kg);
+            // Assert with precision of 4 decimal places
+            Assert.Equal(1.65, kg, 4);
         }
         [Fact]
         public void ConvertKgToGWithParser()
@@ -77,8 +77,8 @@ namespace FridgePlannerTesting
             // Act
             double g = (double)UnitParser.ParseToUnit("g",kg);
 
-            // Assert
-            Assert.Equal(1650.0, g);
+            // Assert with precision of 4 decimal places
+            Assert.Equal(1650.0, g, 4);
         }
         [Fact]
         public void WrongParserInputReturnNull()
