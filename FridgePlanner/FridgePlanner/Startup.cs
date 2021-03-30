@@ -57,7 +57,7 @@ namespace FridgePlanner
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Fridge}/{action=Index}/{id?}");
             });
             app.UseHttpsRedirection();
         }

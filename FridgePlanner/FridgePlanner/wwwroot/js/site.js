@@ -38,7 +38,7 @@ function addFridgeItem() {
     var myDotNetDate = myJsDate.toISOString();
     var outputString = '{ "Name": ' + '"' + name + '"' + ',"Amount": ' + '"' + amount + '"' + ',"Unit": ' + '"' + unit + '"' + ',"ExpiryDate" :' + '"' + correctDate + '"' + '}';
 
-    postDataWithContentAndDataType("/Home/AddItem/", false, outputString, 'application/json', 'json')
+    postDataWithContentAndDataType("/Fridge/AddItem/", false, outputString, 'application/json', 'json')
         .done(function (fridgeItems) {
             $("#FridgeList").html(fridgeItems);
             $('.modal-backdrop').hide();
@@ -49,7 +49,7 @@ function deleteFridgeItem(id) {
     var data = {
         Id: id
     }
-    postData("/Home/Delete/", false, data).done(function (fridgeItems) {
+    postData("/Fridge/Delete/", false, data).done(function (fridgeItems) {
         $("#FridgeList").html(fridgeItems);
         $('.modal-backdrop').hide();
     });
@@ -59,7 +59,7 @@ function editFridgeItem(id)
 {
     $.ajax({
         type: "Post",
-        url: "/Home/GetEditFridgeModal/",
+        url: "/Fridge/GetEditFridgeModal/",
         cache: false,
         data: {
             Id: id
@@ -85,7 +85,7 @@ function updateFridgeItem(id) {
         expiry: correctDate
     }
 
-    postData("/Home/UpdateFridgeItem/", false, data)
+    postData("/Fridge/UpdateFridgeItem/", false, data)
         .done(function (fridgeItems) {
             $("#FridgeList").html(fridgeItems);
             $('.modal-backdrop').hide();
@@ -175,7 +175,7 @@ function addToCart(id) {
 function showRecipeHomeDetail(id) {
     $.ajax({
         type: "Post",
-        url: "/Home/GetRecipeDetail/",
+        url: "/Fridge/GetRecipeDetail/",
         cache: false,
         data: {
             Id: id

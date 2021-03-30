@@ -12,11 +12,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FridgePlanner.Controllers
 {
-    public class HomeController : Controller
+    public class FridgeController : Controller
     {
         private readonly DataBaseContext _context;
 
-        public HomeController(DataBaseContext con)
+        public FridgeController(DataBaseContext con)
         {
             _context = con;
         }
@@ -28,7 +28,7 @@ namespace FridgePlanner.Controllers
 
 
         [HttpPost]
-        [Route("Home/AddItem")]
+        [Route("Fridge/AddItem")]
         public IActionResult AddItem([FromBody] JObject t)
         {
             FridgeItem x = t.ToObject<FridgeItem>();
@@ -40,7 +40,7 @@ namespace FridgePlanner.Controllers
         }
 
         [HttpPost]
-        [Route("Home/Delete")]
+        [Route("Fridge/Delete")]
         public IActionResult DeleteFridgeItem(long Id)
         {
             FridgeItem remove = _context.FridgeItems
@@ -60,14 +60,14 @@ namespace FridgePlanner.Controllers
             return fridgeItems;
         }
         [HttpGet]
-        [Route("Home/GetItems")]
+        [Route("Fridge/GetItems")]
         public async Task<ActionResult<IEnumerable<FridgeItem>>> GetItems()
         {
             return await _context.FridgeItems.ToListAsync();
         }
 
         [HttpPost]
-        [Route("Home/GetEditFridgeModal")]
+        [Route("Fridge/GetEditFridgeModal")]
         public IActionResult GetEditFridgeModal([FromServices]IConfiguration config, int Id)
         {
             FridgeItem edit = _context.FridgeItems.Where(t => t.Id == Id).First();
@@ -78,7 +78,7 @@ namespace FridgePlanner.Controllers
             return View("EditFridgeItemPartial", model);
         }
         [HttpPost]
-        [Route("Home/UpdateFridgeItem")]
+        [Route("Fridge/UpdateFridgeItem")]
         public IActionResult UpdateFridgeItem(int Id, string name, double amount, string unit, DateTime expiry)
         {
             FridgeItem edit = _context.FridgeItems.Where(t => t.Id == Id).First();
@@ -94,7 +94,7 @@ namespace FridgePlanner.Controllers
         }
 
         [HttpPost]
-        [Route("Home/GetRecipeDetail")]
+        [Route("Fridge/GetRecipeDetail")]
         public IActionResult GetRecipeDetail(int Id)
         {
             Recipe detail = _context.Recipes

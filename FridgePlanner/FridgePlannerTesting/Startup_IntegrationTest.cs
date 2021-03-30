@@ -29,7 +29,7 @@ namespace FridgePlannerTesting
         public async Task CanGetFridgeItems()
         {
             // The endpoint or route of the controller action.
-            var httpResponse = await _client.GetAsync("/Home/GetItems");
+            var httpResponse = await _client.GetAsync("/Fridge/GetItems");
 
             // Must be successful.
             httpResponse.EnsureSuccessStatusCode();

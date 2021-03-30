@@ -13,11 +13,11 @@ using Newtonsoft.Json.Linq;
 
 namespace FridgePlannerTesting
 {
-    public class HomeControllerTest
+    public class FridgeControllerTest
     {
-        private HomeController controller { get; set; }
+        private FridgeController controller { get; set; }
 
-        public HomeControllerTest()
+        public FridgeControllerTest()
         {
 
         }
@@ -75,7 +75,7 @@ namespace FridgePlannerTesting
 
             using (var context = new DataBaseContext(options))
             {
-                controller = new HomeController(context);
+                controller = new FridgeController(context);
                 // Act
                 var result = controller.Index(_configuration.Object);
 
@@ -107,7 +107,7 @@ namespace FridgePlannerTesting
             {
                 context.FridgeItems.RemoveRange(context.FridgeItems.ToList());
 
-                controller = new HomeController(context);
+                controller = new FridgeController(context);
 
                 FridgeItem testItem = new FridgeItem()
                 {
@@ -156,7 +156,7 @@ namespace FridgePlannerTesting
 
             using (var context = new DataBaseContext(options))
             {
-                controller = new HomeController(context);
+                controller = new FridgeController(context);
                 // Act
                 var result = controller.DeleteFridgeItem(120);
 
@@ -200,7 +200,7 @@ namespace FridgePlannerTesting
 
             using (var context = new DataBaseContext(options))
             {
-                controller = new HomeController(context);
+                controller = new FridgeController(context);
                 // Act
                 var result = await controller.GetItems();
 
@@ -254,7 +254,7 @@ namespace FridgePlannerTesting
 
             using (var context = new DataBaseContext(options))
             {
-                controller = new HomeController(context);
+                controller = new FridgeController(context);
                 // Act
                 var result = controller.GetEditFridgeModal(_configuration.Object,120);
 
@@ -299,7 +299,7 @@ namespace FridgePlannerTesting
 
             using (var context = new DataBaseContext(options))
             {
-                controller = new HomeController(context);
+                controller = new FridgeController(context);
                 // Act
                 var result = controller.UpdateFridgeItem(120,"Tomaten",2,"Kg", new System.DateTime(2020, 10, 15));
 
@@ -352,7 +352,7 @@ namespace FridgePlannerTesting
 
             using (var context = new DataBaseContext(options))
             {
-                controller = new HomeController(context);
+                controller = new FridgeController(context);
                 // Act
                 var result = controller.GetRecipeDetail(100);
 
