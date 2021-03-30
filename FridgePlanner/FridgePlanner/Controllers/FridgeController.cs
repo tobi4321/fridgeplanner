@@ -29,18 +29,18 @@ namespace FridgePlanner.Controllers
 
         [HttpPost]
         [Route("Fridge/AddItem")]
-        public IActionResult AddItem([FromBody] JObject t)
+        public IActionResult AddFridgeItem([FromBody] JObject t)
         {
             FridgeItem x = t.ToObject<FridgeItem>();
             x.ExpiryDate = x.ExpiryDate.Date;
             _context.FridgeItems.Add(x);
             _context.SaveChanges();
 
-            return View("FridgeTablePartial", getFridgeItems());
+            return View("FridgeTablePartial", GetFridgeItems());
         }
 
         [HttpPost]
-        [Route("Fridge/Delete")]
+        [Route("Fridge/DeleteItem")]
         public IActionResult DeleteFridgeItem(long Id)
         {
             FridgeItem remove = _context.FridgeItems
@@ -49,10 +49,10 @@ namespace FridgePlanner.Controllers
             _context.FridgeItems.Remove(remove);
             _context.SaveChanges();
 
-            return View("FridgeTablePartial", getFridgeItems());
+            return View("FridgeTablePartial", GetFridgeItems());
         }
 
-        private List<FridgeItem> getFridgeItems()
+        private List<FridgeItem> GetFridgeItems()
         {
             DateTime now = DateTime.Today;
             List<FridgeItem> fridgeItems = _context.FridgeItems.OrderBy(item => item.ExpiryDate.Subtract(now).TotalDays).ToList();
@@ -90,7 +90,7 @@ namespace FridgePlanner.Controllers
             edit.ExpiryDate = edit.ExpiryDate.Date;
             _context.SaveChanges();
 
-            return View("FridgeTablePartial", getFridgeItems());
+            return View("FridgeTablePartial", GetFridgeItems());
         }
 
         [HttpPost]

@@ -49,7 +49,7 @@ function deleteFridgeItem(id) {
     var data = {
         Id: id
     }
-    postData("/Fridge/Delete/", false, data).done(function (fridgeItems) {
+    postData("/Fridge/DeleteItem/", false, data).done(function (fridgeItems) {
         $("#FridgeList").html(fridgeItems);
         $('.modal-backdrop').hide();
     });

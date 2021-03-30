@@ -118,7 +118,7 @@ namespace FridgePlannerTesting
                 };
 
                 // Act
-                var result = controller.AddItem(JObject.FromObject(testItem));
+                var result = controller.AddFridgeItem(JObject.FromObject(testItem));
 
 
                 // Assert
