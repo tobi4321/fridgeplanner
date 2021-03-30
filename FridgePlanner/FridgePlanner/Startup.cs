@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FridgePlanner.EFCore;
 using FridgePlanner.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,7 +35,15 @@ namespace FridgePlanner
             });
             services.AddDbContext<DataBaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddDbContext<EFCoreDataBaseContext>(options => options.UseSqlServer("Data Source=(LocalDb)\\MSSQLLocalDB;Initial Catalog=FridgePlannerRepos;  Integrated Security=True"));
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddScoped<EFCoreFridgeItemRepository>();
+            services.AddScoped<EFCoreShoppingItemRepository>();
+            services.AddScoped<EFCoreRecipeRepository>();
+            services.AddScoped<EFCoreRecipeItemRepository>();
+            services.AddScoped<EFCoreRecipeStepRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
