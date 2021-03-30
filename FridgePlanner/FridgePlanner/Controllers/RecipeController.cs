@@ -212,12 +212,12 @@ namespace FridgePlanner.Controllers
                 .Include(r => r.RecipeSteps)
                 .Where(r => r.RecipeId == Id).First();
 
-            List<ShoppingListItem> shopping_items = _context.ShoppingListItems.ToList();
+            List<ShoppingItem> shopping_items = _context.ShoppingItems.ToList();
 
             for (int i = 0; i < toAdd.RecipeItems.Count; i++)
             {
                 bool alreadyExists = false;
-                ShoppingListItem shoppingItem;
+                ShoppingItem shoppingItem;
                 for (int j = 0; j < shopping_items.Count; j++)
                 {
                     if (toAdd.RecipeItems.ElementAt(i).Name.Equals(shopping_items.ElementAt(j).Name))
@@ -241,8 +241,8 @@ namespace FridgePlanner.Controllers
                 }
                 else
                 {
-                    ShoppingListItem newItem = new ShoppingListItem() { Name = toAdd.RecipeItems.ElementAt(i).Name, Amount = toAdd.RecipeItems.ElementAt(i).Amount, Unit = toAdd.RecipeItems.ElementAt(i).Unit};
-                    _context.ShoppingListItems.Add(newItem);
+                    ShoppingItem newItem = new ShoppingItem() { Name = toAdd.RecipeItems.ElementAt(i).Name, Amount = toAdd.RecipeItems.ElementAt(i).Amount, Unit = toAdd.RecipeItems.ElementAt(i).Unit};
+                    _context.ShoppingItems.Add(newItem);
                     _context.SaveChanges();
                 }
             }

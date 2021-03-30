@@ -44,14 +44,14 @@ namespace FridgePlannerTesting
 
             using (var context = new DataBaseContext(options))
             {
-                context.ShoppingListItems.Add(new ShoppingListItem
+                context.ShoppingItems.Add(new ShoppingItem
                 {
                     Id = 2736459,
                     Name = "Tomate",
                     Amount = 1.0,
                     Unit = "Kg"
                 });
-                context.ShoppingListItems.Add(new ShoppingListItem
+                context.ShoppingItems.Add(new ShoppingItem
                 {
                     Id = 2736458,
                     Name = "Milch",
@@ -77,7 +77,7 @@ namespace FridgePlannerTesting
 
                 Assert.NotNull(model.ShoppingItems);
                 Assert.NotNull(model.QrCodeData);
-                Assert.Contains(context.ShoppingListItems.First(), model.ShoppingItems);
+                Assert.Contains(context.ShoppingItems.First(), model.ShoppingItems);
             }
         }
         [Fact]
@@ -101,7 +101,7 @@ namespace FridgePlannerTesting
 
             using (var context = new DataBaseContext(options))
             {
-                context.ShoppingListItems.RemoveRange(context.ShoppingListItems.ToList());
+                context.ShoppingItems.RemoveRange(context.ShoppingItems.ToList());
                 context.SaveChanges();
             }
 
@@ -109,7 +109,7 @@ namespace FridgePlannerTesting
             {
                 controller = new ShoppingController(context);
 
-                ShoppingListItem item = new ShoppingListItem()
+                ShoppingItem item = new ShoppingItem()
                 {
                     Id = 1100,
                     Name = "Tomaten",
@@ -131,7 +131,7 @@ namespace FridgePlannerTesting
 
                 Assert.NotNull(model.ShoppingItems);
                 Assert.NotNull(model.QrCodeData);
-                Assert.Contains(context.ShoppingListItems.First(), model.ShoppingItems);
+                Assert.Contains(context.ShoppingItems.First(), model.ShoppingItems);
             }
         }
         [Fact]
@@ -155,8 +155,8 @@ namespace FridgePlannerTesting
 
             using (var context = new DataBaseContext(options))
             {
-                context.ShoppingListItems.RemoveRange(context.ShoppingListItems.ToList());
-                context.ShoppingListItems.Add(new ShoppingListItem
+                context.ShoppingItems.RemoveRange(context.ShoppingItems.ToList());
+                context.ShoppingItems.Add(new ShoppingItem
                 {
                     Id = 1100,
                     Name = "Tomate",
@@ -205,8 +205,8 @@ namespace FridgePlannerTesting
 
             using (var context = new DataBaseContext(options))
             {
-                context.ShoppingListItems.RemoveRange(context.ShoppingListItems.ToList());
-                context.ShoppingListItems.Add(new ShoppingListItem
+                context.ShoppingItems.RemoveRange(context.ShoppingItems.ToList());
+                context.ShoppingItems.Add(new ShoppingItem
                 {
                     Id = 1100,
                     Name = "Tomate",
@@ -230,7 +230,7 @@ namespace FridgePlannerTesting
                 var viewResult = result as ViewResult;
                 var model = viewResult.Model as EditShoppingViewModel;
 
-                Assert.Equal(context.ShoppingListItems.First().Name,model.Item.Name);
+                Assert.Equal(context.ShoppingItems.First().Name,model.Item.Name);
                 Assert.NotNull(model.Units);
             }
         }
@@ -256,8 +256,8 @@ namespace FridgePlannerTesting
 
             using (var context = new DataBaseContext(options))
             {
-                context.ShoppingListItems.RemoveRange(context.ShoppingListItems.ToList());
-                context.ShoppingListItems.Add(new ShoppingListItem
+                context.ShoppingItems.RemoveRange(context.ShoppingItems.ToList());
+                context.ShoppingItems.Add(new ShoppingItem
                 {
                     Id = 1100,
                     Name = "Tomate",
@@ -281,7 +281,7 @@ namespace FridgePlannerTesting
                 var viewResult = result as ViewResult;
                 var model = viewResult.Model as ShoppingViewModel;
 
-                Assert.Contains(model.ShoppingItems.First(), context.ShoppingListItems.ToList());
+                Assert.Contains(model.ShoppingItems.First(), context.ShoppingItems.ToList());
                 Assert.Equal(1100, model.ShoppingItems.First().Id);
                 Assert.Equal("Gurke",model.ShoppingItems.First().Name);
                 Assert.NotNull(model.Units);
@@ -291,9 +291,9 @@ namespace FridgePlannerTesting
         public void getShoppingListAsString_ReturnsAStringWithShoppingItemName()
         {
             // Capture
-            List<ShoppingListItem> list = new List<ShoppingListItem>();
+            List<ShoppingItem> list = new List<ShoppingItem>();
 
-            list.Add(new ShoppingListItem()
+            list.Add(new ShoppingItem()
                 {
                     Id = 1100,
                     Name = "Tomate",
@@ -341,8 +341,8 @@ namespace FridgePlannerTesting
 
             using (var context = new DataBaseContext(options))
             {
-                context.ShoppingListItems.RemoveRange(context.ShoppingListItems.ToList());
-                context.ShoppingListItems.Add(new ShoppingListItem
+                context.ShoppingItems.RemoveRange(context.ShoppingItems.ToList());
+                context.ShoppingItems.Add(new ShoppingItem
                 {
                     Id = 1100,
                     Name = "Tomate",
@@ -363,9 +363,9 @@ namespace FridgePlannerTesting
                 Assert.NotNull(result);
                 Assert.IsType<ShoppingViewModel>(result);
 
-                var model = result.ShoppingItems as List<ShoppingListItem>;
+                var model = result.ShoppingItems as List<ShoppingItem>;
 
-                Assert.Contains(context.ShoppingListItems.First(), model);
+                Assert.Contains(context.ShoppingItems.First(), model);
                 Assert.NotNull(result.Units);
             }
         }

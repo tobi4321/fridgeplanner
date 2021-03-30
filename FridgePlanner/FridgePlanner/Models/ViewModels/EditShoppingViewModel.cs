@@ -7,7 +7,7 @@ namespace FridgePlanner.Models.ViewModels
 {
     public class EditShoppingViewModel
     {
-        public ShoppingListItem Item { get; set; }
+        public ShoppingItem Item { get; set; }
         public List<string> Units { get; set; }
     }
 }

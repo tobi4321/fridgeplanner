@@ -629,7 +629,7 @@ namespace FridgePlannerTesting
             using (var context = new DataBaseContext(options))
             {
 
-                context.ShoppingListItems.RemoveRange(context.ShoppingListItems.ToList());
+                context.ShoppingItems.RemoveRange(context.ShoppingItems.ToList());
 
                 context.RecipeSteps.RemoveRange(context.RecipeSteps.ToList());
                 context.RecipeItems.RemoveRange(context.RecipeItems.ToList());
@@ -675,8 +675,8 @@ namespace FridgePlannerTesting
                 Assert.NotNull(result);
                 Assert.IsType<OkResult>(result);
 
-                Assert.Equal("Tomate", context.ShoppingListItems.First().Name);
-                Assert.Equal(1.0, context.ShoppingListItems.First().Amount);
+                Assert.Equal("Tomate", context.ShoppingItems.First().Name);
+                Assert.Equal(1.0, context.ShoppingItems.First().Amount);
             }
         }
         [Fact]
@@ -690,13 +690,13 @@ namespace FridgePlannerTesting
             using (var context = new DataBaseContext(options))
             {
 
-                context.ShoppingListItems.RemoveRange(context.ShoppingListItems.ToList());
+                context.ShoppingItems.RemoveRange(context.ShoppingItems.ToList());
 
                 context.RecipeSteps.RemoveRange(context.RecipeSteps.ToList());
                 context.RecipeItems.RemoveRange(context.RecipeItems.ToList());
                 context.Recipes.RemoveRange(context.Recipes.ToList());
 
-                context.ShoppingListItems.Add(new ShoppingListItem()
+                context.ShoppingItems.Add(new ShoppingItem()
                 {
                     Id = 123,
                     Name = "Tomate",
@@ -744,8 +744,8 @@ namespace FridgePlannerTesting
                 Assert.NotNull(result);
                 Assert.IsType<OkResult>(result);
 
-                Assert.Equal("Tomate", context.ShoppingListItems.First().Name);
-                Assert.Equal(2000.0, context.ShoppingListItems.First().Amount);
+                Assert.Equal("Tomate", context.ShoppingItems.First().Name);
+                Assert.Equal(2000.0, context.ShoppingItems.First().Amount);
             }
         }
 
@@ -760,13 +760,13 @@ namespace FridgePlannerTesting
             using (var context = new DataBaseContext(options))
             {
 
-                context.ShoppingListItems.RemoveRange(context.ShoppingListItems.ToList());
+                context.ShoppingItems.RemoveRange(context.ShoppingItems.ToList());
 
                 context.RecipeSteps.RemoveRange(context.RecipeSteps.ToList());
                 context.RecipeItems.RemoveRange(context.RecipeItems.ToList());
                 context.Recipes.RemoveRange(context.Recipes.ToList());
 
-                context.ShoppingListItems.Add(new ShoppingListItem()
+                context.ShoppingItems.Add(new ShoppingItem()
                 {
                     Id = 123,
                     Name = "Tomate",
@@ -814,8 +814,8 @@ namespace FridgePlannerTesting
                 Assert.NotNull(result);
                 Assert.IsType<OkResult>(result);
 
-                Assert.Equal("Tomate", context.ShoppingListItems.First().Name);
-                Assert.Equal(4.0, context.ShoppingListItems.First().Amount);
+                Assert.Equal("Tomate", context.ShoppingItems.First().Name);
+                Assert.Equal(4.0, context.ShoppingItems.First().Amount);
             }
         }
     }

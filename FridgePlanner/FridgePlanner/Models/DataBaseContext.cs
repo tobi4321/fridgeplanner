@@ -26,7 +26,7 @@ namespace FridgePlanner.Models
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<RecipeItem> RecipeItems { get; set; }
         public DbSet<RecipeStep> RecipeSteps { get; set; }
-        public DbSet<ShoppingListItem> ShoppingListItems { get; set; }
+        public DbSet<ShoppingItem> ShoppingItems { get; set; }
 
     }
 }

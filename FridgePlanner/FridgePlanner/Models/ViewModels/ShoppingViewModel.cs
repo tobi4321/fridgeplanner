@@ -7,7 +7,7 @@ namespace FridgePlanner.Models.ViewModels
 {
     public class ShoppingViewModel
     {
-        public List<ShoppingListItem> ShoppingItems { get; set; }
+        public List<ShoppingItem> ShoppingItems { get; set; }
         public List<string> Units { get; set; }
         public byte[] QrCodeData { get; set; }
     }
