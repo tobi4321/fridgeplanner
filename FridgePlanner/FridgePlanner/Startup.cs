@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using FridgePlanner.EFCore;
 using FridgePlanner.Models;
+using FridgePlanner.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -35,15 +35,15 @@ namespace FridgePlanner
             });
             services.AddDbContext<DataBaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddDbContext<EFCoreDataBaseContext>(options => options.UseSqlServer("Data Source=(LocalDb)\\MSSQLLocalDB;Initial Catalog=FridgePlannerRepos;  Integrated Security=True"));
+            services.AddDbContext<RepoDataBaseContext>(options => options.UseSqlServer("Data Source=(LocalDb)\\MSSQLLocalDB;Initial Catalog=FridgePlannerRepos;  Integrated Security=True"));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddScoped<EFCoreFridgeItemRepository>();
-            services.AddScoped<EFCoreShoppingItemRepository>();
-            services.AddScoped<EFCoreRecipeRepository>();
-            services.AddScoped<EFCoreRecipeItemRepository>();
-            services.AddScoped<EFCoreRecipeStepRepository>();
+            // register repositorys for FridgeItems and ShoppingItems
+            services.AddScoped<FridgeItemRepository>();
+            services.AddScoped<ShoppingItemRepository>();
+            // register RepositoryWrapper for Recipe, RecipeItem and RecipeStep Repositorys
+            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,7 +58,7 @@ namespace FridgePlanner
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
@@ -68,7 +68,7 @@ namespace FridgePlanner
                     name: "default",
                     template: "{controller=Fridge}/{action=Index}/{id?}");
             });
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
         }
     }
 }

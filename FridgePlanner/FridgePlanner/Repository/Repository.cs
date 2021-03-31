@@ -5,14 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FridgePlanner.EFCore
+namespace FridgePlanner.Repository
 {
-    public abstract class EFCoreRepository<TEntity, TContext> : IRepository<TEntity>
+    public abstract class Repository<TEntity, TContext> : IRepository<TEntity>
         where TEntity : class, IEntity
         where TContext : DbContext
     {
         private readonly TContext context;
-        public EFCoreRepository(TContext context)
+        public Repository(TContext context)
         {
             this.context = context;
         }

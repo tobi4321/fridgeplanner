@@ -9,6 +9,8 @@ using FridgePlanner.Models.ViewModels;
 using Newtonsoft.Json.Linq;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
+using FridgePlanner.Utility;
+using System.Net.Http;
 
 namespace FridgePlanner.Controllers
 {
@@ -21,9 +23,9 @@ namespace FridgePlanner.Controllers
             _context = con;
         }
 
-        public IActionResult Index([FromServices]IConfiguration config)
+        public async Task<IActionResult> Index([FromServices]IConfiguration config)
         {
-            return View(createViewModel(config));
+            return View(await createViewModelAsync(config));
         }
 
 
@@ -106,9 +108,24 @@ namespace FridgePlanner.Controllers
         }
 
 
-        private IndexViewModel createViewModel([FromServices]IConfiguration config)
+        private async Task<IndexViewModel> createViewModelAsync([FromServices]IConfiguration config)
         {
             DateTime now = DateTime.Today;
+
+            // new Layer to get data 
+
+            HttpClient client = new HttpClient();
+            ApiCaller api = new ApiCaller(client);
+            JArray response = await api.GetList("http://localhost:5000/api/FridgeApi");
+
+            List<FridgeItem> test = response.ToObject<List<FridgeItem>>();
+
+            response = await api.GetList("http://localhost:5000/api/RecipeApi");
+
+            List<Data.Recipe> recipeList = response.ToObject<List<Data.Recipe>>();
+
+            // ------------------------------------------------------
+
             List<FridgeItem> fridgeItems = _context.FridgeItems.OrderBy(item => item.ExpiryDate.Subtract(now).TotalDays).ToList();
 
             List<Recipe> recipes = _context.Recipes.Where(item => item.RecipeItems.Any(i => fridgeItems.Any(f => i.Name == f.Name))).ToList();

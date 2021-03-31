@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FridgePlanner.Data;
-using FridgePlanner.EFCore;
+using FridgePlanner.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,9 +11,9 @@ namespace FridgePlanner.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FridgeApiController : FridgeBaseController<FridgeItem, EFCoreFridgeItemRepository>
+    public class FridgeApiController : FridgeBaseController<FridgeItem, FridgeItemRepository>
     {
-        public FridgeApiController(EFCoreFridgeItemRepository repository) : base(repository)
+        public FridgeApiController(FridgeItemRepository repository) : base(repository)
         {
 
         }

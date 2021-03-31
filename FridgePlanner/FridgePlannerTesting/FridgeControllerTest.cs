@@ -77,7 +77,7 @@ namespace FridgePlannerTesting
             {
                 controller = new FridgeController(context);
                 // Act
-                var result = controller.Index(_configuration.Object);
+                var result = controller.IndexAsync(_configuration.Object);
 
 
                 // Assert

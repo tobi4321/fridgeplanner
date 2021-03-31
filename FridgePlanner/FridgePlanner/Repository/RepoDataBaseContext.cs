@@ -5,11 +5,11 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FridgePlanner.EFCore
+namespace FridgePlanner.Repository
 {
-    public class EFCoreDataBaseContext : DbContext
+    public class RepoDataBaseContext : DbContext
     {
-        public EFCoreDataBaseContext(DbContextOptions<EFCoreDataBaseContext> options)
+        public RepoDataBaseContext(DbContextOptions<RepoDataBaseContext> options)
             : base(options)
         {
             try
