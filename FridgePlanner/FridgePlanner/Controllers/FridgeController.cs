@@ -17,10 +17,12 @@ namespace FridgePlanner.Controllers
     public class FridgeController : Controller
     {
         private readonly DataBaseContext _context;
+        private readonly IApiCaller _client;
 
-        public FridgeController(DataBaseContext con)
+        public FridgeController(DataBaseContext con, IApiCaller caller)
         {
             _context = con;
+            _client = caller;
         }
 
         public async Task<IActionResult> Index([FromServices]IConfiguration config)
@@ -31,33 +33,39 @@ namespace FridgePlanner.Controllers
 
         [HttpPost]
         [Route("Fridge/AddItem")]
-        public IActionResult AddFridgeItem([FromBody] JObject t)
+        public async Task<IActionResult> AddFridgeItemAsync([FromBody] JObject t)
         {
-            FridgeItem x = t.ToObject<FridgeItem>();
-            x.ExpiryDate = x.ExpiryDate.Date;
-            _context.FridgeItems.Add(x);
-            _context.SaveChanges();
+            // new Layer to get data 
 
-            return View("FridgeTablePartial", GetFridgeItems());
+            JObject response = await _client.Post("http://localhost:5000/api/FridgeApi",t);
+
+            FridgeItem test = response.ToObject<FridgeItem>();
+
+            // ------------------------------------------------------
+
+            return View("FridgeTablePartial", await GetFridgeItemsAsync());
         }
+
+
 
         [HttpPost]
         [Route("Fridge/DeleteItem")]
-        public IActionResult DeleteFridgeItem(long Id)
+        public async Task<IActionResult> DeleteFridgeItemAsync(long Id)
         {
-            FridgeItem remove = _context.FridgeItems
-                .Where(t => t.Id == Id)
-                .First();
-            _context.FridgeItems.Remove(remove);
-            _context.SaveChanges();
 
-            return View("FridgeTablePartial", GetFridgeItems());
+            JObject response = await _client.Delete("http://localhost:5000/api/FridgeApi/"+Id);
+
+            return View("FridgeTablePartial",await GetFridgeItemsAsync());
         }
 
-        private List<FridgeItem> GetFridgeItems()
+        private async Task<List<FridgeItem>> GetFridgeItemsAsync()
         {
+
+            JArray items = await _client.GetList("http://localhost:5000/api/FridgeApi");
+            List<FridgeItem> fridgeItems = items.ToObject<List<FridgeItem>>();
+
             DateTime now = DateTime.Today;
-            List<FridgeItem> fridgeItems = _context.FridgeItems.OrderBy(item => item.ExpiryDate.Subtract(now).TotalDays).ToList();
+            fridgeItems = fridgeItems.OrderBy(item => item.ExpiryDate.Subtract(now).TotalDays).ToList();
 
             return fridgeItems;
         }
@@ -70,9 +78,12 @@ namespace FridgePlanner.Controllers
 
         [HttpPost]
         [Route("Fridge/GetEditFridgeModal")]
-        public IActionResult GetEditFridgeModal([FromServices]IConfiguration config, int Id)
+        public async Task<IActionResult> GetEditFridgeModalAsync([FromServices]IConfiguration config, int Id)
         {
-            FridgeItem edit = _context.FridgeItems.Where(t => t.Id == Id).First();
+
+            JObject response = await _client.GetItem("http://localhost:5000/api/FridgeApi/" + Id);
+            FridgeItem edit = response.ToObject<FridgeItem>();
+
             List<string> units = config.GetSection("Units").Get<List<string>>();
 
             EditFridgeViewModel model = new EditFridgeViewModel() { Item = edit, Units = units };
@@ -81,18 +92,20 @@ namespace FridgePlanner.Controllers
         }
         [HttpPost]
         [Route("Fridge/UpdateFridgeItem")]
-        public IActionResult UpdateFridgeItem(int Id, string name, double amount, string unit, DateTime expiry)
+        public async Task<IActionResult> UpdateFridgeItemAsync(int Id, string name, double amount, string unit, DateTime expiry)
         {
-            FridgeItem edit = _context.FridgeItems.Where(t => t.Id == Id).First();
+            JObject response = await _client.GetItem("http://localhost:5000/api/FridgeApi/"+Id);
+            FridgeItem edit = response.ToObject<FridgeItem>();
 
             edit.Name = name;
             edit.Amount = amount;
             edit.Unit = unit;
             edit.ExpiryDate = expiry;
             edit.ExpiryDate = edit.ExpiryDate.Date;
-            _context.SaveChanges();
 
-            return View("FridgeTablePartial", GetFridgeItems());
+            JObject updated = await _client.Update("http://localhost:5000/api/FridgeApi/" + Id,JObject.FromObject(edit));
+
+            return View("FridgeTablePartial", await GetFridgeItemsAsync());
         }
 
         [HttpPost]
@@ -114,25 +127,23 @@ namespace FridgePlanner.Controllers
 
             // new Layer to get data 
 
-            HttpClient client = new HttpClient();
-            ApiCaller api = new ApiCaller(client);
-            JArray response = await api.GetList("http://localhost:5000/api/FridgeApi");
+            JArray response = await _client.GetList("http://localhost:5000/api/FridgeApi");
 
             List<FridgeItem> test = response.ToObject<List<FridgeItem>>();
 
-            response = await api.GetList("http://localhost:5000/api/RecipeApi");
+            response = await _client.GetList("http://localhost:5000/api/RecipeApi");
 
             List<Data.Recipe> recipeList = response.ToObject<List<Data.Recipe>>();
 
             // ------------------------------------------------------
 
-            List<FridgeItem> fridgeItems = _context.FridgeItems.OrderBy(item => item.ExpiryDate.Subtract(now).TotalDays).ToList();
+            //List<FridgeItem> fridgeItems = _context.FridgeItems.OrderBy(item => item.ExpiryDate.Subtract(now).TotalDays).ToList();
 
-            List<Recipe> recipes = _context.Recipes.Where(item => item.RecipeItems.Any(i => fridgeItems.Any(f => i.Name == f.Name))).ToList();
+            List<Recipe> recipes = _context.Recipes.Where(item => item.RecipeItems.Any(i => test.Any(f => i.Name == f.Name))).ToList();
 
             List<string> units = config.GetSection("Units").Get<List<string>>();
 
-            IndexViewModel model = new IndexViewModel { FridgeItems = fridgeItems, Recipes = recipes , Units = units};
+            IndexViewModel model = new IndexViewModel { FridgeItems = test, Recipes = recipes , Units = units};
 
             return model;
         }

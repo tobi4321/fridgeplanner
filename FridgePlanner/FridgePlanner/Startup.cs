@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using FridgePlanner.Models;
 using FridgePlanner.Repository;
+using FridgePlanner.Utility;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -44,6 +45,8 @@ namespace FridgePlanner
             services.AddScoped<ShoppingItemRepository>();
             // register RepositoryWrapper for Recipe, RecipeItem and RecipeStep Repositorys
             services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+
+            services.AddHttpClient<IApiCaller, ApiCaller>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

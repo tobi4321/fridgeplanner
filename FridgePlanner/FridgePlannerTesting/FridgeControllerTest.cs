@@ -22,7 +22,7 @@ namespace FridgePlannerTesting
 
         }
         [Fact]
-        public void Index_ReturnsAViewResultWithViewModel()
+        public async Task Index_ReturnsAViewResultWithViewModelAsync()
         {
             // Capture
             var _configuration = new Mock<IConfiguration>();
@@ -77,7 +77,7 @@ namespace FridgePlannerTesting
             {
                 controller = new FridgeController(context);
                 // Act
-                var result = controller.IndexAsync(_configuration.Object);
+                var result = await controller.Index(_configuration.Object);
 
 
                 // Assert
@@ -118,7 +118,7 @@ namespace FridgePlannerTesting
                 };
 
                 // Act
-                var result = controller.AddFridgeItem(JObject.FromObject(testItem));
+                var result = controller.AddFridgeItemAsync(JObject.FromObject(testItem));
 
 
                 // Assert
@@ -158,7 +158,7 @@ namespace FridgePlannerTesting
             {
                 controller = new FridgeController(context);
                 // Act
-                var result = controller.DeleteFridgeItem(120);
+                var result = controller.DeleteFridgeItemAsync(120);
 
 
                 // Assert
@@ -256,7 +256,7 @@ namespace FridgePlannerTesting
             {
                 controller = new FridgeController(context);
                 // Act
-                var result = controller.GetEditFridgeModal(_configuration.Object,120);
+                var result = controller.GetEditFridgeModalAsync(_configuration.Object,120);
 
 
                 // Assert
@@ -301,7 +301,7 @@ namespace FridgePlannerTesting
             {
                 controller = new FridgeController(context);
                 // Act
-                var result = controller.UpdateFridgeItem(120,"Tomaten",2,"Kg", new System.DateTime(2020, 10, 15));
+                var result = controller.UpdateFridgeItemAsync(120,"Tomaten",2,"Kg", new System.DateTime(2020, 10, 15));
 
 
                 // Assert

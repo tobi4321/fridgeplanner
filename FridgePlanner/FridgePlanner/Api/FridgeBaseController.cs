@@ -42,14 +42,14 @@ namespace FridgePlanner.Controllers
 
         // PUT: api/[controller]/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, TEntity fridgeItem)
+        public async Task<ActionResult<TEntity>> Put(int id, TEntity fridgeItem)
         {
             if (id != fridgeItem.Id)
             {
                 return BadRequest();
             }
             await repository.Update(fridgeItem);
-            return NoContent();
+            return fridgeItem;
         }
 
         // POST: api/[controller]

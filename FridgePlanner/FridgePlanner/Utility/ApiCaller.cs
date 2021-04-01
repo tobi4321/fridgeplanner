@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FridgePlanner.Utility
 {
-    public class ApiCaller
+    public class ApiCaller : IApiCaller
     {
         private readonly HttpClient _client;
         public ApiCaller(HttpClient client)
@@ -64,5 +64,40 @@ namespace FridgePlanner.Utility
                 return null;
             }
         }
+
+        public async Task<JObject> Delete(string routeAttributes)
+        {
+            var response1 = _client.DeleteAsync(routeAttributes);
+            response1.Wait();
+            var response = response1.Result;
+            if (response.IsSuccessStatusCode)
+            {
+                string responseString = await response.Content.ReadAsStringAsync();
+                JObject jsonResponse = JObject.Parse(responseString);
+                return jsonResponse;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public async Task<JObject> Update(string routeAttributes,object data)
+        {
+            var response1 = _client.PutAsJsonAsync(routeAttributes,data);
+            response1.Wait();
+            var response = response1.Result;
+            if (response.IsSuccessStatusCode)
+            {
+                string responseString = await response.Content.ReadAsStringAsync();
+                JObject jsonResponse = JObject.Parse(responseString);
+                return jsonResponse;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
     }
 }

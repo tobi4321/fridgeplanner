@@ -14,10 +14,12 @@ namespace FridgePlanner.Controllers
     public class ShoppingController : Controller
     {
         private readonly DataBaseContext _context;
+        private readonly IApiCaller _client;
 
-        public ShoppingController(DataBaseContext con)
+        public ShoppingController(DataBaseContext con, IApiCaller caller)
         {
             _context = con;
+            _client = caller;
         }
         public IActionResult Index([FromServices]IConfiguration config)
         {
