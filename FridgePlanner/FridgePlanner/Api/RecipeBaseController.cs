@@ -10,27 +10,29 @@ namespace FridgePlanner.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RecipeBaseController : ControllerBase
+    public class RecipeBaseController<TEntity, TRepository> : ControllerBase
+        where TEntity : class, IEntity
+        where TRepository : IRepository<TEntity>
     {
-        private readonly IRepositoryWrapper _recipeWrapper;
+        private readonly TRepository _repository;
 
-        public RecipeBaseController(IRepositoryWrapper repoWrapper)
+        public RecipeBaseController(TRepository repository)
         {
-            _recipeWrapper = repoWrapper;
+            _repository = repository;
         }
 
         // GET: api/[controller]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<object>>> Get()
+        public virtual async Task<ActionResult<IEnumerable<object>>> Get()
         {
-            return await _recipeWrapper.Recipes.GetAll();
+            return await _repository.GetAll();
         }
 
         // GET: api/[controller]/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<object>> Get(int id)
+        public virtual async Task<ActionResult<object>> Get(int id)
         {
-            var recipe = await _recipeWrapper.Recipes.Get(id);
+            var recipe = await _repository.Get(id);
             if (recipe == null)
             {
                 return NotFound();
@@ -40,21 +42,21 @@ namespace FridgePlanner.Controllers
 
         // PUT: api/[controller]/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, Recipe recipe)
+        public async Task<IActionResult> Put(int id, TEntity recipe)
         {
             if (id != recipe.Id)
             {
                 return BadRequest();
             }
-            await _recipeWrapper.Recipes.Update(recipe);
+            await _repository.Update(recipe);
             return NoContent();
         }
 
         // POST: api/[controller]
         [HttpPost]
-        public async Task<ActionResult<object>> Post(Recipe recipe)
+        public async Task<ActionResult<object>> Post(TEntity recipe)
         {
-            await _recipeWrapper.Recipes.Add(recipe);
+            await _repository.Add(recipe);
             return CreatedAtAction("Get", new { id = recipe.Id }, recipe);
         }
 
@@ -62,7 +64,7 @@ namespace FridgePlanner.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<object>> Delete(int id)
         {
-            var fridgeItem = await _recipeWrapper.Recipes.Delete(id);
+            var fridgeItem = await _repository.Delete(id);
             if (fridgeItem == null)
             {
                 return NotFound();

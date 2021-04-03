@@ -40,12 +40,12 @@ namespace FridgePlanner
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            // register repositorys for FridgeItems and ShoppingItems
+            // register repositorys for FridgeItems, ShoppingItems and Recipes including RecipeItems and RecipeSteps
             services.AddScoped<FridgeItemRepository>();
             services.AddScoped<ShoppingItemRepository>();
-            // register RepositoryWrapper for Recipe, RecipeItem and RecipeStep Repositorys
-            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
-
+            services.AddScoped<RecipeRepository>();
+            
+            // register ApiCaller as Access Point to the ApiControllers
             services.AddHttpClient<IApiCaller, ApiCaller>();
         }
 
@@ -60,8 +60,7 @@ namespace FridgePlanner
             {
                 app.UseHsts();
             }
-
-            //app.UseHttpsRedirection();
+            
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
@@ -71,7 +70,6 @@ namespace FridgePlanner
                     name: "default",
                     template: "{controller=Fridge}/{action=Index}/{id?}");
             });
-            //app.UseHttpsRedirection();
         }
     }
 }

@@ -354,7 +354,7 @@ namespace FridgePlannerTesting
             {
                 controller = new FridgeController(context);
                 // Act
-                var result = controller.GetRecipeDetail(100);
+                var result = controller.GetRecipeDetailAsync(100);
 
 
                 // Assert
