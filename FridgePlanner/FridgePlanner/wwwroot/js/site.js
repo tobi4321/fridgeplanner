@@ -201,7 +201,6 @@ function addRecipe() {
         });
 }
 function editRecipePage(id) {
-    console.log(id);
     window.location.href = "Recipe/EditRecipeOverview/" + id;
 }
 function editRecipe(id)
@@ -261,11 +260,11 @@ function deleteRecipeStep(recipeId, recipeStepId) {
 }
 function addRecipeStep(id) {
 
-    var name = document.querySelector("#recipeStepName").value;
+    var title = document.querySelector("#recipeStepName").value;
     var stepNumber = document.querySelector("#recipeStepNumber").value;
     var text = document.querySelector("#recipeStepText").value;
 
-    var outputString = '{ "Name": ' + '"' + name + '"' + ',"StepNumber": ' + '"' + stepNumber + '"' + ',"Text": ' + '"' + text + '"' + '}';
+    var outputString = '{ "Title": ' + '"' + title + '"' + ',"StepNumber": ' + '"' + stepNumber + '"' + ',"Text": ' + '"' + text + '"' + '}';
 
     postDataWithContentAndDataType("/Recipe/AddRecipeStep/" + id, false, outputString, 'application/json', 'json')
         .done(function (msg) {
@@ -293,14 +292,14 @@ function updateRecipeItem(id,recipeId) {
         });
 }
 function updateRecipeStep(id, recipeId) {
-    var recipeStepName = $('#recipeStepEditName'+id).val()
+    var recipeStepTitle = $('#recipeStepEditName'+id).val()
     var recipeStepNumber = $('#recipeStepEditNumber'+id).val()
     var recipeStepText = $('#recipeStepEditText'+id).val()
 
     var data = {
         RecipeStepId: id,
         Id: recipeId,
-        name: recipeStepName,
+        title: recipeStepTitle,
         number: recipeStepNumber,
         text: recipeStepText
     }

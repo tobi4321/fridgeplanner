@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FridgePlanner.Data;
 using FridgePlanner.Models;
 using FridgePlanner.Models.NutritionModels;
 using FridgePlanner.Models.ViewModels;
@@ -132,14 +133,14 @@ namespace FridgePlanner.Controllers
 
         [HttpPost]
         [Route("Recipe/UpdateRecipeStep/")]
-        public async Task<IActionResult> UpdateRecipeStep(int Id, long RecipeStepId, string name, int number, string text)
+        public async Task<IActionResult> UpdateRecipeStep(int Id, long RecipeStepId, string title, int number, string text)
         {
             JObject response = await _client.GetItem("http://localhost:5000/api/RecipeApi/" + Id);
             Recipe edit = response.ToObject<Recipe>();
 
             RecipeStep step = edit.RecipeSteps.Where(r => r.Id == RecipeStepId).First();
 
-            step.Name = name;
+            step.Title = title;
             step.StepNumber = number;
             step.Text = text;
 

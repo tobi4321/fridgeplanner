@@ -1,4 +1,4 @@
-﻿@model Recipe;
+﻿@model FridgePlanner.Data.Recipe;
 @{
     Layout = null;
 }
@@ -44,7 +44,7 @@
                             @if (Model.RecipeSteps.ElementAt(i).StepNumber == j)
                             {
                                 <div class="card" style="margin-top: 5px;">
-                                    <div class="card-header"> <b>@Model.RecipeSteps.ElementAt(i).StepNumber</b> @Model.RecipeSteps.ElementAt(i).Name</div>
+                                    <div class="card-header"> <b>@Model.RecipeSteps.ElementAt(i).StepNumber</b> @Model.RecipeSteps.ElementAt(i).Title</div>
                                     <div class="card-body">
                                         @Model.RecipeSteps.ElementAt(i).Text
                                     </div>

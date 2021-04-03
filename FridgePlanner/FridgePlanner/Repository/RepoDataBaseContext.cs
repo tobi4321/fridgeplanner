@@ -23,11 +23,11 @@ namespace FridgePlanner.Repository
             }
         }
 
-        public DbSet<Data.FridgeItem> DataFridgeItems { get; set; }
-        public DbSet<Data.ShoppingItem> DataShoppingItems { get; set; }
-        public DbSet<Data.Recipe> DataRecipes { get; set; }
-        public DbSet<Data.RecipeItem> DataRecipeItems { get; set; }
-        public DbSet<Data.RecipeStep> DataRecipeSteps { get; set; }
+        public DbSet<Data.FridgeItem> FridgeItems { get; set; }
+        public DbSet<Data.ShoppingItem> ShoppingItems { get; set; }
+        public DbSet<Data.Recipe> Recipes { get; set; }
+        public DbSet<Data.RecipeItem> RecipeItems { get; set; }
+        public DbSet<Data.RecipeStep> RecipeSteps { get; set; }
 
     }
 }

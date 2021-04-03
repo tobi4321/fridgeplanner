@@ -1,4 +1,5 @@
-﻿using FridgePlanner.Models.NutritionModels;
+﻿using FridgePlanner.Data;
+using FridgePlanner.Models.NutritionModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

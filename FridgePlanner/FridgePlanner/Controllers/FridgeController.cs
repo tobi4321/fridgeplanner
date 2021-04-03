@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using FridgePlanner.Utility;
 using System.Net.Http;
+using FridgePlanner.Data;
 
 namespace FridgePlanner.Controllers
 {
@@ -33,13 +34,9 @@ namespace FridgePlanner.Controllers
         [Route("Fridge/AddItem")]
         public async Task<IActionResult> AddFridgeItemAsync([FromBody] JObject t)
         {
-            // new Layer to get data 
-
             JObject response = await _client.Post("http://localhost:5000/api/FridgeApi",t);
 
             FridgeItem test = response.ToObject<FridgeItem>();
-
-            // ------------------------------------------------------
 
             return View("FridgeTablePartial", await GetFridgeItemsAsync());
         }
@@ -111,8 +108,6 @@ namespace FridgePlanner.Controllers
         [Route("Fridge/GetRecipeDetail")]
         public async Task<IActionResult> GetRecipeDetailAsync(int Id)
         {
-            //Recipe detail = _context.Recipes.Include(r => r.RecipeItems).Include(r => r.RecipeSteps).Where(r => r.Id == Id).First();
-
             JObject test = await _client.GetItem("http://localhost:5000/api/RecipeApi/" + Id);
 
             Recipe detail = test.ToObject<Recipe>();

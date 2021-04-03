@@ -82,7 +82,5 @@ namespace FridgePlanner.Utility
 
             return json;
         }
-
-
     }
 }

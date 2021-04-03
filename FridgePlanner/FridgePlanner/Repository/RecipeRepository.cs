@@ -17,23 +17,24 @@ namespace FridgePlanner.Repository
         // overload GetAll Method of base class to include recipeitems and recipesteps
         public new async Task<List<Recipe>> GetAll()
         {
-            List<Recipe> recipes = await _context.DataRecipes
+            List<Recipe> recipes = await _context.Recipes
                 .Include(r => r.RecipeItems)
                 .Include(r => r.RecipeSteps).ToListAsync();
             return recipes;
         }
         public new async Task<Recipe> Get(int id)
         {
-            Recipe recipes = await _context.DataRecipes
+            Recipe recipes = await _context.Recipes
                 .Include(r => r.RecipeItems)
                 .Include(r => r.RecipeSteps).Where(x => x.Id == id).FirstAsync();
             return recipes;
         }
+
         // here are specific methods for the Recipe Repo
 
         public async Task<Recipe> AddItem(Recipe recipe,RecipeItem item)
         {
-            var rec = _context.DataRecipes.Include(r => r.RecipeItems).Include(r => r.RecipeSteps).Where(x=>x.Id == recipe.Id).First();
+            var rec = _context.Recipes.Include(r => r.RecipeItems).Include(r => r.RecipeSteps).Where(x=>x.Id == recipe.Id).First();
             rec.RecipeItems.Add(item);
             await _context.SaveChangesAsync();
             return recipe;
@@ -41,7 +42,7 @@ namespace FridgePlanner.Repository
 
         public async Task<Recipe> DeleteItem(Recipe recipe,RecipeItem item)
         {
-            var rec = _context.DataRecipes.Include(r => r.RecipeItems).Include(r => r.RecipeSteps).Where(x => x.Id == recipe.Id).First();
+            var rec = _context.Recipes.Include(r => r.RecipeItems).Include(r => r.RecipeSteps).Where(x => x.Id == recipe.Id).First();
             rec.RecipeItems.Remove(item);
 
             await _context.SaveChangesAsync();
@@ -51,8 +52,9 @@ namespace FridgePlanner.Repository
 
         public async Task<Recipe> UpdateItem(Recipe recipe,RecipeItem item)
         {
-            var rec = _context.DataRecipes.Include(r => r.RecipeItems).Include(r => r.RecipeSteps).Where(x => x.Id == recipe.Id).First();
+            var rec = _context.Recipes.Include(r => r.RecipeItems).Include(r => r.RecipeSteps).Where(x => x.Id == recipe.Id).First();
             var it = rec.RecipeItems.Where(i => i.Id == item.Id).First();
+
             it.Name = item.Name;
             it.Amount = item.Amount;
             it.Unit = item.Unit;
@@ -63,7 +65,7 @@ namespace FridgePlanner.Repository
 
         public async Task<Recipe> AddStep(Recipe recipe, RecipeStep step)
         {
-            var rec = _context.DataRecipes.Include(r => r.RecipeItems).Include(r => r.RecipeSteps).Where(x => x.Id == recipe.Id).First();
+            var rec = _context.Recipes.Include(r => r.RecipeItems).Include(r => r.RecipeSteps).Where(x => x.Id == recipe.Id).First();
             rec.RecipeSteps.Add(step);
             await _context.SaveChangesAsync();
             return recipe;
@@ -71,7 +73,7 @@ namespace FridgePlanner.Repository
 
         public async Task<Recipe> DeleteStep(Recipe recipe, RecipeStep step)
         {
-            var rec = _context.DataRecipes.Include(r => r.RecipeItems).Include(r => r.RecipeSteps).Where(x => x.Id == recipe.Id).First();
+            var rec = _context.Recipes.Include(r => r.RecipeItems).Include(r => r.RecipeSteps).Where(x => x.Id == recipe.Id).First();
             rec.RecipeSteps.Remove(step);
 
             await _context.SaveChangesAsync();
@@ -81,9 +83,10 @@ namespace FridgePlanner.Repository
 
         public async Task<Recipe> UpdateStep(Recipe recipe, RecipeStep step)
         {
-            var rec = _context.DataRecipes.Include(r => r.RecipeItems).Include(r => r.RecipeSteps).Where(x => x.Id == recipe.Id).First();
+            var rec = _context.Recipes.Include(r => r.RecipeItems).Include(r => r.RecipeSteps).Where(x => x.Id == recipe.Id).First();
             var st = rec.RecipeSteps.Where(i => i.Id == step.Id).First();
-            st.Titel = step.Titel;
+
+            st.Title = step.Title;
             st.Text = step.Text;
             st.StepNumber = step.StepNumber;
 

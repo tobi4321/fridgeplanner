@@ -154,7 +154,7 @@
                         @if (Model.RecipeElement.RecipeSteps.ElementAt(i).StepNumber == j)
                         {
                             <div class="card" style="margin-top: 5px;">
-                                <div class="card-header"> <b>@Model.RecipeElement.RecipeSteps.ElementAt(i).StepNumber</b> @Model.RecipeElement.RecipeSteps.ElementAt(i).Name</div>
+                                <div class="card-header"> <b>@Model.RecipeElement.RecipeSteps.ElementAt(i).StepNumber</b> @Model.RecipeElement.RecipeSteps.ElementAt(i).Title</div>
                                 <div class="card-body">
                                     @Model.RecipeElement.RecipeSteps.ElementAt(i).Text
 
@@ -206,7 +206,7 @@
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <div class="md-form">
-                                                                    <input id="recipeStepEditName@(@Model.RecipeElement.RecipeSteps.ElementAt(i).Id)" type="text" value="@Model.RecipeElement.RecipeSteps.ElementAt(i).Name" class="form-control" placeholder="Name des Zubereitungsschritts" aria-describedby="basic-addon1">
+                                                                    <input id="recipeStepEditName@(@Model.RecipeElement.RecipeSteps.ElementAt(i).Id)" type="text" value="@Model.RecipeElement.RecipeSteps.ElementAt(i).Title" class="form-control" placeholder="Name des Zubereitungsschritts" aria-describedby="basic-addon1">
                                                                 </div>
                                                                 <div class="md-form">
                                                                     <input id="recipeStepEditNumber@(@Model.RecipeElement.RecipeSteps.ElementAt(i).Id)" type="number" value="@Model.RecipeElement.RecipeSteps.ElementAt(i).StepNumber" class="form-control" placeholder="Schrittnummer" aria-describedby="basic-addon1">
