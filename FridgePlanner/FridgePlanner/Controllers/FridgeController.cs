@@ -126,7 +126,7 @@ namespace FridgePlanner.Controllers
 
             List<FridgeItem> fridgeItems = await GetFridgeItemsAsync();
 
-            List<Recipe> recipes = null;
+            List<Recipe> recipes = new List<Recipe>();
 
             if (fridgeItems.Count() > 0)
             {
