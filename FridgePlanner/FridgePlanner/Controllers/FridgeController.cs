@@ -111,7 +111,7 @@ namespace FridgePlanner.Controllers
         [Route("Fridge/GetRecipeDetail")]
         public async Task<IActionResult> GetRecipeDetailAsync(int Id)
         {
-            //Recipe detail = _context.Recipes.Include(r => r.RecipeItems).Include(r => r.RecipeSteps).Where(r => r.RecipeId == Id).First();
+            //Recipe detail = _context.Recipes.Include(r => r.RecipeItems).Include(r => r.RecipeSteps).Where(r => r.Id == Id).First();
 
             JObject test = await _client.GetItem("http://localhost:5000/api/RecipeApi/" + Id);
 

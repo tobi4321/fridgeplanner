@@ -50,7 +50,7 @@
                                         </div>
                                         <div class="modal-body">
                                             <p>Bist du sicher, dass du diese Zutat löschen möchtest?</p>
-                                            <button onclick="deleteRecipeItem(@Model.RecipeElement.RecipeId,@Model.RecipeElement.RecipeItems.ElementAt(i).Id)" type="button" data-dismiss="modal" class="btn btn-danger">Löschen</button>
+                                            <button onclick="deleteRecipeItem(@Model.RecipeElement.Id,@Model.RecipeElement.RecipeItems.ElementAt(i).Id)" type="button" data-dismiss="modal" class="btn btn-danger">Löschen</button>
                                             <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
                                         </div>
                                     </div>
@@ -115,7 +115,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
-                                            <button onclick="updateRecipeItem(@Model.RecipeElement.RecipeItems.ElementAt(i).Id,@Model.RecipeElement.RecipeId)" type="button" data-dismiss="modal" class="btn btn-success">Zutat speichern</button>
+                                            <button onclick="updateRecipeItem(@Model.RecipeElement.RecipeItems.ElementAt(i).Id,@Model.RecipeElement.Id)" type="button" data-dismiss="modal" class="btn btn-success">Zutat speichern</button>
                                         </div>
                                     </div>
                                 </div>
@@ -158,13 +158,13 @@
                                 <div class="card-body">
                                     @Model.RecipeElement.RecipeSteps.ElementAt(i).Text
 
-                                    <a data-toggle="modal" data-target="#modalDeleteRecipeStep@(Model.RecipeElement.RecipeSteps.ElementAt(i).RecipeStepId)" class="btn btn-danger float-right" style="color:white;">
+                                    <a data-toggle="modal" data-target="#modalDeleteRecipeStep@(Model.RecipeElement.RecipeSteps.ElementAt(i).Id)" class="btn btn-danger float-right" style="color:white;">
                                         <span class="material-icons">
                                             delete_forever
                                         </span>
                                     </a>
                                     <!-- Modal Delete Recipe Step-->
-                                    <div class="modal fade" id="modalDeleteRecipeStep@(Model.RecipeElement.RecipeSteps.ElementAt(i).RecipeStepId)" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="false">
+                                    <div class="modal fade" id="modalDeleteRecipeStep@(Model.RecipeElement.RecipeSteps.ElementAt(i).Id)" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="false">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -175,7 +175,7 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     <p>Bist du sicher, dass du diesen Zubereitungsschritt löschen möchtest?</p>
-                                                    <button onclick="deleteRecipeStep(@Model.RecipeElement.RecipeId,@Model.RecipeElement.RecipeSteps.ElementAt(i).RecipeStepId)" type="button" data-dismiss="modal" class="btn btn-danger">Löschen</button>
+                                                    <button onclick="deleteRecipeStep(@Model.RecipeElement.Id,@Model.RecipeElement.RecipeSteps.ElementAt(i).Id)" type="button" data-dismiss="modal" class="btn btn-danger">Löschen</button>
                                                     <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
                                                 </div>
                                             </div>
@@ -206,13 +206,13 @@
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <div class="md-form">
-                                                                    <input id="recipeStepEditName@(@Model.RecipeElement.RecipeSteps.ElementAt(i).RecipeStepId)" type="text" value="@Model.RecipeElement.RecipeSteps.ElementAt(i).Name" class="form-control" placeholder="Name des Zubereitungsschritts" aria-describedby="basic-addon1">
+                                                                    <input id="recipeStepEditName@(@Model.RecipeElement.RecipeSteps.ElementAt(i).Id)" type="text" value="@Model.RecipeElement.RecipeSteps.ElementAt(i).Name" class="form-control" placeholder="Name des Zubereitungsschritts" aria-describedby="basic-addon1">
                                                                 </div>
                                                                 <div class="md-form">
-                                                                    <input id="recipeStepEditNumber@(@Model.RecipeElement.RecipeSteps.ElementAt(i).RecipeStepId)" type="number" value="@Model.RecipeElement.RecipeSteps.ElementAt(i).StepNumber" class="form-control" placeholder="Schrittnummer" aria-describedby="basic-addon1">
+                                                                    <input id="recipeStepEditNumber@(@Model.RecipeElement.RecipeSteps.ElementAt(i).Id)" type="number" value="@Model.RecipeElement.RecipeSteps.ElementAt(i).StepNumber" class="form-control" placeholder="Schrittnummer" aria-describedby="basic-addon1">
                                                                 </div>
                                                                 <div class="md-form">
-                                                                    <input id="recipeStepEditText@(@Model.RecipeElement.RecipeSteps.ElementAt(i).RecipeStepId)" type="text" value="@Model.RecipeElement.RecipeSteps.ElementAt(i).Text" class="form-control" placeholder="Text" aria-describedby="basic-addon1">
+                                                                    <input id="recipeStepEditText@(@Model.RecipeElement.RecipeSteps.ElementAt(i).Id)" type="text" value="@Model.RecipeElement.RecipeSteps.ElementAt(i).Text" class="form-control" placeholder="Text" aria-describedby="basic-addon1">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -221,7 +221,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
-                                                    <button onclick=" updateRecipeStep(@Model.RecipeElement.RecipeSteps.ElementAt(i).RecipeStepId,@Model.RecipeElement.RecipeId)" type="button" data-dismiss="modal" class="btn btn-success">Zubereitungsschritt speichern</button>
+                                                    <button onclick=" updateRecipeStep(@Model.RecipeElement.RecipeSteps.ElementAt(i).Id,@Model.RecipeElement.Id)" type="button" data-dismiss="modal" class="btn btn-success">Zubereitungsschritt speichern</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -276,7 +276,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
-                <button onclick="editRecipe(@Model.RecipeElement.RecipeId)" type="button" data-dismiss="modal" class="btn btn-success">Änderungen übernehmen</button>
+                <button onclick="editRecipe(@Model.RecipeElement.Id)" type="button" data-dismiss="modal" class="btn btn-success">Änderungen übernehmen</button>
             </div>
         </div>
     </div>
@@ -329,7 +329,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
-                <button onclick="addRecipeItem(@Model.RecipeElement.RecipeId)" type="button" data-dismiss="modal" class="btn btn-success">Lebensmittel hinzufügen</button>
+                <button onclick="addRecipeItem(@Model.RecipeElement.Id)" type="button" data-dismiss="modal" class="btn btn-success">Lebensmittel hinzufügen</button>
             </div>
         </div>
     </div>
@@ -369,7 +369,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
-                <button onclick="addRecipeStep(@Model.RecipeElement.RecipeId)" type="button" data-dismiss="modal" class="btn btn-success">Lebensmittel hinzufügen</button>
+                <button onclick="addRecipeStep(@Model.RecipeElement.Id)" type="button" data-dismiss="modal" class="btn btn-success">Lebensmittel hinzufügen</button>
             </div>
         </div>
     </div>

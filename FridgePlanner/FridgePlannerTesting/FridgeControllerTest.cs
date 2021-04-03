@@ -57,7 +57,7 @@ namespace FridgePlannerTesting
                 });
                 context.Recipes.Add(new Recipe()
                 {
-                    RecipeId = 100,
+                    Id = 100,
                     Name = "TestRezept",
                     Description = "Ein einfaches Test Rezept",
                     RecipeItems = new List<RecipeItem>
@@ -334,7 +334,7 @@ namespace FridgePlannerTesting
 
                 context.Recipes.Add(new Recipe()
                 {
-                    RecipeId = 100,
+                    Id = 100,
                     Name = "TestRezept",
                     Description = "Ein einfaches Test Rezept",
                     RecipeItems = new List<RecipeItem>

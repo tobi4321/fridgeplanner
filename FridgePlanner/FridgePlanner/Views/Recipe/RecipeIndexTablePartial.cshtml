@@ -12,22 +12,22 @@
         <div class="card-body">
             <p class="card-text">@Model.ElementAt(i).Description</p>
 
-            <button onclick="updateRecipeDetail(@Model[i].RecipeId)" type="button" class="btn btn-save btn-sm" data-toggle="tooltip" data-placement="top" title="Rezept anzeigen">
+            <button onclick="updateRecipeDetail(@Model[i].Id)" type="button" class="btn btn-save btn-sm" data-toggle="tooltip" data-placement="top" title="Rezept anzeigen">
                 <i class="material-icons" style="font-size:20px">
                     details
                 </i>
             </button>
-            <button onclick="editRecipePage(@Model[i].RecipeId)" type="button" class="btn btn-save btn-sm" data-toggle="tooltip" data-placement="top" title="Rezept editieren">
+            <button onclick="editRecipePage(@Model[i].Id)" type="button" class="btn btn-save btn-sm" data-toggle="tooltip" data-placement="top" title="Rezept editieren">
                 <i class="material-icons" style="font-size:20px">
                     edit
                 </i>
             </button>
-            <button onclick="addToCart(@Model[i].RecipeId)" type="button" class="btn btn-save btn-sm" data-toggle="tooltip" data-placement="top" title="Zur Einkaufsliste hinzufügen">
+            <button onclick="addToCart(@Model[i].Id)" type="button" class="btn btn-save btn-sm" data-toggle="tooltip" data-placement="top" title="Zur Einkaufsliste hinzufügen">
                 <i class="material-icons" style="font-size:20px">
                     shopping_cart
                 </i>
             </button>
-            <button onclick="openNutritionInfo(@Model[i].RecipeId)" type="button" class="btn btn-save btn-sm" data-toggle="tooltip" data-placement="top" title="Nährwerte berechnen">
+            <button onclick="openNutritionInfo(@Model[i].Id)" type="button" class="btn btn-save btn-sm" data-toggle="tooltip" data-placement="top" title="Nährwerte berechnen">
                 <i class="material-icons" style="font-size:20px">
                     info
                 </i>

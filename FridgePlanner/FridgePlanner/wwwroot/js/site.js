@@ -201,6 +201,7 @@ function addRecipe() {
         });
 }
 function editRecipePage(id) {
+    console.log(id);
     window.location.href = "Recipe/EditRecipeOverview/" + id;
 }
 function editRecipe(id)

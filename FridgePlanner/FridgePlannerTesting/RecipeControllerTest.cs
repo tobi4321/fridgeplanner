@@ -41,7 +41,7 @@ namespace FridgePlannerTesting
 
                 context.Recipes.Add(new Recipe()
                 {
-                    RecipeId = 100,
+                    Id = 100,
                     Name = "TestRezept",
                     Description = "Ein einfaches Test Rezept",
                     RecipeItems = new List<RecipeItem>
@@ -61,7 +61,7 @@ namespace FridgePlannerTesting
             {
                 controller = new RecipeController(context);
                 // Act
-                var result = controller.Index();
+                var result = controller.IndexAsync();
 
 
                 // Assert
@@ -100,7 +100,7 @@ namespace FridgePlannerTesting
 
                 controller = new RecipeController(context);
                 // Act
-                var result = controller.AddRecipe(JObject.FromObject(testItem));
+                var result = controller.AddRecipeAsync(JObject.FromObject(testItem));
 
 
                 // Assert
@@ -111,7 +111,7 @@ namespace FridgePlannerTesting
                 var id = objectResult.Value;
 
                 Assert.NotNull(id);
-                Assert.Equal(context.Recipes.First().RecipeId, id);
+                Assert.Equal(context.Recipes.First().Id, id);
             }
         }
 
@@ -141,7 +141,7 @@ namespace FridgePlannerTesting
 
                 context.Recipes.Add(new Recipe()
                 {
-                    RecipeId = 100,
+                    Id = 100,
                     Name = "TestRezept",
                     Description = "Ein einfaches Test Rezept",
                     RecipeItems = new List<RecipeItem>
@@ -162,7 +162,7 @@ namespace FridgePlannerTesting
 
                 controller = new RecipeController(context);
                 // Act
-                var result = controller.EditRecipeOverview(_configuration.Object,100);
+                var result = controller.EditRecipeOverviewAsync(_configuration.Object,100);
 
 
                 // Assert
@@ -173,7 +173,7 @@ namespace FridgePlannerTesting
                 var model = viewResult.Model as EditRecipeViewModel;
 
                 Assert.NotNull(model);
-                Assert.Equal(context.Recipes.First().RecipeId, model.RecipeElement.RecipeId);
+                Assert.Equal(context.Recipes.First().Id, model.RecipeElement.Id);
             }
         }
 
@@ -194,7 +194,7 @@ namespace FridgePlannerTesting
 
                 context.Recipes.Add(new Recipe()
                 {
-                    RecipeId = 100,
+                    Id = 100,
                     Name = "TestRezept",
                     Description = "Ein einfaches Test Rezept",
                     RecipeItems = new List<RecipeItem>
@@ -216,7 +216,7 @@ namespace FridgePlannerTesting
 
                 controller = new RecipeController(context);
                 // Act
-                var result = controller.EditRecipe(100,"ChangedTestRezept","Ein einfaches Test Rezept");
+                var result = controller.EditRecipeAsync(100,"ChangedTestRezept","Ein einfaches Test Rezept");
 
 
                 // Assert
@@ -227,7 +227,7 @@ namespace FridgePlannerTesting
                 var id = objectResult.Value;
 
                 Assert.NotNull(id);
-                Assert.Equal(context.Recipes.First().RecipeId, id);
+                Assert.Equal(context.Recipes.First().Id, id);
                 Assert.Equal("ChangedTestRezept", context.Recipes.First().Name);
             }
         }
@@ -259,7 +259,7 @@ namespace FridgePlannerTesting
 
                 context.Recipes.Add(new Recipe()
                 {
-                    RecipeId = 100,
+                    Id = 100,
                     Name = "TestRezept",
                     Description = "Ein einfaches Test Rezept"
                 });
@@ -278,7 +278,7 @@ namespace FridgePlannerTesting
 
                 controller = new RecipeController(context);
                 // Act
-                var result = controller.AddRecipeItem(_configuration.Object,100,JObject.FromObject(testItem));
+                var result = controller.AddRecipeItemAsync(_configuration.Object,100,JObject.FromObject(testItem));
 
 
                 // Assert
@@ -289,7 +289,7 @@ namespace FridgePlannerTesting
                 var id = objectResult.Value;
 
                 Assert.NotNull(id);
-                Assert.Equal(context.Recipes.First().RecipeId, id);
+                Assert.Equal(context.Recipes.First().Id, id);
             }
         }
 
@@ -321,7 +321,7 @@ namespace FridgePlannerTesting
 
                 context.Recipes.Add(new Recipe()
                 {
-                    RecipeId = 100,
+                    Id = 100,
                     Name = "TestRezept",
                     Description = "Ein einfaches Test Rezept"
                 });
@@ -340,7 +340,7 @@ namespace FridgePlannerTesting
 
                 controller = new RecipeController(context);
                 // Act
-                var result = controller.AddRecipeStep(_configuration.Object, 100, JObject.FromObject(testItem));
+                var result = controller.AddRecipeStepAsync(_configuration.Object, 100, JObject.FromObject(testItem));
 
 
                 // Assert
@@ -351,7 +351,7 @@ namespace FridgePlannerTesting
                 var id = objectResult.Value;
 
                 Assert.NotNull(id);
-                Assert.Equal(context.Recipes.First().RecipeId, id);
+                Assert.Equal(context.Recipes.First().Id, id);
             }
         }
 
@@ -371,7 +371,7 @@ namespace FridgePlannerTesting
 
                 context.Recipes.Add(new Recipe()
                 {
-                    RecipeId = 100,
+                    Id = 100,
                     Name = "TestRezept",
                     Description = "Ein einfaches Test Rezept",
                     RecipeItems = new List<RecipeItem>
@@ -392,7 +392,7 @@ namespace FridgePlannerTesting
 
                 controller = new RecipeController(context);
                 // Act
-                var result = controller.DeleteRecipeItem(100, 1100);
+                var result = controller.DeleteRecipeItemAsync(100, 1100);
 
 
                 // Assert
@@ -403,7 +403,7 @@ namespace FridgePlannerTesting
                 var id = objectResult.Value;
 
                 Assert.NotNull(id);
-                Assert.Equal(context.Recipes.First().RecipeId, id);
+                Assert.Equal(context.Recipes.First().Id, id);
                 Assert.Empty(context.RecipeItems.ToList());
             }
         }
@@ -424,13 +424,13 @@ namespace FridgePlannerTesting
 
                 context.Recipes.Add(new Recipe()
                 {
-                    RecipeId = 100,
+                    Id = 100,
                     Name = "TestRezept",
                     Description = "Ein einfaches Test Rezept",
                     RecipeSteps = new List<RecipeStep>
                     {
                         new RecipeStep(){
-                            RecipeStepId = 1100,
+                            Id = 1100,
                             Name = "Tomaten pürieren",
                             Text = "Jetzt die Tomaten pürieren..."
                         }
@@ -444,7 +444,7 @@ namespace FridgePlannerTesting
 
                 controller = new RecipeController(context);
                 // Act
-                var result = controller.DeleteRecipeStep(100, 1100);
+                var result = controller.DeleteRecipeStepAsync(100, 1100);
 
 
                 // Assert
@@ -455,7 +455,7 @@ namespace FridgePlannerTesting
                 var id = objectResult.Value;
 
                 Assert.NotNull(id);
-                Assert.Equal(context.Recipes.First().RecipeId, id);
+                Assert.Equal(context.Recipes.First().Id, id);
                 Assert.Empty(context.RecipeSteps.ToList());
             }
         }
@@ -476,7 +476,7 @@ namespace FridgePlannerTesting
 
                 context.Recipes.Add(new Recipe()
                 {
-                    RecipeId = 100,
+                    Id = 100,
                     Name = "TestRezept",
                     Description = "Ein einfaches Test Rezept",
                     RecipeItems = new List<RecipeItem>
@@ -497,7 +497,7 @@ namespace FridgePlannerTesting
 
                 controller = new RecipeController(context);
                 // Act
-                var result = controller.UpdateRecipeItem(100, 1100,"Tomate",2.0,"kg");
+                var result = controller.UpdateRecipeItemAsync(100, 1100,"Tomate",2.0,"kg");
 
 
                 // Assert
@@ -508,7 +508,7 @@ namespace FridgePlannerTesting
                 var id = objectResult.Value;
 
                 Assert.NotNull(id);
-                Assert.Equal(context.Recipes.First().RecipeId, id);
+                Assert.Equal(context.Recipes.First().Id, id);
                 Assert.Equal(2.0,context.Recipes.First().RecipeItems.First().Amount);
             }
         }
@@ -529,13 +529,13 @@ namespace FridgePlannerTesting
 
                 context.Recipes.Add(new Recipe()
                 {
-                    RecipeId = 100,
+                    Id = 100,
                     Name = "TestRezept",
                     Description = "Ein einfaches Test Rezept",
                     RecipeSteps = new List<RecipeStep>
                     {
                         new RecipeStep(){
-                            RecipeStepId = 1100,
+                            Id = 1100,
                             Name = "Tomate hacken",
                             StepNumber = 1,
                             Text = "Tomaten hacken und so"
@@ -550,7 +550,7 @@ namespace FridgePlannerTesting
 
                 controller = new RecipeController(context);
                 // Act
-                var result = controller.UpdateRecipeStep(100, 1100, "Tomate zerhacken",2,"Tomaten hacken und so");
+                var result = controller.UpdateRecipeStepAsync(100, 1100, "Tomate zerhacken",2,"Tomaten hacken und so");
 
 
                 // Assert
@@ -561,7 +561,7 @@ namespace FridgePlannerTesting
                 var id = objectResult.Value;
 
                 Assert.NotNull(id);
-                Assert.Equal(context.Recipes.First().RecipeId, id);
+                Assert.Equal(context.Recipes.First().Id, id);
                 Assert.Equal(2, context.Recipes.First().RecipeSteps.First().StepNumber);
             }
         }
@@ -582,13 +582,13 @@ namespace FridgePlannerTesting
 
                 context.Recipes.Add(new Recipe()
                 {
-                    RecipeId = 100,
+                    Id = 100,
                     Name = "TestRezept",
                     Description = "Ein einfaches Test Rezept",
                     RecipeSteps = new List<RecipeStep>
                     {
                         new RecipeStep(){
-                            RecipeStepId = 1100,
+                            Id = 1100,
                             Name = "Tomate hacken",
                             StepNumber = 1,
                             Text = "Tomaten hacken und so"
@@ -603,7 +603,7 @@ namespace FridgePlannerTesting
 
                 controller = new RecipeController(context);
                 // Act
-                var result = controller.GetRecipeDetail(100);
+                var result = controller.GetRecipeDetailAsync(100);
 
 
                 // Assert
@@ -637,13 +637,13 @@ namespace FridgePlannerTesting
 
                 context.Recipes.Add(new Recipe()
                 {
-                    RecipeId = 100,
+                    Id = 100,
                     Name = "TestRezept",
                     Description = "Ein einfaches Test Rezept",
                     RecipeSteps = new List<RecipeStep>
                     {
                         new RecipeStep(){
-                            RecipeStepId = 1100,
+                            Id = 1100,
                             Name = "Tomate hacken",
                             StepNumber = 1,
                             Text = "Tomaten hacken und so"
@@ -668,7 +668,7 @@ namespace FridgePlannerTesting
 
                 controller = new RecipeController(context);
                 // Act
-                var result = controller.AddToCart(100);
+                var result = controller.AddToCartAsync(100);
 
 
                 // Assert
@@ -706,13 +706,13 @@ namespace FridgePlannerTesting
 
                 context.Recipes.Add(new Recipe()
                 {
-                    RecipeId = 100,
+                    Id = 100,
                     Name = "TestRezept",
                     Description = "Ein einfaches Test Rezept",
                     RecipeSteps = new List<RecipeStep>
                     {
                         new RecipeStep(){
-                            RecipeStepId = 1100,
+                            Id = 1100,
                             Name = "Tomate hacken",
                             StepNumber = 1,
                             Text = "Tomaten hacken und so"
@@ -737,7 +737,7 @@ namespace FridgePlannerTesting
 
                 controller = new RecipeController(context);
                 // Act
-                var result = controller.AddToCart(100);
+                var result = controller.AddToCartAsync(100);
 
 
                 // Assert
@@ -776,13 +776,13 @@ namespace FridgePlannerTesting
 
                 context.Recipes.Add(new Recipe()
                 {
-                    RecipeId = 100,
+                    Id = 100,
                     Name = "TestRezept",
                     Description = "Ein einfaches Test Rezept",
                     RecipeSteps = new List<RecipeStep>
                     {
                         new RecipeStep(){
-                            RecipeStepId = 1100,
+                            Id = 1100,
                             Name = "Tomate hacken",
                             StepNumber = 1,
                             Text = "Tomaten hacken und so"
@@ -807,7 +807,7 @@ namespace FridgePlannerTesting
 
                 controller = new RecipeController(context);
                 // Act
-                var result = controller.AddToCart(100);
+                var result = controller.AddToCartAsync(100);
 
 
                 // Assert

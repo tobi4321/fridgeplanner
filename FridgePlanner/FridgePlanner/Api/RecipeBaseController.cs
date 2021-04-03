@@ -42,14 +42,14 @@ namespace FridgePlanner.Controllers
 
         // PUT: api/[controller]/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, TEntity recipe)
+        public async Task<ActionResult<object>> Put(int id, TEntity recipe)
         {
             if (id != recipe.Id)
             {
                 return BadRequest();
             }
             await _repository.Update(recipe);
-            return NoContent();
+            return recipe;
         }
 
         // POST: api/[controller]
@@ -64,12 +64,12 @@ namespace FridgePlanner.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<object>> Delete(int id)
         {
-            var fridgeItem = await _repository.Delete(id);
-            if (fridgeItem == null)
+            var recipe = await _repository.Delete(id);
+            if (recipe == null)
             {
                 return NotFound();
             }
-            return fridgeItem;
+            return recipe;
         }
     }
 }

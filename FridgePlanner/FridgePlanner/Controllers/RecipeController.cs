@@ -16,253 +16,171 @@ namespace FridgePlanner.Controllers
 {
     public class RecipeController : Controller
     {
-        private readonly DataBaseContext _context;
+        private readonly IApiCaller _client;
 
-        public RecipeController(DataBaseContext con)
+        public RecipeController(IApiCaller caller)
         {
-            _context = con;
+            _client = caller;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            List<Recipe> recipes = _context.Recipes
-                .Include(r => r.RecipeItems)
-                .Include(r => r.RecipeSteps)
-                .ToList();
+            JArray response = await _client.GetList("http://localhost:5000/api/RecipeApi");
 
-            return View(recipes);
+            List<Recipe> recipeList = response.ToObject<List<Recipe>>();
+
+            return View(recipeList);
         }
         [HttpPost]
         [Route("Recipe/AddRecipe")]
-        public IActionResult AddRecipe([FromBody] JObject t)
+        public async Task<IActionResult> AddRecipe([FromBody] JObject t)
         {
-            Recipe add = t.ToObject<Recipe>();
-            _context.Recipes.Add(add);
-            _context.SaveChanges();
+            JObject response = await _client.Post("http://localhost:5000/api/RecipeApi", t);
 
-            int id = add.RecipeId;
+            Recipe test = response.ToObject<Recipe>();
 
-            return Ok(id);
+            return Ok(test.Id);
         }
         [HttpGet]
         [Route("Recipe/EditRecipeOverview/{Id}")]
-        public IActionResult EditRecipeOverview([FromServices]IConfiguration config, int Id)
+        public async Task<IActionResult> EditRecipeOverview([FromServices]IConfiguration config, int Id)
         {
-            Recipe model = _context.Recipes
-                .Include(r => r.RecipeItems)
-                .Include(r => r.RecipeSteps)
-                .Where(r => r.RecipeId == Id).First();
+            JObject response = await _client.GetItem("http://localhost:5000/api/RecipeApi/" + Id);
+            Recipe edit = response.ToObject<Recipe>();
 
             List<string> units = config.GetSection("Units").Get<List<string>>();
 
-            EditRecipeViewModel viewModel = new EditRecipeViewModel() { RecipeElement = model, Units = units };
+            EditRecipeViewModel viewModel = new EditRecipeViewModel() { RecipeElement = edit, Units = units };
 
             return View("EditRecipe",viewModel);
         }
         [HttpPost]
         [Route("Recipe/EditRecipe/")]
-        public IActionResult EditRecipe(int Id, string name, string description)
+        public async Task<IActionResult> EditRecipe(int Id, string name, string description)
         {
-            Recipe model = _context.Recipes
-                .Include(r => r.RecipeItems)
-                .Include(r => r.RecipeSteps)
-                .Where(r => r.RecipeId == Id).First();
+            JObject response = await _client.GetItem("http://localhost:5000/api/RecipeApi/" + Id);
+            Recipe edit = response.ToObject<Recipe>();
 
-            model.Name = name;
-            model.Description = description;
+            edit.Name = name;
+            edit.Description = description;
 
-            _context.SaveChanges();
+            JObject updated = await _client.Update("http://localhost:5000/api/RecipeApi/" + Id, JObject.FromObject(edit));
+            edit = updated.ToObject<Recipe>();
 
-            return Ok(model.RecipeId);
+            return Ok(edit.Id);
         }
 
         [HttpPost]
         [Route("Recipe/AddRecipeItem/{RecipeId}")]
-        public IActionResult AddRecipeItem([FromServices]IConfiguration config, int RecipeId, [FromBody] JObject t)
+        public async Task<IActionResult> AddRecipeItem([FromServices]IConfiguration config, int RecipeId, [FromBody] JObject t)
         {
-            Recipe model = _context.Recipes
-                .Include(r => r.RecipeItems)
-                .Include(r => r.RecipeSteps)
-                .Where(r => r.RecipeId == RecipeId).First();
-
             RecipeItem item = t.ToObject<RecipeItem>();
-            model.RecipeItems.Add(item);
-            _context.SaveChanges();
 
-            // ????????????????????????????????????????????????????????
+            JObject added = await _client.Post("http://localhost:5000/api/RecipeApi/Item/" + RecipeId, JObject.FromObject(item));
+            Recipe edit = added.ToObject<Recipe>();
 
-            List<string> units = config.GetSection("Units").Get<List<string>>();
-
-            EditRecipeViewModel viewModel = new EditRecipeViewModel() { RecipeElement = model, Units = units };
-
-            // ???????????????????????????????????????????????????????????
-
-            return Ok(model.RecipeId);
+            return Ok(edit.Id);
         }
         [HttpPost]
         [Route("Recipe/AddRecipeStep/{RecipeId}")]
-        public IActionResult AddRecipeStep([FromServices]IConfiguration config, int RecipeId, [FromBody] JObject t)
+        public async Task<IActionResult> AddRecipeStep([FromServices]IConfiguration config, int RecipeId, [FromBody] JObject t)
         {
-            Recipe model = _context.Recipes
-                .Include(r => r.RecipeItems)
-                .Include(r => r.RecipeSteps)
-                .Where(r => r.RecipeId == RecipeId).First();
-
             RecipeStep step = t.ToObject<RecipeStep>();
-            model.RecipeSteps.Add(step);
-            _context.SaveChanges();
 
-            // ?????????????????????????????????????????????????????????????????
+            JObject added = await _client.Post("http://localhost:5000/api/RecipeApi/Step/" + RecipeId, JObject.FromObject(step));
+            Recipe edit = added.ToObject<Recipe>();
 
-            List<string> units = config.GetSection("Units").Get<List<string>>();
-
-            EditRecipeViewModel viewModel = new EditRecipeViewModel() { RecipeElement = model, Units = units };
-
-            // ?????????????????????????????????????????????????????????????????
-
-            return Ok(model.RecipeId);
+            return Ok(edit.Id);
         }
         [HttpPost]
         [Route("Recipe/DeleteRecipeItem/")]
-        public IActionResult DeleteRecipeItem(long RecipeId,long RecipeItemId)
+        public async Task<IActionResult> DeleteRecipeItem(long RecipeId,long RecipeItemId)
         {
-            Recipe recipe = _context.Recipes.Include(r => r.RecipeItems).Include(r => r.RecipeSteps)
-                .Where(r => r.RecipeId == RecipeId)
-                .First();
+            JObject updated = await _client.Delete("http://localhost:5000/api/RecipeApi/Item/" + RecipeId + "/" + RecipeItemId);
+            Recipe edit = updated.ToObject<Recipe>();
 
-            RecipeItem remove = recipe.RecipeItems.Where(r => r.Id == RecipeItemId).First();
-
-            _context.RecipeItems.Remove(remove);
-            _context.SaveChanges();
-
-            return Ok(recipe.RecipeId);
+            return Ok(edit.Id);
         }
 
         [HttpPost]
         [Route("Recipe/DeleteRecipeStep/")]
-        public IActionResult DeleteRecipeStep(long RecipeId, long RecipeStepId)
+        public async Task<IActionResult> DeleteRecipeStep(long RecipeId, long RecipeStepId)
         {
-            Recipe recipe = _context.Recipes.Include(r => r.RecipeItems).Include(r => r.RecipeSteps)
-                .Where(r => r.RecipeId == RecipeId)
-                .First();
+            JObject updated = await _client.Delete("http://localhost:5000/api/RecipeApi/Step/" + RecipeId + "/" + RecipeStepId);
+            Recipe edit = updated.ToObject<Recipe>();
 
-            RecipeStep remove = recipe.RecipeSteps.Where(r => r.RecipeStepId == RecipeStepId).First();
-
-            _context.RecipeSteps.Remove(remove);
-            _context.SaveChanges();
-
-            return Ok(recipe.RecipeId);
+            return Ok(edit.Id);
         }
         [HttpPost]
         [Route("Recipe/UpdateRecipeItem/")]
-        public IActionResult UpdateRecipeItem(int Id, long RecipeItemId, string name, double amount, string unit)
+        public async Task<IActionResult> UpdateRecipeItem(int Id, long RecipeItemId, string name, double amount, string unit)
         {
-            Recipe model = _context.Recipes
-                .Include(r => r.RecipeItems)
-                .Include(r => r.RecipeSteps)
-                .Where(r => r.RecipeId == Id).First();
 
-            RecipeItem item = model.RecipeItems.Where(i => i.Id == RecipeItemId).First();
+            JObject response = await _client.GetItem("http://localhost:5000/api/RecipeApi/" + Id);
+            Recipe edit = response.ToObject<Recipe>();
+
+            RecipeItem item = edit.RecipeItems.Where(r => r.Id == RecipeItemId).First();
 
             item.Name = name;
             item.Amount = amount;
             item.Unit = unit;
 
-            _context.SaveChanges();
+            JObject updated = await _client.Update("http://localhost:5000/api/RecipeApi/Item/" + Id, JObject.FromObject(item));
+            edit = updated.ToObject<Recipe>();
 
-            return Ok(model.RecipeId);
+            return Ok(edit.Id);
         }
 
         [HttpPost]
         [Route("Recipe/UpdateRecipeStep/")]
-        public IActionResult UpdateRecipeStep(int Id, long RecipeStepId, string name, int number, string text)
+        public async Task<IActionResult> UpdateRecipeStep(int Id, long RecipeStepId, string name, int number, string text)
         {
-            Recipe model = _context.Recipes
-                .Include(r => r.RecipeItems)
-                .Include(r => r.RecipeSteps)
-                .Where(r => r.RecipeId == Id).First();
+            JObject response = await _client.GetItem("http://localhost:5000/api/RecipeApi/" + Id);
+            Recipe edit = response.ToObject<Recipe>();
 
-            RecipeStep item = model.RecipeSteps.Where(i => i.RecipeStepId == RecipeStepId).First();
+            RecipeStep step = edit.RecipeSteps.Where(r => r.Id == RecipeStepId).First();
 
-            item.Name = name;
-            item.StepNumber = number;
-            item.Text = text;
+            step.Name = name;
+            step.StepNumber = number;
+            step.Text = text;
 
-            _context.SaveChanges();
+            JObject updated = await _client.Update("http://localhost:5000/api/RecipeApi/Step/" + Id, JObject.FromObject(step));
+            edit = updated.ToObject<Recipe>();
 
-            return Ok(model.RecipeId);
+            return Ok(edit.Id);
         }
 
         [HttpPost]
         [Route("Recipe/GetRecipeDetail")]
-        public IActionResult GetRecipeDetail(int Id)
+        public async Task<IActionResult> GetRecipeDetail(int Id)
         {
-            Recipe detail = _context.Recipes
-                .Include(r => r.RecipeItems)
-                .Include(r => r.RecipeSteps)
-                .Where(r => r.RecipeId == Id).First();
+            JObject response = await _client.GetItem("http://localhost:5000/api/RecipeApi/" + Id);
+            Recipe detail = response.ToObject<Recipe>();
 
             return View("RecipeDetailPartial", detail);
         }
         [HttpPost]
         [Route("Recipe/AddToCart")]
-        public IActionResult AddToCart(int Id)
+        public async Task<IActionResult> AddToCart(int Id)
         {
-            Recipe toAdd = _context.Recipes
-                .Include(r => r.RecipeItems)
-                .Include(r => r.RecipeSteps)
-                .Where(r => r.RecipeId == Id).First();
+            JObject response = await _client.GetItem("http://localhost:5000/api/RecipeApi/" + Id);
+            Recipe toAdd = response.ToObject<Recipe>();
 
-            List<ShoppingItem> shopping_items = _context.ShoppingItems.ToList();
+            await _client.Post("http://localhost:5000/api/ShoppingApi/Cart", JObject.FromObject(toAdd));
 
-            for (int i = 0; i < toAdd.RecipeItems.Count; i++)
-            {
-                bool alreadyExists = false;
-                ShoppingItem shoppingItem;
-                for (int j = 0; j < shopping_items.Count; j++)
-                {
-                    if (toAdd.RecipeItems.ElementAt(i).Name.Equals(shopping_items.ElementAt(j).Name))
-                    {
-                        alreadyExists = true;
-                        shoppingItem = shopping_items.ElementAt(j);
-                        if (toAdd.RecipeItems.ElementAt(i).Unit.Equals(shopping_items.ElementAt(j).Unit))
-                        {
-                            shoppingItem.Amount = shoppingItem.Amount + toAdd.RecipeItems.ElementAt(i).Amount;
-                        }
-                        else
-                        {
-                            shoppingItem.Amount = shoppingItem.Amount + (double)UnitParser.ParseToUnit(shoppingItem.Unit,toAdd.RecipeItems.ElementAt(i).Amount);
-                        }
-                        j =shopping_items.Count;
-                    } 
-                }
-                if (alreadyExists)
-                {
-                    _context.SaveChanges();
-                }
-                else
-                {
-                    ShoppingItem newItem = new ShoppingItem() { Name = toAdd.RecipeItems.ElementAt(i).Name, Amount = toAdd.RecipeItems.ElementAt(i).Amount, Unit = toAdd.RecipeItems.ElementAt(i).Unit};
-                    _context.ShoppingItems.Add(newItem);
-                    _context.SaveChanges();
-                }
-            }
             return Ok();
         }
 
         [HttpPost]
         [Route("Recipe/GetNutritionInfo")]
-        public IActionResult GetNutritionInfo([FromServices]IConfiguration config,int Id)
+        public async Task<IActionResult> GetNutritionInfo([FromServices]IConfiguration config,int Id)
         {
-            Recipe detail = _context.Recipes
-                .Include(r => r.RecipeItems)
-                .Include(r => r.RecipeSteps)
-                .Where(r => r.RecipeId == Id).First();
+            JObject res = await _client.GetItem("http://localhost:5000/api/RecipeApi/" + Id);
+            Recipe recipe = res.ToObject<Recipe>();
 
-            NutritionAPIResponse response = NutritionOutputForRecipe(config, detail);
+            NutritionAPIResponse response = NutritionOutputForRecipe(config, recipe);
 
             // add the response to the viewmodel
-            NutritionViewModel viewModel = new NutritionViewModel() { Recipe = detail, NutritionResponse = response };
-
+            NutritionViewModel viewModel = new NutritionViewModel() { Recipe = recipe, NutritionResponse = response };
 
             return View("RecipeNutritionPartial", viewModel);
         }

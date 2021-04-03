@@ -11,12 +11,12 @@
                     @Model.ElementAt(i).Name
                 </p>
                 <p class="index-text col-6 text-right">
-                    <button onclick="showRecipeHomeDetail(@Model[i].RecipeId)" type="button" class="btn btn-primary btn-sm">
+                    <button onclick="showRecipeHomeDetail(@Model[i].Id)" type="button" class="btn btn-primary btn-sm">
                         <i class="material-icons" style="font-size:20px">
                             description
                         </i>
                     </button>
-                    <button onclick="addToShoppingList(@Model[i].RecipeId)" type="button" class="btn btn-info btn-sm">
+                    <button onclick="addToShoppingList(@Model[i].Id)" type="button" class="btn btn-info btn-sm">
                         <i class="material-icons" style="font-size:20px">
                             add_shopping_cart
                         </i>
