@@ -32,44 +32,44 @@ namespace FridgePlanner.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<TEntity>> Get(int id)
         {
-            var fridgeItem = await repository.Get(id);
-            if (fridgeItem == null)
+            var shoppingItem = await repository.Get(id);
+            if (shoppingItem == null)
             {
                 return NotFound();
             }
-            return fridgeItem;
+            return shoppingItem;
         }
 
         // PUT: api/[controller]/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, TEntity fridgeItem)
+        public async Task<ActionResult<TEntity>> Put(int id, TEntity shoppingItem)
         {
-            if (id != fridgeItem.Id)
+            if (id != shoppingItem.Id)
             {
                 return BadRequest();
             }
-            await repository.Update(fridgeItem);
-            return NoContent();
+            await repository.Update(shoppingItem);
+            return shoppingItem;
         }
 
         // POST: api/[controller]
         [HttpPost]
-        public async Task<ActionResult<TEntity>> Post(TEntity fridgeItem)
+        public async Task<ActionResult<TEntity>> Post(TEntity shoppingItem)
         {
-            await repository.Add(fridgeItem);
-            return CreatedAtAction("Get", new { id = fridgeItem.Id }, fridgeItem);
+            await repository.Add(shoppingItem);
+            return CreatedAtAction("Get", new { id = shoppingItem.Id }, shoppingItem);
         }
 
         // DELETE: api/[controller]/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<TEntity>> Delete(int id)
         {
-            var fridgeItem = await repository.Delete(id);
-            if (fridgeItem == null)
+            var shoppingItem = await repository.Delete(id);
+            if (shoppingItem == null)
             {
                 return NotFound();
             }
-            return fridgeItem;
+            return shoppingItem;
         }
     }
 }

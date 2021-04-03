@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using FridgePlanner.Models;
 using FridgePlanner.Models.NutritionModels;
 using FridgePlanner.Models.ViewModels;
@@ -13,82 +14,81 @@ namespace FridgePlanner.Controllers
 {
     public class ShoppingController : Controller
     {
-        private readonly DataBaseContext _context;
         private readonly IApiCaller _client;
 
-        public ShoppingController(DataBaseContext con, IApiCaller caller)
+        public ShoppingController(IApiCaller caller)
         {
-            _context = con;
             _client = caller;
         }
-        public IActionResult Index([FromServices]IConfiguration config)
+        public async Task<IActionResult> Index([FromServices] IConfiguration config)
         {
-            return View(createViewModel(config));
+            return View(await createViewModel(config));
         }
+
+
 
         [HttpPost]
         [Route("Shopping/AddItem")]
-        public IActionResult AddItem([FromServices]IConfiguration config,[FromBody] JObject t)
+        public async Task<IActionResult> AddShoppingItem([FromServices] IConfiguration config, [FromBody] JObject t)
         {
-            ShoppingItem x = t.ToObject<ShoppingItem>();
-            _context.ShoppingItems.Add(x);
-            _context.SaveChanges();
+            JObject response = await _client.Post("http://localhost:5000/api/ShoppingApi", t);
 
-            return View("ShoppingChangePartial", createViewModel(config));
+            ShoppingItem test = response.ToObject<ShoppingItem>();
+
+            return View("ShoppingChangePartial", await createViewModel(config));
         }
 
         [HttpPost]
         [Route("Shopping/Delete")]
-        public IActionResult DeleteShoppingItem([FromServices]IConfiguration config,long Id)
+        public async Task<IActionResult> DeleteShoppingItem([FromServices] IConfiguration config,long Id)
         {
-            ShoppingItem remove = _context.ShoppingItems
-                .Where(t => t.Id == Id)
-                .First();
-            _context.ShoppingItems.Remove(remove);
-            _context.SaveChanges();
+            JObject response = await _client.Delete("http://localhost:5000/api/ShoppingApi/" + Id);
 
-            return View("ShoppingChangePartial", createViewModel(config));
+            return View("ShoppingChangePartial", await createViewModel(config));
+
         }
+
 
         [HttpPost]
         [Route("Shopping/GetEditShoppingModal")]
-        public IActionResult GetEditShoppingModal([FromServices]IConfiguration config, int Id)
+        public async Task<IActionResult> GetEditShoppingModal([FromServices] IConfiguration config, int Id)
         {
-            ShoppingItem edit = _context.ShoppingItems.Where(t => t.Id == Id).First();
+
+            JObject response = await _client.GetItem("http://localhost:5000/api/ShoppingApi/" + Id);
+            ShoppingItem edit = response.ToObject<ShoppingItem>();
+
             List<string> units = config.GetSection("Units").Get<List<string>>();
 
             EditShoppingViewModel model = new EditShoppingViewModel() { Item = edit, Units = units };
 
             return View("EditShoppingItemPartial", model);
+
         }
         [HttpPost]
         [Route("Shopping/UpdateShoppingItem")]
-        public IActionResult UpdateShoppingItem([FromServices]IConfiguration config,int Id, string name, double amount, string unit)
+        public async Task<IActionResult> UpdateShoppingItem([FromServices] IConfiguration config, int Id, string name, double amount, string unit)
         {
-            ShoppingItem edit = _context.ShoppingItems.Where(t => t.Id == Id).First();
+
+            JObject response = await _client.GetItem("http://localhost:5000/api/ShoppingApi/" + Id);
+            ShoppingItem edit = response.ToObject<ShoppingItem>();
+
 
             edit.Name = name;
             edit.Amount = amount;
             edit.Unit = unit;
-            _context.SaveChanges();
 
-            return View("ShoppingChangePartial", createViewModel(config));
+            JObject updated = await _client.Update("http://localhost:5000/api/ShoppingApi/" + Id, JObject.FromObject(edit));
+
+            return View("ShoppingChangePartial", await createViewModel(config));
+
         }
 
-        public string getShoppingListAsString(List<ShoppingItem> items)
+        private async Task<ShoppingViewModel> createViewModel([FromServices] IConfiguration config)
         {
-            string qrCodeText = "ShoppingListe \n";
 
-            foreach (ShoppingItem item in items) { qrCodeText += "- " + item.Name + "   " + item.Amount + item.Unit + " \n"; }
+            JArray response = await _client.GetList("http://localhost:5000/api/ShoppingApi");
+            List<ShoppingItem> items = response.ToObject<List<ShoppingItem>>();
 
-            return qrCodeText;
-        }
-
-        public ShoppingViewModel createViewModel([FromServices]IConfiguration config)
-        {
-            List<ShoppingItem> items = _context.ShoppingItems.ToList();
-
-            //NutritionOutputForShoppingList(items);
 
             byte[] qrCode = QRGenerator.GenerateQR(getShoppingListAsString(items));
 
@@ -98,5 +98,14 @@ namespace FridgePlanner.Controllers
 
             return shoppingViewModel;
         }
+        public string getShoppingListAsString(List<ShoppingItem> items)
+        {
+            string qrCodeText = "ShoppingListe \n";
+
+            foreach (ShoppingItem item in items) { qrCodeText += "- " + item.Name + " " + item.Amount + item.Unit + " \n"; }
+
+            return qrCodeText;
+        }
     }
 }
+
