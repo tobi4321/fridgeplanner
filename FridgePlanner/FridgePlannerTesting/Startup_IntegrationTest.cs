@@ -18,6 +18,7 @@ namespace FridgePlannerTesting
 {
     public class Startup_IntegrationTest : IClassFixture<WebAppFactory<Startup>>
     {
+        // HttpClient is required to send a Api Request
         private readonly HttpClient _client;
 
         public Startup_IntegrationTest(WebAppFactory<Startup> factory)

@@ -12,85 +12,102 @@ namespace FridgePlannerTesting
         public void ConvertLiterToMl()
         {
             // Arrange
-            double l = 1.6;
+            // input variable for the parser function
+            double liter = 1.6;
 
             // Act
-            double ml = UnitParser.LToMl(l);
+            // parse the value of liter into an other unit
+            double milliliter = UnitParser.LToMl(liter);
 
             // Assert with precision of 4 decimal places
-            Assert.Equal(1600.0,ml,4);
+            Assert.Equal(1600.0,milliliter,4);
         }
         [Fact]
         public void ConvertMlToL()
         {
             // Arrange
-            double ml = 1600.0;
+            // input variable for the parser function
+            double milliliter = 1600.0;
 
             // Act
-            double l = UnitParser.MlToL(ml);
+            // parse the value of milliliter into an other unit
+            double liter = UnitParser.MlToL(milliliter);
 
             // Assert with precision of 4 decimal places
-            Assert.Equal(1.6, l, 4);
+            Assert.Equal(1.6, liter, 4);
         }
         [Fact]
         public void ConvertKgToG()
         {
             // Arrange
-            double kg = 1.650;
+            // input variable for the parser function
+            double kilogramm = 1.650;
 
             // Act
-            double g = UnitParser.KgToG(kg);
+            // parse the value of kilogramm into an other unit
+            double gramm = UnitParser.KgToG(kilogramm);
 
             // Assert with precision of 4 decimal places
-            Assert.Equal(1650.0, g, 4);
+            Assert.Equal(1650.0, gramm, 4);
         }
         [Fact]
         public void ConvertGToKg()
         {
             // Arrange
-            double g = 1650.0;
+            // input variable for the parser function
+            double gramm = 1650.0;
 
             // Act
-            double kg = UnitParser.GToKg(g);
+            // parse the value of gramm into an other unit
+            double kilogramm = UnitParser.GToKg(gramm);
 
             // Assert with precision of 4 decimal places
-            Assert.Equal(1.65, kg ,4);
+            Assert.Equal(1.65, kilogramm ,4);
         }
         [Fact]
         public void ConvertGToKgWithParser()
         {
             // Arrange
-            double g = 1650.0;
+            // input variable for the parser function
+            double gramm = 1650.0;
+            string targetunit = "Kg";
 
             // Act
-            double kg = (double)UnitParser.ParseToUnit("Kg",g);
+            // parse the value of gramm into the targetunit
+            double kilogramm = (double)UnitParser.ParseToUnit(targetunit,gramm);
 
             // Assert with precision of 4 decimal places
-            Assert.Equal(1.65, kg, 4);
+            Assert.Equal(1.65, kilogramm, 4);
         }
         [Fact]
         public void ConvertKgToGWithParser()
         {
             // Arrange
-            double kg = 1.650;
+            // input variable for the parser function
+            double kilogramm = 1.650;
+            string targetunit = "g";
 
             // Act
-            double g = (double)UnitParser.ParseToUnit("g",kg);
+            // parse the value of gramm into the targetunit
+            double gramm = (double)UnitParser.ParseToUnit(targetunit,kilogramm);
 
             // Assert with precision of 4 decimal places
-            Assert.Equal(1650.0, g, 4);
+            Assert.Equal(1650.0, gramm, 4);
         }
         [Fact]
-        public void WrongParserInputReturnNull()
+        public void WrongParserInputReturnsNull()
         {
             // Arrange
-            double kg = 1.650;
+            // input variable for the parser function
+            double kilogramm = 1.650;
+            string targetunit = "fail";
 
             // Act
-            var g = UnitParser.ParseToUnit("fail", kg);
+            // parse the value of gramm into the targetunit
+            var gramm = UnitParser.ParseToUnit(targetunit, kilogramm);
 
             // Assert
-            Assert.Null(g);
+            Assert.Null(gramm);
         }
 
 

@@ -7,6 +7,7 @@ namespace FridgePlannerTesting
 {
     public static class SeedData
     {
+        // create Data for the Startup Integration Test
         public static void PopulateTestData(DataBaseContext dbContext)
         {
             dbContext.FridgeItems.Add(new FridgeItem() { Id = 1,Name = "Tomaten", Amount = 1.5, Unit = "Kg"});

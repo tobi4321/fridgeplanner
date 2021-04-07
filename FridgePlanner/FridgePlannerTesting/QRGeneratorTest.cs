@@ -14,13 +14,15 @@ namespace FridgePlannerTesting
         public void QrCodeGeneratorMultipleInputsWithSameOutput()
         {
             // Arrange 
+            // create text to transform into a qr code image
             string inputText = "ShoppingList \n - Tomate\n -Brot";
 
             //Act
             byte[] qrData1 = QRGenerator.GenerateQR(inputText);
             byte[] qrData2 = QRGenerator.GenerateQR(inputText);
 
-            //Assert
+            //Assert 
+            // compare if QRGenerator outputs equal data on multiple generations
             Assert.Equal(qrData1,qrData2);
         }
 

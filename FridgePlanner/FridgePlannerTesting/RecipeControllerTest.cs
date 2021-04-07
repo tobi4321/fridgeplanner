@@ -16,29 +16,27 @@ namespace FridgePlannerTesting
 {
     public class RecipeControllerTest
     {
+        // Instance of the specific controller we want to test
         private RecipeController controller { get; set; }
-
 
         public RecipeControllerTest()
         {
-
         }
+
         [Fact]
         public void Index_ReturnsAViewResult()
         {
             // Capture
-
-            //create In Memory Database
+            // Create In Memory Database instead of using the system database
             var options = new DbContextOptionsBuilder<DataBaseContext>()
             .UseInMemoryDatabase(databaseName: "RecipeDataBase")
             .Options;
 
             using (var context = new DataBaseContext(options))
             {
-                context.RecipeItems.RemoveRange(context.RecipeItems.ToList());
-                context.RecipeSteps.RemoveRange(context.RecipeSteps.ToList());
-                context.Recipes.RemoveRange(context.Recipes.ToList());
-
+                // remove all data to start with a clean database instance
+                CleanDataBase(context);
+                // add required data
                 context.Recipes.Add(new Recipe()
                 {
                     RecipeId = 100,
@@ -80,17 +78,16 @@ namespace FridgePlannerTesting
         public void AddRecipe_ReturnsAnOkResultWithId()
         {
             // Capture
-
-            //create In Memory Database
+            // Create In Memory Database instead of using the system database
             var options = new DbContextOptionsBuilder<DataBaseContext>()
             .UseInMemoryDatabase(databaseName: "RecipeDataBase")
             .Options;
 
-
-
             using (var context = new DataBaseContext(options))
-            {
-                context.Recipes.RemoveRange(context.Recipes.ToList());
+            {            
+                // remove all data to start with a clean database instance
+                CleanDataBase(context);
+                // add required data
                 Recipe testItem = new Recipe()
                 {
                     Name = "TestRezept",
@@ -119,26 +116,19 @@ namespace FridgePlannerTesting
         public void EditRecipeOverview_ReturnsEditRecipeView()
         {
             // Capture
-            var _configuration = new Mock<IConfiguration>();
+            // setup the mock of IConfiguration
+            var _configuration = CreateAppSettingsMock();
 
-            var oneSectionMock = new Mock<IConfigurationSection>();
-            oneSectionMock.Setup(s => s.Value).Returns("Kg");
-            var twoSectionMock = new Mock<IConfigurationSection>();
-            twoSectionMock.Setup(s => s.Value).Returns("g");
-            var unitsSectionMock = new Mock<IConfigurationSection>();
-            unitsSectionMock.Setup(s => s.GetChildren()).Returns(new List<IConfigurationSection>
-                                                    { oneSectionMock.Object, twoSectionMock.Object });
-            _configuration.Setup(c => c.GetSection("Units")).Returns(unitsSectionMock.Object);
-
-            //create In Memory Database
+            // Create In Memory Database instead of using the system database
             var options = new DbContextOptionsBuilder<DataBaseContext>()
             .UseInMemoryDatabase(databaseName: "RecipeDataBase")
             .Options;
 
             using (var context = new DataBaseContext(options))
             {
-                context.Recipes.RemoveRange(context.Recipes.ToList());
-
+                // remove all data to start with a clean database instance
+                CleanDataBase(context);
+                // add required data
                 context.Recipes.Add(new Recipe()
                 {
                     RecipeId = 100,
@@ -181,17 +171,16 @@ namespace FridgePlannerTesting
         public void EditRecipe_ReturnsAnOkResultWithRecipeId()
         {
             // Capture
-
-            //create In Memory Database
+            // Create In Memory Database instead of using the system database
             var options = new DbContextOptionsBuilder<DataBaseContext>()
             .UseInMemoryDatabase(databaseName: "RecipeDataBase")
             .Options;
 
             using (var context = new DataBaseContext(options))
             {
-                context.RecipeItems.RemoveRange(context.RecipeItems.ToList());
-                context.Recipes.RemoveRange(context.Recipes.ToList());
-
+                // remove all data to start with a clean database instance
+                CleanDataBase(context);
+                // add required data
                 context.Recipes.Add(new Recipe()
                 {
                     RecipeId = 100,
@@ -212,8 +201,6 @@ namespace FridgePlannerTesting
 
             using (var context = new DataBaseContext(options))
             {
-
-
                 controller = new RecipeController(context);
                 // Act
                 var result = controller.EditRecipe(100,"ChangedTestRezept","Ein einfaches Test Rezept");
@@ -236,27 +223,19 @@ namespace FridgePlannerTesting
         public void AddRecipeItem_ReturnsAnOkResultWithRecipeId()
         {
             // Capture
-            var _configuration = new Mock<IConfiguration>();
+            // setup the mock of IConfiguration
+            var _configuration = CreateAppSettingsMock();
 
-            var oneSectionMock = new Mock<IConfigurationSection>();
-            oneSectionMock.Setup(s => s.Value).Returns("Kg");
-            var twoSectionMock = new Mock<IConfigurationSection>();
-            twoSectionMock.Setup(s => s.Value).Returns("g");
-            var unitsSectionMock = new Mock<IConfigurationSection>();
-            unitsSectionMock.Setup(s => s.GetChildren()).Returns(new List<IConfigurationSection>
-                                                    { oneSectionMock.Object, twoSectionMock.Object });
-            _configuration.Setup(c => c.GetSection("Units")).Returns(unitsSectionMock.Object);
-
-            //create In Memory Database
+            // Create In Memory Database instead of using the system database
             var options = new DbContextOptionsBuilder<DataBaseContext>()
             .UseInMemoryDatabase(databaseName: "RecipeDataBase")
             .Options;
 
             using (var context = new DataBaseContext(options))
             {
-                context.RecipeItems.RemoveRange(context.RecipeItems.ToList());
-                context.Recipes.RemoveRange(context.Recipes.ToList());
-
+                // remove all data to start with a clean database instance
+                CleanDataBase(context);
+                // add required data
                 context.Recipes.Add(new Recipe()
                 {
                     RecipeId = 100,
@@ -297,28 +276,19 @@ namespace FridgePlannerTesting
         public void AddRecipeStep_ReturnsAnOkResultWithRecipeId()
         {
             // Capture
-            var _configuration = new Mock<IConfiguration>();
+            // setup the mock of IConfiguration
+            var _configuration = CreateAppSettingsMock();
 
-            var oneSectionMock = new Mock<IConfigurationSection>();
-            oneSectionMock.Setup(s => s.Value).Returns("Kg");
-            var twoSectionMock = new Mock<IConfigurationSection>();
-            twoSectionMock.Setup(s => s.Value).Returns("g");
-            var unitsSectionMock = new Mock<IConfigurationSection>();
-            unitsSectionMock.Setup(s => s.GetChildren()).Returns(new List<IConfigurationSection>
-                                                    { oneSectionMock.Object, twoSectionMock.Object });
-            _configuration.Setup(c => c.GetSection("Units")).Returns(unitsSectionMock.Object);
-
-            //create In Memory Database
+            // Create In Memory Database instead of using the system database
             var options = new DbContextOptionsBuilder<DataBaseContext>()
             .UseInMemoryDatabase(databaseName: "RecipeDataBase")
             .Options;
 
             using (var context = new DataBaseContext(options))
             {
-                context.RecipeSteps.RemoveRange(context.RecipeSteps.ToList());
-                context.RecipeItems.RemoveRange(context.RecipeItems.ToList());
-                context.Recipes.RemoveRange(context.Recipes.ToList());
-
+                // remove all data to start with a clean database instance
+                CleanDataBase(context);
+                // add required data
                 context.Recipes.Add(new Recipe()
                 {
                     RecipeId = 100,
@@ -358,17 +328,17 @@ namespace FridgePlannerTesting
         [Fact]
         public void DeleteRecipeItem_ReturnsOkResultWithRecipeId()
         {
-            //create In Memory Database
+            // Capture
+            // Create In Memory Database instead of using the system database
             var options = new DbContextOptionsBuilder<DataBaseContext>()
             .UseInMemoryDatabase(databaseName: "RecipeDataBase")
             .Options;
 
             using (var context = new DataBaseContext(options))
             {
-                context.RecipeSteps.RemoveRange(context.RecipeSteps.ToList());
-                context.RecipeItems.RemoveRange(context.RecipeItems.ToList());
-                context.Recipes.RemoveRange(context.Recipes.ToList());
-
+                // remove all data to start with a clean database instance
+                CleanDataBase(context);
+                // add required data
                 context.Recipes.Add(new Recipe()
                 {
                     RecipeId = 100,
@@ -411,17 +381,17 @@ namespace FridgePlannerTesting
         [Fact]
         public void DeleteRecipeStep_ReturnsOkResultWithRecipeId()
         {
-            //create In Memory Database
+            // Capture
+            // Create In Memory Database instead of using the system database
             var options = new DbContextOptionsBuilder<DataBaseContext>()
             .UseInMemoryDatabase(databaseName: "RecipeDataBase")
             .Options;
 
             using (var context = new DataBaseContext(options))
             {
-                context.RecipeSteps.RemoveRange(context.RecipeSteps.ToList());
-                context.RecipeItems.RemoveRange(context.RecipeItems.ToList());
-                context.Recipes.RemoveRange(context.Recipes.ToList());
-
+                // remove all data to start with a clean database instance
+                CleanDataBase(context);
+                // add required data
                 context.Recipes.Add(new Recipe()
                 {
                     RecipeId = 100,
@@ -463,17 +433,17 @@ namespace FridgePlannerTesting
         [Fact]
         public void UpdateRecipeItem_ReturnsOkResultWithRecipeId()
         {
-            //create In Memory Database
+            // Capture 
+            // Create In Memory Database instead of using the system database
             var options = new DbContextOptionsBuilder<DataBaseContext>()
             .UseInMemoryDatabase(databaseName: "RecipeDataBase")
             .Options;
 
             using (var context = new DataBaseContext(options))
             {
-                context.RecipeSteps.RemoveRange(context.RecipeSteps.ToList());
-                context.RecipeItems.RemoveRange(context.RecipeItems.ToList());
-                context.Recipes.RemoveRange(context.Recipes.ToList());
-
+                // remove all data to start with a clean database instance
+                CleanDataBase(context);
+                // add required data
                 context.Recipes.Add(new Recipe()
                 {
                     RecipeId = 100,
@@ -516,17 +486,17 @@ namespace FridgePlannerTesting
         [Fact]
         public void UpdateRecipeStep_ReturnsOkResultWithRecipeId()
         {
-            //create In Memory Database
+            // Capture
+            // Create In Memory Database instead of using the system database
             var options = new DbContextOptionsBuilder<DataBaseContext>()
             .UseInMemoryDatabase(databaseName: "RecipeDataBase")
             .Options;
 
             using (var context = new DataBaseContext(options))
             {
-                context.RecipeSteps.RemoveRange(context.RecipeSteps.ToList());
-                context.RecipeItems.RemoveRange(context.RecipeItems.ToList());
-                context.Recipes.RemoveRange(context.Recipes.ToList());
-
+                // remove all data to start with a clean database instance
+                CleanDataBase(context);
+                // add required data
                 context.Recipes.Add(new Recipe()
                 {
                     RecipeId = 100,
@@ -569,17 +539,17 @@ namespace FridgePlannerTesting
         [Fact]
         public void GetRecipeDetail_ReturnsAViewResultWithRecipe()
         {
-            //create In Memory Database
+            // Capture
+            // Create In Memory Database instead of using the system database
             var options = new DbContextOptionsBuilder<DataBaseContext>()
             .UseInMemoryDatabase(databaseName: "RecipeDataBase")
             .Options;
 
             using (var context = new DataBaseContext(options))
             {
-                context.RecipeSteps.RemoveRange(context.RecipeSteps.ToList());
-                context.RecipeItems.RemoveRange(context.RecipeItems.ToList());
-                context.Recipes.RemoveRange(context.Recipes.ToList());
-
+                // remove all data to start with a clean database instance
+                CleanDataBase(context);
+                // add required data
                 context.Recipes.Add(new Recipe()
                 {
                     RecipeId = 100,
@@ -621,20 +591,17 @@ namespace FridgePlannerTesting
         [Fact]
         public void AddToCard_ReturnsOkResult()
         {
-            //create In Memory Database
+            // Capture 
+            // Create In Memory Database instead of using the system database
             var options = new DbContextOptionsBuilder<DataBaseContext>()
             .UseInMemoryDatabase(databaseName: "RecipeDataBase")
             .Options;
 
             using (var context = new DataBaseContext(options))
             {
-
-                context.ShoppingItems.RemoveRange(context.ShoppingItems.ToList());
-
-                context.RecipeSteps.RemoveRange(context.RecipeSteps.ToList());
-                context.RecipeItems.RemoveRange(context.RecipeItems.ToList());
-                context.Recipes.RemoveRange(context.Recipes.ToList());
-
+                // remove all data to start with a clean database instance
+                CleanDataBase(context);
+                // add required data
                 context.Recipes.Add(new Recipe()
                 {
                     RecipeId = 100,
@@ -682,20 +649,17 @@ namespace FridgePlannerTesting
         [Fact]
         public void AddToCard_ReturnsOkResult_AddingExistingItemWithDifferentUnit()
         {
-            //create In Memory Database
+            // Capture
+            // Create In Memory Database instead of using the system database
             var options = new DbContextOptionsBuilder<DataBaseContext>()
             .UseInMemoryDatabase(databaseName: "RecipeDataBase")
             .Options;
 
             using (var context = new DataBaseContext(options))
             {
-
-                context.ShoppingItems.RemoveRange(context.ShoppingItems.ToList());
-
-                context.RecipeSteps.RemoveRange(context.RecipeSteps.ToList());
-                context.RecipeItems.RemoveRange(context.RecipeItems.ToList());
-                context.Recipes.RemoveRange(context.Recipes.ToList());
-
+                // remove all data to start with a clean database instance
+                CleanDataBase(context);
+                // add required data
                 context.ShoppingItems.Add(new ShoppingItem()
                 {
                     Id = 123,
@@ -752,20 +716,17 @@ namespace FridgePlannerTesting
         [Fact]
         public void AddToCard_ReturnsOkResult_AddingExistingItemWithEqualUnit()
         {
-            //create In Memory Database
+            // Capture 
+            // Create In Memory Database instead of using the system database
             var options = new DbContextOptionsBuilder<DataBaseContext>()
             .UseInMemoryDatabase(databaseName: "RecipeDataBase")
             .Options;
 
             using (var context = new DataBaseContext(options))
             {
-
-                context.ShoppingItems.RemoveRange(context.ShoppingItems.ToList());
-
-                context.RecipeSteps.RemoveRange(context.RecipeSteps.ToList());
-                context.RecipeItems.RemoveRange(context.RecipeItems.ToList());
-                context.Recipes.RemoveRange(context.Recipes.ToList());
-
+                // remove all data to start with a clean database instance
+                CleanDataBase(context);
+                // add required data
                 context.ShoppingItems.Add(new ShoppingItem()
                 {
                     Id = 123,
@@ -817,6 +778,31 @@ namespace FridgePlannerTesting
                 Assert.Equal("Tomate", context.ShoppingItems.First().Name);
                 Assert.Equal(4.0, context.ShoppingItems.First().Amount);
             }
+        }
+
+        // This Method should clean up the database context by removing existing data from previous tests within this class
+        private void CleanDataBase(DataBaseContext context)
+        {
+            context.ShoppingItems.RemoveRange(context.ShoppingItems.ToList());
+            context.RecipeItems.RemoveRange(context.RecipeItems.ToList());
+            context.RecipeSteps.RemoveRange(context.RecipeSteps.ToList());
+            context.Recipes.RemoveRange(context.Recipes.ToList());
+        }
+        // This Function creates a Mock Instance of the appsettings.json field Units
+        private Mock<IConfiguration> CreateAppSettingsMock()
+        {
+            var _configuration = new Mock<IConfiguration>();
+
+            var oneSectionMock = new Mock<IConfigurationSection>();
+            oneSectionMock.Setup(s => s.Value).Returns("Kg");
+            var twoSectionMock = new Mock<IConfigurationSection>();
+            twoSectionMock.Setup(s => s.Value).Returns("g");
+            var unitsSectionMock = new Mock<IConfigurationSection>();
+            unitsSectionMock.Setup(s => s.GetChildren()).Returns(new List<IConfigurationSection>
+                                                    { oneSectionMock.Object, twoSectionMock.Object });
+            _configuration.Setup(c => c.GetSection("Units")).Returns(unitsSectionMock.Object);
+
+            return _configuration;
         }
     }
 }

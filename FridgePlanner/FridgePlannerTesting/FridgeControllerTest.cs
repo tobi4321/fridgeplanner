@@ -15,38 +15,30 @@ namespace FridgePlannerTesting
 {
     public class FridgeControllerTest
     {
+        // Instance of the specific controller we want to test
         private FridgeController controller { get; set; }
 
         public FridgeControllerTest()
         {
-
         }
+
         [Fact]
         public void Index_ReturnsAViewResultWithViewModel()
         {
             // Capture
-            var _configuration = new Mock<IConfiguration>();
+            // setup the mock of IConfiguration
+            var _configuration = CreateAppSettingsMock();
 
-            var oneSectionMock = new Mock<IConfigurationSection>();
-            oneSectionMock.Setup(s => s.Value).Returns("Kg");
-            var twoSectionMock = new Mock<IConfigurationSection>();
-            twoSectionMock.Setup(s => s.Value).Returns("g");
-            var unitsSectionMock = new Mock<IConfigurationSection>();
-            unitsSectionMock.Setup(s => s.GetChildren()).Returns(new List<IConfigurationSection>
-                                                    { oneSectionMock.Object, twoSectionMock.Object });
-            _configuration.Setup(c => c.GetSection("Units")).Returns(unitsSectionMock.Object);
-
-            //create In Memory Database
+            //Create In Memory Database instead of using the system database
             var options = new DbContextOptionsBuilder<DataBaseContext>()
             .UseInMemoryDatabase(databaseName: "HomeDataBase")
             .Options;
 
             using (var context = new DataBaseContext(options))
             {
-                context.FridgeItems.RemoveRange(context.FridgeItems.ToList());
-                context.RecipeItems.RemoveRange(context.RecipeItems.ToList());
-                context.RecipeSteps.RemoveRange(context.RecipeSteps.ToList());
-                context.Recipes.RemoveRange(context.Recipes.ToList());
+                // remove all data to start with a clean database instance
+                CleanDataBase(context);
+                // add required data
                 context.FridgeItems.Add(new FridgeItem()
                 {
                     Id = 120,
@@ -98,14 +90,15 @@ namespace FridgePlannerTesting
         public void AddItem_ReturnsAViewWithAddedItems()
         {
 
-            //create In Memory Database
+            //Create In Memory Database instead of using the system database
             var options = new DbContextOptionsBuilder<DataBaseContext>()
             .UseInMemoryDatabase(databaseName: "HomeDataBase")
             .Options;
 
             using (var context = new DataBaseContext(options))
             {
-                context.FridgeItems.RemoveRange(context.FridgeItems.ToList());
+                // remove all data to start with a clean database instance
+                CleanDataBase(context);
 
                 controller = new FridgeController(context);
 
@@ -135,14 +128,16 @@ namespace FridgePlannerTesting
         [Fact]
         public void DeleteFridgeItem_ReturnsAViewWithEmptyModelList()
         {
-            //create In Memory Database
+            //Create In Memory Database instead of using the system database
             var options = new DbContextOptionsBuilder<DataBaseContext>()
             .UseInMemoryDatabase(databaseName: "HomeDataBase")
             .Options;
 
             using (var context = new DataBaseContext(options))
             {
-                context.FridgeItems.RemoveRange(context.FridgeItems.ToList());
+                // remove all data to start with a clean database instance
+                CleanDataBase(context);
+                // add required data
                 context.FridgeItems.Add(new FridgeItem()
                 {
                     Id = 120,
@@ -175,18 +170,16 @@ namespace FridgePlannerTesting
         [Fact]
         public async void GetItems_ReturnsAListWithFridgeItemsAsync()
         {
-            //create In Memory Database
+            //Create In Memory Database instead of using the system database
             var options = new DbContextOptionsBuilder<DataBaseContext>()
             .UseInMemoryDatabase(databaseName: "HomeDataBase")
             .Options;
 
             using (var context = new DataBaseContext(options))
             {
-                context.FridgeItems.RemoveRange(context.FridgeItems.ToList());
-                context.RecipeItems.RemoveRange(context.RecipeItems.ToList());
-                context.RecipeSteps.RemoveRange(context.RecipeSteps.ToList());
-                context.Recipes.RemoveRange(context.Recipes.ToList());
-
+                // remove all data to start with a clean database instance
+                CleanDataBase(context);
+                // add required data
                 context.FridgeItems.Add(new FridgeItem()
                 {
                     Id = 120,
@@ -219,28 +212,19 @@ namespace FridgePlannerTesting
         public void GetEditFridgeModal_ReturnsAViewResultWithEditFridgeViewModel()
         {
             // Capture
-            var _configuration = new Mock<IConfiguration>();
+            // setup the mock of IConfiguration
+            var _configuration = CreateAppSettingsMock();
 
-            var oneSectionMock = new Mock<IConfigurationSection>();
-            oneSectionMock.Setup(s => s.Value).Returns("Kg");
-            var twoSectionMock = new Mock<IConfigurationSection>();
-            twoSectionMock.Setup(s => s.Value).Returns("g");
-            var unitsSectionMock = new Mock<IConfigurationSection>();
-            unitsSectionMock.Setup(s => s.GetChildren()).Returns(new List<IConfigurationSection>
-                                                    { oneSectionMock.Object, twoSectionMock.Object });
-            _configuration.Setup(c => c.GetSection("Units")).Returns(unitsSectionMock.Object);
-
-            //create In Memory Database
+            //Create In Memory Database instead of using the system database
             var options = new DbContextOptionsBuilder<DataBaseContext>()
             .UseInMemoryDatabase(databaseName: "HomeDataBase")
             .Options;
 
             using (var context = new DataBaseContext(options))
             {
-                context.FridgeItems.RemoveRange(context.FridgeItems.ToList());
-                context.RecipeItems.RemoveRange(context.RecipeItems.ToList());
-                context.RecipeSteps.RemoveRange(context.RecipeSteps.ToList());
-                context.Recipes.RemoveRange(context.Recipes.ToList());
+                // remove all data to start with a clean database instance
+                CleanDataBase(context);
+                // add required data
                 context.FridgeItems.Add(new FridgeItem()
                 {
                     Id = 120,
@@ -275,17 +259,16 @@ namespace FridgePlannerTesting
         [Fact]
         public void UpdateFridgeItem_ReturnsAViewResultWithUpdatedValues()
         {
-            //create In Memory Database
+            //Create In Memory Database instead of using the system database
             var options = new DbContextOptionsBuilder<DataBaseContext>()
             .UseInMemoryDatabase(databaseName: "HomeDataBase")
             .Options;
 
             using (var context = new DataBaseContext(options))
             {
-                context.FridgeItems.RemoveRange(context.FridgeItems.ToList());
-                context.RecipeItems.RemoveRange(context.RecipeItems.ToList());
-                context.RecipeSteps.RemoveRange(context.RecipeSteps.ToList());
-                context.Recipes.RemoveRange(context.Recipes.ToList());
+                // remove all data to start with a clean database instance
+                CleanDataBase(context);
+                // add required data
                 context.FridgeItems.Add(new FridgeItem()
                 {
                     Id = 120,
@@ -320,18 +303,16 @@ namespace FridgePlannerTesting
         public void GetRecipeDetail_ReturnsAViewResultWithARecipe()
         {
 
-            //create In Memory Database
+            //Create In Memory Database instead of using the system database
             var options = new DbContextOptionsBuilder<DataBaseContext>()
             .UseInMemoryDatabase(databaseName: "HomeDataBase")
             .Options;
 
             using (var context = new DataBaseContext(options))
             {
-                context.FridgeItems.RemoveRange(context.FridgeItems.ToList());
-                context.RecipeItems.RemoveRange(context.RecipeItems.ToList());
-                context.RecipeSteps.RemoveRange(context.RecipeSteps.ToList());
-                context.Recipes.RemoveRange(context.Recipes.ToList());
-
+                // remove all data to start with a clean database instance
+                CleanDataBase(context);
+                // add required data
                 context.Recipes.Add(new Recipe()
                 {
                     RecipeId = 100,
@@ -369,6 +350,30 @@ namespace FridgePlannerTesting
                 Assert.NotNull(model.RecipeItems);
                 Assert.Empty(model.RecipeSteps);
             }
+        }
+        // This Method should clean up the database context by removing existing data from previous tests within this class
+        private void CleanDataBase(DataBaseContext context)
+        {
+            context.FridgeItems.RemoveRange(context.FridgeItems.ToList());
+            context.RecipeItems.RemoveRange(context.RecipeItems.ToList());
+            context.RecipeSteps.RemoveRange(context.RecipeSteps.ToList());
+            context.Recipes.RemoveRange(context.Recipes.ToList());
+        }
+        // This Function creates a Mock Instance of the appsettings.json field Units
+        private Mock<IConfiguration> CreateAppSettingsMock()
+        {
+            var _configuration = new Mock<IConfiguration>();
+
+            var oneSectionMock = new Mock<IConfigurationSection>();
+            oneSectionMock.Setup(s => s.Value).Returns("Kg");
+            var twoSectionMock = new Mock<IConfigurationSection>();
+            twoSectionMock.Setup(s => s.Value).Returns("g");
+            var unitsSectionMock = new Mock<IConfigurationSection>();
+            unitsSectionMock.Setup(s => s.GetChildren()).Returns(new List<IConfigurationSection>
+                                                    { oneSectionMock.Object, twoSectionMock.Object });
+            _configuration.Setup(c => c.GetSection("Units")).Returns(unitsSectionMock.Object);
+
+            return _configuration;
         }
     }
 }
