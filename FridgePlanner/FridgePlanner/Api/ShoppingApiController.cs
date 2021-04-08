@@ -1,4 +1,4 @@
-﻿using FridgePlanner.Data;
+﻿using FridgePlanner.Entities;
 using FridgePlanner.Repository;
 using FridgePlanner.Utility;
 using Microsoft.AspNetCore.Mvc;

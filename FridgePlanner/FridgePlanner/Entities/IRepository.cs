@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace FridgePlanner.Data
+namespace FridgePlanner.Entities
 {
     public interface IRepository<T> where T : class, IEntity
     {

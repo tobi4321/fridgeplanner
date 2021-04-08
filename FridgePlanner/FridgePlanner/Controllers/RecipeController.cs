@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using FridgePlanner.Data;
+using FridgePlanner.Entities;
 using FridgePlanner.Models;
 using FridgePlanner.Models.NutritionModels;
 using FridgePlanner.Models.ViewModels;
@@ -203,7 +203,7 @@ namespace FridgePlanner.Controllers
             // initialize the NutritionApiHandler
             NutritionApiHandler handler = new NutritionApiHandler();
             // send the request and wait for response
-            NutritionAPIResponse response = handler.sendRequest(config,request);
+            NutritionAPIResponse response = handler.SendRequest(config,request);
 
             return response;
         }

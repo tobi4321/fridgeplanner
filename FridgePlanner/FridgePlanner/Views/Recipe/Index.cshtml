@@ -1,4 +1,4 @@
-﻿@model List<FridgePlanner.Data.Recipe>
+﻿@model List<FridgePlanner.Entities.Recipe>
 @{
     ViewData["Title"] = "Recipe Page";
 }
@@ -21,7 +21,7 @@
             }
             else
             {
-                @await Html.PartialAsync("RecipeDetailPartial.cshtml", new FridgePlanner.Data.Recipe())
+                @await Html.PartialAsync("RecipeDetailPartial.cshtml", new FridgePlanner.Entities.Recipe())
             }
         </div>
     </div>

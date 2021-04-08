@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using FridgePlanner.Data;
+using FridgePlanner.Entities;
 using FridgePlanner.Models;
 using FridgePlanner.Models.NutritionModels;
 using FridgePlanner.Models.ViewModels;
@@ -23,7 +23,7 @@ namespace FridgePlanner.Controllers
         }
         public async Task<IActionResult> Index([FromServices] IConfiguration config)
         {
-            return View(await createViewModel(config));
+            return View(await CreateViewModel(config));
         }
 
         [HttpPost]
@@ -34,7 +34,7 @@ namespace FridgePlanner.Controllers
 
             ShoppingItem test = response.ToObject<ShoppingItem>();
 
-            return View("ShoppingChangePartial", await createViewModel(config));
+            return View("ShoppingChangePartial", await CreateViewModel(config));
         }
 
         [HttpPost]
@@ -43,7 +43,7 @@ namespace FridgePlanner.Controllers
         {
             JObject response = await _client.Delete("http://localhost:5000/api/ShoppingApi/" + Id);
 
-            return View("ShoppingChangePartial", await createViewModel(config));
+            return View("ShoppingChangePartial", await CreateViewModel(config));
 
         }
 
@@ -74,15 +74,15 @@ namespace FridgePlanner.Controllers
 
             JObject updated = await _client.Update("http://localhost:5000/api/ShoppingApi/" + Id, JObject.FromObject(edit));
 
-            return View("ShoppingChangePartial", await createViewModel(config));
+            return View("ShoppingChangePartial", await CreateViewModel(config));
         }
 
-        private async Task<ShoppingViewModel> createViewModel([FromServices] IConfiguration config)
+        private async Task<ShoppingViewModel> CreateViewModel([FromServices] IConfiguration config)
         {
             JArray response = await _client.GetList("http://localhost:5000/api/ShoppingApi");
             List<ShoppingItem> items = response.ToObject<List<ShoppingItem>>();
 
-            byte[] qrCode = QRGenerator.GenerateQR(getShoppingListAsString(items));
+            byte[] qrCode = QRGenerator.GenerateQR(GetShoppingListAsString(items));
 
             List<string> units = config.GetSection("Units").Get<List<string>>();
 
@@ -91,7 +91,7 @@ namespace FridgePlanner.Controllers
             return shoppingViewModel;
         }
 
-        public string getShoppingListAsString(List<ShoppingItem> items)
+        public string GetShoppingListAsString(List<ShoppingItem> items)
         {
             string qrCodeText = "ShoppingListe \n";
 

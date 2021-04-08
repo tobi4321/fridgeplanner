@@ -1,4 +1,4 @@
-﻿using FridgePlanner.Data;
+﻿using FridgePlanner.Entities;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,11 +13,11 @@ namespace FridgePlanner.Controllers
         where TEntity : class, IEntity
         where TRepository : IRepository<TEntity>
     {
-        private readonly TRepository repository;
+        private readonly TRepository _repository;
 
         public FridgeBaseController(TRepository repository)
         {
-            this.repository = repository;
+            _repository = repository;
         }
 
 
@@ -25,14 +25,14 @@ namespace FridgePlanner.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TEntity>>> Get()
         {
-            return await repository.GetAll();
+            return await _repository.GetAll();
         }
 
         // GET: api/[controller]/5
         [HttpGet("{id}")]
         public async Task<ActionResult<TEntity>> Get(int id)
         {
-            var fridgeItem = await repository.Get(id);
+            var fridgeItem = await _repository.Get(id);
             if (fridgeItem == null)
             {
                 return NotFound();
@@ -48,7 +48,7 @@ namespace FridgePlanner.Controllers
             {
                 return BadRequest();
             }
-            await repository.Update(fridgeItem);
+            await _repository.Update(fridgeItem);
             return fridgeItem;
         }
 
@@ -56,7 +56,7 @@ namespace FridgePlanner.Controllers
         [HttpPost]
         public async Task<ActionResult<TEntity>> Post(TEntity fridgeItem)
         {
-            await repository.Add(fridgeItem);
+            await _repository.Add(fridgeItem);
             return CreatedAtAction("Get", new { id = fridgeItem.Id }, fridgeItem);
         }
 
@@ -64,7 +64,7 @@ namespace FridgePlanner.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<TEntity>> Delete(int id)
         {
-            var fridgeItem = await repository.Delete(id);
+            var fridgeItem = await _repository.Delete(id);
             if (fridgeItem == null)
             {
                 return NotFound();

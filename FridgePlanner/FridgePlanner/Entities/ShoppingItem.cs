@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace FridgePlanner.Data
+namespace FridgePlanner.Entities
 {
-    public class RecipeItem : IEntity
+    public class ShoppingItem : IEntity
     {
         public int Id { get; set; }
 

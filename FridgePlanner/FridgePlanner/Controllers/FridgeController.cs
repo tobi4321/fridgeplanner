@@ -11,7 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using FridgePlanner.Utility;
 using System.Net.Http;
-using FridgePlanner.Data;
+using FridgePlanner.Entities;
 
 namespace FridgePlanner.Controllers
 {
@@ -26,34 +26,34 @@ namespace FridgePlanner.Controllers
 
         public async Task<IActionResult> Index([FromServices]IConfiguration config)
         {
-            return View(await createViewModelAsync(config));
+            return View(await CreateViewModel(config));
         }
 
 
         [HttpPost]
         [Route("Fridge/AddItem")]
-        public async Task<IActionResult> AddFridgeItemAsync([FromBody] JObject t)
+        public async Task<IActionResult> AddFridgeItem([FromBody] JObject t)
         {
             JObject response = await _client.Post("http://localhost:5000/api/FridgeApi",t);
 
             FridgeItem test = response.ToObject<FridgeItem>();
 
-            return View("FridgeTablePartial", await GetFridgeItemsAsync());
+            return View("FridgeTablePartial", await GetFridgeItems());
         }
 
 
 
         [HttpPost]
         [Route("Fridge/DeleteItem")]
-        public async Task<IActionResult> DeleteFridgeItemAsync(long Id)
+        public async Task<IActionResult> DeleteFridgeItem(long Id)
         {
 
             JObject response = await _client.Delete("http://localhost:5000/api/FridgeApi/"+Id);
 
-            return View("FridgeTablePartial",await GetFridgeItemsAsync());
+            return View("FridgeTablePartial",await GetFridgeItems());
         }
 
-        private async Task<List<FridgeItem>> GetFridgeItemsAsync()
+        private async Task<List<FridgeItem>> GetFridgeItems()
         {
 
             JArray items = await _client.GetList("http://localhost:5000/api/FridgeApi");
@@ -74,7 +74,7 @@ namespace FridgePlanner.Controllers
 
         [HttpPost]
         [Route("Fridge/GetEditFridgeModal")]
-        public async Task<IActionResult> GetEditFridgeModalAsync([FromServices]IConfiguration config, int Id)
+        public async Task<IActionResult> GetEditFridgeModal([FromServices]IConfiguration config, int Id)
         {
 
             JObject response = await _client.GetItem("http://localhost:5000/api/FridgeApi/" + Id);
@@ -88,7 +88,7 @@ namespace FridgePlanner.Controllers
         }
         [HttpPost]
         [Route("Fridge/UpdateFridgeItem")]
-        public async Task<IActionResult> UpdateFridgeItemAsync(int Id, string name, double amount, string unit, DateTime expiry)
+        public async Task<IActionResult> UpdateFridgeItem(int Id, string name, double amount, string unit, DateTime expiry)
         {
             JObject response = await _client.GetItem("http://localhost:5000/api/FridgeApi/"+Id);
             FridgeItem edit = response.ToObject<FridgeItem>();
@@ -101,12 +101,12 @@ namespace FridgePlanner.Controllers
 
             JObject updated = await _client.Update("http://localhost:5000/api/FridgeApi/" + Id,JObject.FromObject(edit));
 
-            return View("FridgeTablePartial", await GetFridgeItemsAsync());
+            return View("FridgeTablePartial", await GetFridgeItems());
         }
 
         [HttpPost]
         [Route("Fridge/GetRecipeDetail")]
-        public async Task<IActionResult> GetRecipeDetailAsync(int Id)
+        public async Task<IActionResult> GetRecipeDetail(int Id)
         {
             JObject test = await _client.GetItem("http://localhost:5000/api/RecipeApi/" + Id);
 
@@ -116,10 +116,10 @@ namespace FridgePlanner.Controllers
         }
 
 
-        private async Task<IndexViewModel> createViewModelAsync([FromServices]IConfiguration config)
+        private async Task<IndexViewModel> CreateViewModel([FromServices]IConfiguration config)
         {
 
-            List<FridgeItem> fridgeItems = await GetFridgeItemsAsync();
+            List<FridgeItem> fridgeItems = await GetFridgeItems();
 
             List<Recipe> recipes = new List<Recipe>();
 

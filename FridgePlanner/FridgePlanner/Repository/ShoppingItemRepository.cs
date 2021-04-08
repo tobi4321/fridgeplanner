@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace FridgePlanner.Repository
 {
-    public class ShoppingItemRepository : Repository<Data.ShoppingItem, RepoDataBaseContext>
+    public class ShoppingItemRepository : Repository<Entities.ShoppingItem, RepoDataBaseContext>
     {
         public ShoppingItemRepository(RepoDataBaseContext context) : base(context)
         {

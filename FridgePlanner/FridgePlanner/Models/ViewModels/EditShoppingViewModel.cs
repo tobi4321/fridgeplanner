@@ -1,4 +1,4 @@
-﻿using FridgePlanner.Data;
+﻿using FridgePlanner.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,4 +1,4 @@
-﻿using FridgePlanner.Data;
+﻿using FridgePlanner.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FridgePlanner.Repository
 {
-    public class RecipeRepository : Repository<Data.Recipe, RepoDataBaseContext>
+    public class RecipeRepository : Repository<Entities.Recipe, RepoDataBaseContext>
     {
         private readonly RepoDataBaseContext _context;
         public RecipeRepository(RepoDataBaseContext context) : base(context)
