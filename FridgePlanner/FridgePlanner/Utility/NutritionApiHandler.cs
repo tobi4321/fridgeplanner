@@ -21,7 +21,7 @@ namespace FridgePlanner.Utility
         }
 
 
-        public NutritionAPIResponse sendRequest([FromServices]IConfiguration config,NutritionRequest requestData)
+        public NutritionAPIResponse SendRequest([FromServices]IConfiguration config,NutritionRequest requestData)
         {
 
             NutritionConfig conf = config.GetSection("NutritionConfig").Get<NutritionConfig>();
@@ -34,7 +34,7 @@ namespace FridgePlanner.Utility
 
             using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
             {
-                streamWriter.Write(createJsonData(requestData));
+                streamWriter.Write(CreateJsonData(requestData));
             }
 
             var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
@@ -56,7 +56,7 @@ namespace FridgePlanner.Utility
             
         }
 
-        public string createJsonData(NutritionRequest data)
+        public string CreateJsonData(NutritionRequest data)
         {
             string json = "{";
 

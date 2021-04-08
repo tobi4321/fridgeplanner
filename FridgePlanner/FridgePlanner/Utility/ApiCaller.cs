@@ -17,9 +17,9 @@ namespace FridgePlanner.Utility
 
         public async Task<JObject> GetItem(string routeAttributes)
         {
-            var response1 = _client.GetAsync(routeAttributes);
-            response1.Wait();
-            var response = response1.Result;
+            var apiResponse = _client.GetAsync(routeAttributes);
+            apiResponse.Wait();
+            var response = apiResponse.Result;
             if (response.IsSuccessStatusCode)
             {
                 string responseString = await response.Content.ReadAsStringAsync();
@@ -33,9 +33,9 @@ namespace FridgePlanner.Utility
         }
         public async Task<JArray> GetList(string routeAttributes)
         {
-            var response1 = _client.GetAsync(routeAttributes);
-            response1.Wait();
-            var response = response1.Result;
+            var apiResponse = _client.GetAsync(routeAttributes);
+            apiResponse.Wait();
+            var response = apiResponse.Result;
             if (response.IsSuccessStatusCode)
             {
                 string responseString = await response.Content.ReadAsStringAsync();
@@ -50,9 +50,9 @@ namespace FridgePlanner.Utility
 
         public async Task<JObject> Post(string routeAttributes,object data)
         {
-            var response1 = _client.PostAsJsonAsync(routeAttributes,data);
-            response1.Wait();
-            var response = response1.Result;
+            var apiResponse = _client.PostAsJsonAsync(routeAttributes,data);
+            apiResponse.Wait();
+            var response = apiResponse.Result;
             if (response.IsSuccessStatusCode)
             {
                 string responseString = await response.Content.ReadAsStringAsync();
@@ -67,9 +67,9 @@ namespace FridgePlanner.Utility
 
         public async Task<JObject> Delete(string routeAttributes)
         {
-            var response1 = _client.DeleteAsync(routeAttributes);
-            response1.Wait();
-            var response = response1.Result;
+            var apiResponse = _client.DeleteAsync(routeAttributes);
+            apiResponse.Wait();
+            var response = apiResponse.Result;
             if (response.IsSuccessStatusCode)
             {
                 string responseString = await response.Content.ReadAsStringAsync();
@@ -84,9 +84,9 @@ namespace FridgePlanner.Utility
 
         public async Task<JObject> Update(string routeAttributes,object data)
         {
-            var response1 = _client.PutAsJsonAsync(routeAttributes,data);
-            response1.Wait();
-            var response = response1.Result;
+            var apiResponse = _client.PutAsJsonAsync(routeAttributes,data);
+            apiResponse.Wait();
+            var response = apiResponse.Result;
             if (response.IsSuccessStatusCode)
             {
                 string responseString = await response.Content.ReadAsStringAsync();
