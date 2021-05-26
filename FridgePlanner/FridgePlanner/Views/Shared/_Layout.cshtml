@@ -27,59 +27,60 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 </head>
-<body class="primary text-white">
-    <!-- The overlay -->
-    <div id="myNav" class="overlay">
+<body class=" bg-image">
 
-        <!-- Button to close the overlay navigation -->
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <!-- The overlay -->
+        <div id="myNav" class="overlay">
 
-        <!-- Overlay content -->
-        <div class="overlay-content">
-            <a asp-area="" asp-controller="Fridge" asp-action="Index" class="navbar-brand" style="font-size:x-large;">FridgePlanner</a>
-            <a href="#">Services</a>
-            <a href="#">About</a>
+            <!-- Button to close the overlay navigation -->
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
+            <!-- Overlay content -->
+            <div class="overlay-content">
+                <a asp-area="" asp-controller="Fridge" asp-action="Index" class="navbar-brand" style="font-size:x-large;">FridgePlanner</a>
+                <a href="#">Services</a>
+                <a href="#">About</a>
+            </div>
+
         </div>
 
-    </div>
+        <!-- Use any element to open/show the overlay navigation menu -->
+        <div class="container-fluid">
+            <span onclick="openNav()" class="material-icons icon-large" style="top: 0px; right: 10px; position: absolute; z-index:4; color:darkslategrey">
+                dehaze
+            </span>
+        </div>
 
-    <!-- Use any element to open/show the overlay navigation menu -->
-    <div class="container-fluid">
-        <span onclick="openNav()" class="material-icons icon-large" style="top: 0px; right: 10px; position: absolute; z-index:4;">
-            dehaze
-        </span>
-    </div>
-    <br />
+        <br />
 
-    <div class="container-fluid" style="height:90%;">
+        <div class="container-fluid" style="height:100%;" >
+                @RenderBody()
+            <footer class="footer">
+                <p>&copy; 2020 - FridgePlanner</p>
+            </footer>
 
-        @RenderBody()
-        <footer class="footer">
-            <p>&copy; 2020 - FridgePlanner</p>
-        </footer>
-    </div>
+        </div>
 
-    <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/js/bootstrap.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery"
-                crossorigin="anonymous"
-                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
-        </script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                crossorigin="anonymous"
-                integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd">
-        </script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
-    </environment>
-
-    @RenderSection("Scripts", required: false)
+        <environment include="Development">
+            <script src="~/lib/jquery/dist/jquery.js"></script>
+            <script src="~/lib/bootstrap/js/bootstrap.js"></script>
+            <script src="~/js/site.js" asp-append-version="true"></script>
+        </environment>
+        <environment exclude="Development">
+            <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+                    asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                    asp-fallback-test="window.jQuery"
+                    crossorigin="anonymous"
+                    integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+            </script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
+                    asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                    asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                    crossorigin="anonymous"
+                    integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd">
+            </script>
+            <script src="~/js/site.min.js" asp-append-version="true"></script>
+        </environment>
+        @RenderSection("Scripts", required: false)
 </body>
 </html>

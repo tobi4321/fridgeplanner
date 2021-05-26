@@ -16,12 +16,12 @@
             <td>@Model.ElementAt(i).Amount</td>
             <td>@Model.ElementAt(i).Unit</td>
             <td>
-                <button onclick="editShoppingItem(@Model[i].Id)" type="button" class="btn button-edit btn-sm">
+                <button onclick="editShoppingItem(@Model[i].Id)" type="button" class="btn btn-warning btn-sm">
                     <i class="material-icons" style="font-size:20px">
                         edit
                     </i>
                 </button>
-                <button type="button" class="btn button-delete btn-sm" data-toggle="modal" data-target="#modalDeleteShoppingItem@(Model[i].Id)">
+                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalDeleteShoppingItem@(Model[i].Id)">
                     <i class="material-icons" style="font-size:20px">
                         delete_forever
                     </i>
@@ -43,8 +43,8 @@
                     </div>
                     <div class="modal-body">
                         <p>Are you sure that this Shopping Item should be deleted permanently</p>
-                        <button onclick="deleteShoppingItem(@Model[i].Id)" type="button" data-dismiss="modal" class="btn button-delete">Delete</button>
-                        <button type="button" class="btn button-back" data-dismiss="modal">Close</button>
+                        <button onclick="deleteShoppingItem(@Model[i].Id)" type="button" data-dismiss="modal" class="button-delete">Delete</button>
+                        <button type="button" class="button-back" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>

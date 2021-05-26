@@ -4,7 +4,7 @@
 }
 @for (int i = 0; i < Model.Count(); i++)
 {
-<div class="tp_element row" style="margin-left: 15px; margin-right: 15px; background-color: @(Model.ElementAt(i).ExpiryDate.Subtract(DateTime.Today).TotalDays < 5 ? "tomato" : "yellowgreen")">
+<div class="tp_element row" style="margin-left: 15px; margin-right: 15px; background-color: @(Model.ElementAt(i).ExpiryDate.Subtract(DateTime.Today).TotalDays < 5 ? "tomato" : "yellowgreen");">
     <p class="tp_name_text col-4 text-white">
         @Model.ElementAt(i).Name
     </p>
@@ -40,8 +40,8 @@
                 </div>
                 <div class="modal-body">
                     <p>Bist du sicher, dass du diesen Artikel permanent entfernen möchtest?</p>
-                    <button onclick="deleteFridgeItem(@Model[i].Id)" type="button" data-dismiss="modal" class="btn button-delete">Löschen</button>
-                    <button type="button" class="btn button-back" data-dismiss="modal">Close</button>
+                    <button onclick="deleteFridgeItem(@Model[i].Id)" type="button" data-dismiss="modal" class="button-delete">Löschen</button>
+                    <button type="button" class="button-back" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

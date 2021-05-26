@@ -208,9 +208,11 @@
                                                                 <div class="md-form">
                                                                     <input id="recipeStepEditName@(@Model.RecipeElement.RecipeSteps.ElementAt(i).Id)" type="text" value="@Model.RecipeElement.RecipeSteps.ElementAt(i).Title" class="form-control" placeholder="Name des Zubereitungsschritts" aria-describedby="basic-addon1">
                                                                 </div>
+                                                                <br />
                                                                 <div class="md-form">
                                                                     <input id="recipeStepEditNumber@(@Model.RecipeElement.RecipeSteps.ElementAt(i).Id)" type="number" value="@Model.RecipeElement.RecipeSteps.ElementAt(i).StepNumber" class="form-control" placeholder="Schrittnummer" aria-describedby="basic-addon1">
                                                                 </div>
+                                                                <br />
                                                                 <div class="md-form">
                                                                     <input id="recipeStepEditText@(@Model.RecipeElement.RecipeSteps.ElementAt(i).Id)" type="text" value="@Model.RecipeElement.RecipeSteps.ElementAt(i).Text" class="form-control" placeholder="Text" aria-describedby="basic-addon1">
                                                                 </div>
@@ -266,6 +268,7 @@
                             <div class="md-form">
                                 <input id="editRecipeName" type="text" value="@Model.RecipeElement.Name" class="form-control" placeholder="Name des Rezepts" aria-describedby="basic-addon1">
                             </div>
+                            <br />
                             <div class="md-form">
                                 <input id="editRecipeDescription" type="text" value="@Model.RecipeElement.Description" class="form-control" placeholder="Rezeptbeschreibung" aria-describedby="basic-addon1">
                             </div>
@@ -303,6 +306,7 @@
                             <div class="md-form">
                                 <input id="recipeItemName" type="text" class="form-control" placeholder="Name der Zutat" aria-describedby="basic-addon1">
                             </div>
+                            <br />
                             <div class="md-form">
                                 <input id="recipeItemAmount" type="number" class="form-control" placeholder="Menge" aria-describedby="basic-addon1">
                             </div>
@@ -356,9 +360,11 @@
                             <div class="md-form">
                                 <input id="recipeStepName" type="text" class="form-control" placeholder="Name des Zubereitungsschritts" aria-describedby="basic-addon1">
                             </div>
+                            <br />
                             <div class="md-form">
                                 <input id="recipeStepNumber" type="number" class="form-control" placeholder="Reihenfolgenummer" aria-describedby="basic-addon1">
                             </div>
+                            <br />
                             <div class="md-form">
                                 <input id="recipeStepText" type="text" class="form-control" placeholder="Beschreibung des Zubereitungsschritts" aria-describedby="basic-addon1">
                             </div>
@@ -369,7 +375,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
-                <button onclick="addRecipeStep(@Model.RecipeElement.Id)" type="button" data-dismiss="modal" class="btn btn-success">Lebensmittel hinzufügen</button>
+                <button onclick="addRecipeStep(@Model.RecipeElement.Id)" type="button" data-dismiss="modal" class="btn btn-success">Schritt hinzufügen</button>
             </div>
         </div>
     </div>

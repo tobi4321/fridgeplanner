@@ -5,33 +5,34 @@
 
 <div class="row" style="height: 100%;">
 
-    <div class="col-lg-6 col-md-12 col-sm-12 col-xl-6">
+    <div class ="col-lg-6 col-md-12 col-sm-12 col-xl-6">
         
-        <div style="text-align:left;">
-            <h1>Vorräte</h1>
-            <br />
-        </div>
-
-        <div class="polaroid">
-            <div id="FridgeList" class="test fridge-scrollbar">
-                @await Html.PartialAsync("FridgeTablePartial.cshtml", Model.FridgeItems)
+            <div style="text-align:left;">
+                <h1><u>Vorräte</u></h1>
+                <br />
             </div>
-        </div>
 
+            <div class="polaroid">
+                <div id="FridgeList" class="fridge-scrollbar" >
+                    @await Html.PartialAsync("FridgeTablePartial.cshtml", Model.FridgeItems)
+                </div>
+            </div>
         <br />
     </div>
 
 
-    <div class="col-lg-6 col-md-12 col-sm-12 col-xl-6">
+    <div class="col-lg-6 col-md-12 col-sm-12 col-xl-6" >
 
         <div style="text-align:left;">
-            <h1>Navigation</h1>
+            
+                <h1><u>Navigation</u></h1>
+         
             <br />
         </div>
 
         <div class="row">
-            <div class="col-4">
-                <a data-toggle="modal" data-target="#addFridgeModal" class="btn btn-success btn-block nav-link middle-buttons text-white">
+            <div class="col-4" >
+                <a data-toggle="modal" data-target="#addFridgeModal" class="btn btn-success btn-block nav-link middle-buttons text-white" >
                     <span class="material-icons icon-large">
                         add
                     </span>
@@ -65,12 +66,12 @@
         <br />
 
         <div style="text-align:left;">
-            <h1>Rezepte</h1>
+            <h1><u>Rezepte</u></h1>
             <br />
         </div>
 
         <div class="polaroid">
-            <div class="test recipe-scrollbar">
+            <div class="recipe-scrollbar">
                 @await Html.PartialAsync("RecipeTablePartial.cshtml", Model.Recipes)
             </div>
         </div>
