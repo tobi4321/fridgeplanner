@@ -21,7 +21,7 @@
                             <table class="table table-sm">
                                 <thead>
                                     <tr>
-                                        <th colspan="3">Menge pro Portion</th>
+                                        <th colspan="4">Nährwerte pro Portion</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -29,97 +29,45 @@
                                         <th colspan="2">
                                             <b>Kalorien</b>
                                         </th>
-                                        <td>@Model.NutritionResponse.calories</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="3">
-                                            <b>Täglicher Bedarf</b>
-                                        </td>
+                                        <td>@Model.NutritionResponse.calories </td>
                                     </tr>
                                     <tr>
                                         <th colspan="2">
-                                            <b>Total Fat</b>
+                                            <b>Fett</b>
                                         </th>
                                         <td>@Model.NutritionResponse.totalNutrients.FAT.quantity @Model.NutritionResponse.totalNutrients.FAT.unit</td>
                                     </tr>
                                     <tr>
                                         <th colspan="2">
-                                            Saturated Fat
+                                            gesättigte Fettsäuren
                                         </th>
-                                        <td>@Model.NutritionResponse.totalNutrients.FAT.quantity @Model.NutritionResponse.totalNutrients.FAT.unit</td>
+                                        <td>@Model.NutritionResponse.totalNutrients.FASAT.quantity @Model.NutritionResponse.totalNutrients.FASAT.unit</td>
                                     </tr>
                                     <tr>
                                         <th colspan="2">
-                                            Trans Fat
+                                            <b>Natrium</b>
                                         </th>
-                                        <td>@Model.NutritionResponse.totalNutrients.FAT.quantity @Model.NutritionResponse.totalNutrients.FAT.unit</td>
+                                        <td>@Model.NutritionResponse.totalNutrients.NA.quantity @Model.NutritionResponse.totalNutrients.NA.unit</td>
                                     </tr>
                                     <tr>
                                         <th colspan="2">
-                                            <b>Cholesterol</b>
+                                            <b>Kohlenhydrat</b>
                                         </th>
-                                        <td>@Model.NutritionResponse.totalNutrients.FAT.quantity @Model.NutritionResponse.totalNutrients.FAT.unit</td>
+                                        <td>@Model.NutritionResponse.totalNutrients.CA.quantity @Model.NutritionResponse.totalNutrients.CA.unit</td>
                                     </tr>
                                     <tr>
                                         <th colspan="2">
-                                            <b>Sodium</b>
+                                            Zucker
                                         </th>
-                                        <td>@Model.NutritionResponse.totalNutrients.FAT.quantity @Model.NutritionResponse.totalNutrients.FAT.unit</td>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="2">
-                                            <b>Total Carbohydrate</b>
-                                        </th>
-                                        <td>@Model.NutritionResponse.totalNutrients.FAT.quantity @Model.NutritionResponse.totalNutrients.FAT.unit</td>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="2">
-                                            Dietary Fiber
-                                        </th>
-                                        <td>@Model.NutritionResponse.totalNutrients.FAT.quantity @Model.NutritionResponse.totalNutrients.FAT.unit</td>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="2">
-                                            Total Sugars
-                                        </th>
-                                        <td>@Model.NutritionResponse.totalNutrients.FAT.quantity @Model.NutritionResponse.totalNutrients.FAT.unit</td>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="2">
-                                            Includes - Added Sugars
-                                        </th>
-                                        <td>@Model.NutritionResponse.totalNutrients.FAT.quantity @Model.NutritionResponse.totalNutrients.FAT.unit</td>
+                                        <td>@Model.NutritionResponse.totalNutrients.SUGAR.quantity @Model.NutritionResponse.totalNutrients.SUGAR.unit</td>
                                     </tr>
                                     <tr>
                                         <th colspan="2">
                                             <b>Protein</b>
                                         </th>
-                                        <td>@Model.NutritionResponse.totalNutrients.FAT.quantity @Model.NutritionResponse.totalNutrients.FAT.unit</td>
+                                        <td>@Model.NutritionResponse.totalNutrients.PROCNT.quantity @Model.NutritionResponse.totalNutrients.PROCNT.unit</td>
                                     </tr>
-                                    <tr>
-                                        <th colspan="2">
-                                            Vitamin D
-                                        </th>
-                                        <td>@Model.NutritionResponse.totalNutrients.FAT.quantity @Model.NutritionResponse.totalNutrients.FAT.unit</td>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="2">
-                                            Calcium
-                                        </th>
-                                        <td>@Model.NutritionResponse.totalNutrients.FAT.quantity @Model.NutritionResponse.totalNutrients.FAT.unit</td>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="2">
-                                            Iron
-                                        </th>
-                                        <td>@Model.NutritionResponse.totalNutrients.FAT.quantity @Model.NutritionResponse.totalNutrients.FAT.unit</td>
-                                    </tr>
-                                    <tr>
-                                        <th colspan="2">
-                                            Potassium
-                                        </th>
-                                        <td>@Model.NutritionResponse.totalNutrients.FAT.quantity @Model.NutritionResponse.totalNutrients.FAT.unit</td>
-                                    </tr>
+
                                 </tbody>
                             </table>
                         </div>
