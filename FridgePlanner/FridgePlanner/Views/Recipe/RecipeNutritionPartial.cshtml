@@ -5,7 +5,7 @@
 
 <!-- Modal Nutrition Detail-->
 <div class="modal text-black" id="recipeNutritionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="z-index:5;" data-backdrop="false">
-    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <p class="heading lead">
@@ -29,43 +29,43 @@
                                         <th colspan="2">
                                             <b>Kalorien</b>
                                         </th>
-                                        <td>@Model.NutritionResponse.calories </td>
+                                        <td>@Model.NutritionResponse.calories kcal</td>
                                     </tr>
                                     <tr>
                                         <th colspan="2">
                                             <b>Fett</b>
                                         </th>
-                                        <td>@Model.NutritionResponse.totalNutrients.FAT.quantity @Model.NutritionResponse.totalNutrients.FAT.unit</td>
+                                        <td>@String.Format("{0:0.##}", Model.NutritionResponse.totalNutrients.FAT.quantity) @Model.NutritionResponse.totalNutrients.FAT.unit</td>
                                     </tr>
                                     <tr>
                                         <th colspan="2">
                                             gesättigte Fettsäuren
                                         </th>
-                                        <td>@Model.NutritionResponse.totalNutrients.FASAT.quantity @Model.NutritionResponse.totalNutrients.FASAT.unit</td>
+                                        <td>@String.Format("{0:0.##}", Model.NutritionResponse.totalNutrients.FASAT.quantity) @Model.NutritionResponse.totalNutrients.FASAT.unit</td>
                                     </tr>
                                     <tr>
                                         <th colspan="2">
                                             <b>Natrium</b>
                                         </th>
-                                        <td>@Model.NutritionResponse.totalNutrients.NA.quantity @Model.NutritionResponse.totalNutrients.NA.unit</td>
+                                        <td>@String.Format("{0:0.##}", Model.NutritionResponse.totalNutrients.NA.quantity) @Model.NutritionResponse.totalNutrients.NA.unit</td>
                                     </tr>
                                     <tr>
                                         <th colspan="2">
                                             <b>Kohlenhydrat</b>
                                         </th>
-                                        <td>@Model.NutritionResponse.totalNutrients.CA.quantity @Model.NutritionResponse.totalNutrients.CA.unit</td>
+                                        <td>@String.Format("{0:0.##}", Model.NutritionResponse.totalNutrients.CA.quantity) @Model.NutritionResponse.totalNutrients.CA.unit</td>
                                     </tr>
                                     <tr>
                                         <th colspan="2">
                                             Zucker
                                         </th>
-                                        <td>@Model.NutritionResponse.totalNutrients.SUGAR.quantity @Model.NutritionResponse.totalNutrients.SUGAR.unit</td>
+                                        <td>@String.Format("{0:0.##}", Model.NutritionResponse.totalNutrients.SUGAR.quantity) @Model.NutritionResponse.totalNutrients.SUGAR.unit</td>
                                     </tr>
                                     <tr>
                                         <th colspan="2">
                                             <b>Protein</b>
                                         </th>
-                                        <td>@Model.NutritionResponse.totalNutrients.PROCNT.quantity @Model.NutritionResponse.totalNutrients.PROCNT.unit</td>
+                                        <td>@String.Format("{0:0.##}", Model.NutritionResponse.totalNutrients.PROCNT.quantity) @Model.NutritionResponse.totalNutrients.PROCNT.unit</td>
                                     </tr>
 
                                 </tbody>
