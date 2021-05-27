@@ -188,10 +188,10 @@ div.polaroid {
 }
 .recipe-scrollbar {
     position: relative;
-    height: 100%;
-    overflow: hidden;
+    height: 25%;
+    overflow: auto;
     scrollbar-width: auto; /* "auto" or "thin"  */
-    scrollbar-color: light-gray white; /* scroll thumb & track */
+    scrollbar-color: light-gray black; /* scroll thumb & track */
 }
 .recipeList-scrollbar {
     position: relative;

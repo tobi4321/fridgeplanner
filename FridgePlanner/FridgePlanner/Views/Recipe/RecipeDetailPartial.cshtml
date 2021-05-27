@@ -2,7 +2,7 @@
 @{
     Layout = null;
 }
-<div class="recipe-scrollbar text-black">
+<div class="recipe-detail text-black">
     <div style="margin:0px 10px 0px 10px;">
         @if (Model.Name != null)
         {
@@ -13,7 +13,7 @@
             </div>
             <hr />
             <h5 style="margin-left: 5px;">Zutaten</h5>
-            <div class="recipe-scrollbar" style="margin: 5px 5px 5px 5px; height: 160px;">
+            <div class="recipe-scrollbar" style="margin: 5px 5px 5px 5px; height: 15%;">
 
                 @for (int i = 0; i < Model.RecipeItems.Count; i++)
                 {
@@ -27,7 +27,7 @@
             </div>
             <hr />
             <h5 style="margin-left: 5px;">Zubereitungsschritte</h5>
-            <div class="recipe-scrollbar" style="margin: 5px 5px 5px 5px; margin-bottom: 15px; height: 100%;">
+            <div class="recipe-scrollbar" style="margin: 5px 5px 5px 5px; margin-bottom: 15px; height: 20%;">
                 @if (Model.RecipeSteps.Count > 0)
                 {
                     @for (int j = 1; j <= Model.RecipeSteps.Max(x => x.StepNumber); j++)
